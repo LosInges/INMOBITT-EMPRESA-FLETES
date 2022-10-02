@@ -16,9 +16,9 @@ export class PaquetesService {
     );
   }
 
-  deletePaquete(id: string): Observable<any> {
+  deletePaquete(paquete: Paquete): Observable<any> {
     return this.httpClient.delete<any>(`${environment.api}/paquete`, {
-      body: { id },
+      body: { paquete },
     });
   }
 }

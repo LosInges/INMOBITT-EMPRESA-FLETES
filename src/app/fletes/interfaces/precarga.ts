@@ -10,4 +10,7 @@ export interface Precarga {
   cliente: string;
   destino: Direccion;
   fecha: string;
+  hora: string;
+  origen: Direccion;
+  telefono: string;
 }
