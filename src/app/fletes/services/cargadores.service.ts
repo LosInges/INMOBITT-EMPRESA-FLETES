@@ -16,9 +16,9 @@ export class CargadoresService {
     );
   }
 
-  getCargadoresFlete(empresa: string, flete: string): Observable<Cargador[]> {
+  getCargadoresFlete(flete: string): Observable<Cargador[]> {
     return this.httpClient.get<Cargador[]>(
-      `${environment.api}/cargadores/${empresa}/${flete}`
+      `${environment.api}/cargadores/${flete}`
     );
   }
 
