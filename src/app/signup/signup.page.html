@@ -27,6 +27,21 @@
     <ion-input [(ngModel)]="confirm_password" type="text" required></ion-input>
   </ion-item>
 
+  <ion-item color="darck">
+    <ion-label position="floating">Teléfono</ion-label>
+    <ion-input [(ngModel)]="telefono" type="text" required></ion-input>
+  </ion-item>
+
+  <ion-list>
+    <ion-item>
+      <ion-select interface="popover" placeholder="Estados" [multiple]="true">
+        <ion-select-option value="nayarit">Nayarit</ion-select-option>
+        <ion-select-option value="guadalajara">Guadalajara</ion-select-option>
+        <ion-select-option value="mexico">México</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
   <ion-button class="ion-margin-top" type="submit" expand="block" color="light" (click)="onSubmit()">
     Crear Cuenta
   </ion-button>

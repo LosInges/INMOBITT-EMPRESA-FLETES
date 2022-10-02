@@ -12,6 +12,7 @@ export class SignupPage implements OnInit {
   email: string = "";
   password: string = "";
   confirm_password: string = "";
+  telefono: string = "";
 
   constructor() { }
 
@@ -19,7 +20,7 @@ export class SignupPage implements OnInit {
 
   onSubmit() {
      alert(
-      this.name + ', ' + this.email + ', ' + this.password + ', ' + this.confirm_password
+      this.name + ', ' + this.email + ', ' + this.password + ', ' + this.confirm_password + ',' + this.telefono
      )
   }
 
