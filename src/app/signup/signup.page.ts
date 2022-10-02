@@ -1,27 +1,31 @@
 import { Component, OnInit } from '@angular/core';
+import { Empresa } from '../fletes/interfaces/empresa';
+import { EstadosService } from '../services/estados.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
 })
-
 export class SignupPage implements OnInit {
+  empresa: Empresa = {
+    nombre: '',
+    correo: '',
+    password: '',
+    telefono: '',
+    estados: [],
+  };
+  confirmPassword = '';
+  estados = this.estadosService.getEstados();
 
-  name: string = "";
-  email: string = "";
-  password: string = "";
-  confirm_password: string = "";
-  telefono: string = "";
+  constructor(private estadosService: EstadosService, public formBuilder: FormBuilder) {}
 
-  constructor() { }
-
-  ngOnInit() { }
+  ngOnInit() {}
 
   onSubmit() {
-     alert(
-      this.name + ', ' + this.email + ', ' + this.password + ', ' + this.confirm_password + ',' + this.telefono
-     )
+    console.log(this.empresa);
   }
 
+  registrarEmpresa(){}
 }
