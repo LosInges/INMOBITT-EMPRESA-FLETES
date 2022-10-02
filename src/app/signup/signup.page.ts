@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Empresa } from '../fletes/interfaces/empresa';
 import { EstadosService } from '../services/estados.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { EmpresaService } from '../fletes/services/empresa.service';
 
 @Component({
   selector: 'app-signup',
@@ -19,13 +20,19 @@ export class SignupPage implements OnInit {
   confirmPassword = '';
   estados = this.estadosService.getEstados();
 
-  constructor(private estadosService: EstadosService, public formBuilder: FormBuilder) {}
+  constructor(
+    private estadosService: EstadosService,
+    private empresaService: EmpresaService,
+    public formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {}
 
   onSubmit() {
-    console.log(this.empresa);
+    if (this.confirmPassword === this.empresa.password) {
+      this.empresaService.postEmpresa(this.empresa).subscribe((res) => {
+        console.log(res);
+      });
+    }
   }
-
-  registrarEmpresa(){}
 }
