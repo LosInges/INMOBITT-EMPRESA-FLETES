@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <div class="ion-text-center">
+    <ion-title ion-text-center>Inicio de Sesión</ion-title>
+  </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="black">
+  <ion-item color="black">  <!---Color de fondo de email-->
+
+    <ion-label position="floating">Correo</ion-label>
+    <ion-input [(ngModel)]="email" type="text" required></ion-input>
+  </ion-item>
+
+  <ion-item color="black">
+    <ion-label position="floating">Contraseña</ion-label>
+    <ion-input [(ngModel)]="password" type="text" required></ion-input>
+  </ion-item>
+
+  <ion-button class="ion-margin-top" type="submit" expand="block" color="light" (click)="onSubmit()">
+    Entrar
+  </ion-button>
+
+  <ion-item color="black" class="ion-text-center">
+    <ion-label>Ó</ion-label>
+  </ion-item>
+
+  <ion-button color="dark" expand="block" fill="outline" [routerLink]="['/signup']">Crear Cuenta</ion-button>
+</ion-content>
