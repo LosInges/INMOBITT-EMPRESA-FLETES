@@ -8,32 +8,43 @@
 
 <ion-content color="darck">
   <ion-item color="darck">
-    <ion-label position="floating">Nombre</ion-label>
-    <ion-input [(ngModel)]="name" type="text" required></ion-input>
+    <ion-input [(ngModel)]="name" type="text" required placeholder="Nom"></ion-input>
+    <ion-label >
+      <ion-icon name="person"></ion-icon>
+    </ion-label>
   </ion-item>
 
   <ion-item color="darck">
-    <ion-label position="floating">Correo</ion-label>
-    <ion-input [(ngModel)]="email" type="text" required></ion-input>
+    <ion-input [(ngModel)]="email" type="text" required placeholder="Correo"></ion-input>
+    <ion-label>
+      <ion-icon name="mail"></ion-icon>
+    </ion-label>
   </ion-item>
 
   <ion-item color="darck">
-    <ion-label position="floating">Contraseña</ion-label>
-    <ion-input [(ngModel)]="password" type="text" required></ion-input>
+    <ion-input [(ngModel)]="password" type="text" required placeholder="Clave"></ion-input>
+    <ion-label>
+      <ion-icon name="lock-closed"></ion-icon>
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-input [(ngModel)]="confirm_password" type="text" required placeholder="Confirmar Clave"></ion-input>
+    <ion-label>
+      <ion-icon name="lock-closed"></ion-icon>
+    </ion-label>
   </ion-item>
 
   <ion-item color="darck">
-    <ion-label position="floating">Confirmar Contraseña</ion-label>
-    <ion-input [(ngModel)]="confirm_password" type="text" required></ion-input>
-  </ion-item>
-
-  <ion-item color="darck">
-    <ion-label position="floating">Teléfono</ion-label>
-    <ion-input [(ngModel)]="telefono" type="text" required></ion-input>
+    <ion-input [(ngModel)]="telefono" type="text" required placeholder="Teléfono"></ion-input>
+    <ion-label >
+      <ion-icon name="call"></ion-icon>
+    </ion-label>
   </ion-item>
 
   <ion-list>
     <ion-item>
+      <ion-icon style="margin: right 15px;" name="map" ></ion-icon>
       <ion-select interface="popover" placeholder="Estados" [multiple]="true">
         <ion-select-option value="nayarit">Nayarit</ion-select-option>
         <ion-select-option value="guadalajara">Guadalajara</ion-select-option>
@@ -41,6 +52,7 @@
       </ion-select>
     </ion-item>
   </ion-list>
+
 
   <ion-button class="ion-margin-top" type="submit" expand="block" color="light" (click)="onSubmit()">
     Crear Cuenta
