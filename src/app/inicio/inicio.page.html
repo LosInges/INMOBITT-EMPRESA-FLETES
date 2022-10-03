@@ -1,9 +1,12 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>inicio</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-
+<ion-content class="background-image ion-padding">
+  <ion-item>
+    <ion-img [src]="'../../assets/img/LogoIC.png'" width="32"></ion-img>
+  </ion-item>
+  <ion-button expand="block" fill="solid" color="dark" [routerLink]="['/signup']">
+    registrarte
+  </ion-button>
+<ion-button fill="solid" color="light" expand="block" [routerLink]="['/login']">
+  INGRESA
+</ion-button>
 </ion-content>
