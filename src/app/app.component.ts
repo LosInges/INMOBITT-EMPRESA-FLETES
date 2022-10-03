@@ -13,6 +13,7 @@ export class AppComponent {
     { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
     { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
     { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
+    { title: 'Transportes', url: '/transportes', icon: 'warning' },
   ];
 
   public secondAppPages =[
