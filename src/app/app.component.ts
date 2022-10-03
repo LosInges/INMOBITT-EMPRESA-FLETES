@@ -21,7 +21,7 @@ export class AppComponent {
   },
    { title: 'Sing Up', url: '/signup', icon: "person-add"},
    { title: 'Fletes_Jaz', url: '/fletes', icon: 'bus-outline' },
-   { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
+   { title: 'Precarga', url: '/precarga', icon: 'heart' },
    { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
    { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
    { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
