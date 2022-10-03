@@ -25,6 +25,14 @@ const routes: Routes = [
   {
     path: 'fletes',
     loadChildren: () => import('./fletes/fletes.module').then( m => m.FletesPageModule)
+  },
+  {
+    path: 'transportes',
+    loadChildren: () => import('./transportes/transportes.module').then( m => m.TransportesPageModule)
+  },
+  {
+    path: 'cargadores',
+    loadChildren: () => import('./cargadores/cargadores.module').then( m => m.CargadoresPageModule)
   }
 
 ];
