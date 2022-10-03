@@ -14,6 +14,7 @@ export class AppComponent {
     { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
     { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
     { title: 'Transportes', url: '/transportes', icon: 'warning' },
+    { title: 'Cargadores', url: '/cargadores', icon: 'warning' },
   ];
 
   public secondAppPages =[
