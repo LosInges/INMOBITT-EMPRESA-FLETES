@@ -1,60 +1,96 @@
 <ion-header>
   <ion-toolbar color="danger">
     <div class="ion-text-center">
-    <ion-title>Crear Cuenta</ion-title>
-  </div>
+      <ion-title>Crear Cuenta</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="darck">
+<ion-content color="darck" class="ion-padding">
   <ion-item color="darck">
-    <ion-input [(ngModel)]="name" type="text" required placeholder="Nom"></ion-input>
-    <ion-label >
+    <ion-input
+      [(ngModel)]="name"
+      type="text"
+      required
+      placeholder="Nom"
+    ></ion-input>
+    <ion-label>
       <ion-icon name="person"></ion-icon>
     </ion-label>
   </ion-item>
 
   <ion-item color="darck">
-    <ion-input [(ngModel)]="email" type="text" required placeholder="Correo"></ion-input>
+    <ion-input
+      [(ngModel)]="email"
+      type="text"
+      required
+      placeholder="Correo"
+    ></ion-input>
     <ion-label>
       <ion-icon name="mail"></ion-icon>
     </ion-label>
   </ion-item>
 
   <ion-item color="darck">
-    <ion-input [(ngModel)]="password" type="text" required placeholder="Clave"></ion-input>
+    <ion-input
+      [(ngModel)]="password"
+      type="text"
+      required
+      placeholder="Clave"
+    ></ion-input>
     <ion-label>
       <ion-icon name="lock-closed"></ion-icon>
     </ion-label>
   </ion-item>
 
   <ion-item>
-    <ion-input [(ngModel)]="confirm_password" type="text" required placeholder="Confirmar Clave"></ion-input>
+    <ion-input
+      [(ngModel)]="confirm_password"
+      type="text"
+      required
+      placeholder="Confirmar Clave"
+    ></ion-input>
     <ion-label>
       <ion-icon name="lock-closed"></ion-icon>
     </ion-label>
   </ion-item>
 
   <ion-item color="darck">
-    <ion-input [(ngModel)]="telefono" type="text" required placeholder="Teléfono"></ion-input>
-    <ion-label >
+    <ion-input
+      [(ngModel)]="telefono"
+      type="text"
+      required
+      placeholder="Teléfono"
+    ></ion-input>
+    <ion-label>
       <ion-icon name="call"></ion-icon>
     </ion-label>
   </ion-item>
 
   <ion-list>
     <ion-item>
-      <ion-icon style="margin: right 15px;" name="map" ></ion-icon>
-      <ion-select interface="popover" placeholder="Estados" [multiple]="true">
-        <ion-select-option value="nayarit">Nayarit</ion-select-option>
-        <ion-select-option value="guadalajara">Guadalajara</ion-select-option>
-        <ion-select-option value="mexico">México</ion-select-option>
+      <ion-select
+        interface="popover"
+        placeholder="Estados"
+        [multiple]="true"
+        [(ngModel)]="empresa.estados"
+      >
+        <ion-select-option
+          *ngFor="let estado of estados"
+          [value]="estado.nombre"
+          >{{estado.nombre}}</ion-select-option
+        >
       </ion-select>
     </ion-item>
   </ion-list>
 
-
-  <ion-button class="ion-margin-top" type="submit" expand="block" color="light" (click)="onSubmit()">
+  <ion-button
+    class="ion-margin-top"
+    type="submit"
+    expand="block"
+    color="light"
+    (click)="onSubmit()"
+  >
     Crear Cuenta
   </ion-button>
 
@@ -62,5 +98,11 @@
     <ion-label>Ó</ion-label>
   </ion-item>
 
-  <ion-button color="dark" expand="block" fill="outline" [routerLink]="['/login']">Ya tengo cuenta</ion-button>
+  <ion-button
+    color="dark"
+    expand="block"
+    fill="outline"
+    [routerLink]="['/login']"
+    >Ya tengo cuenta</ion-button
+  >
 </ion-content>
