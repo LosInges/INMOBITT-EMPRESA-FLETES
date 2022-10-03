@@ -1,9 +1,81 @@
-<ion-header>
+<ion-header >
   <ion-toolbar>
-    <ion-title>fletes</ion-title>
+    <ion-label color="secondary">FLETES</ion-label>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content >
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="secondary"> ALTA </ion-card-title>
+    </ion-card-header>
 
+    <ion-card-content >
+      <ion-card >
+        <ion-card-header>
+          <ion-card-title color="secondary"> LOCALIZACIÓN </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label> ID </ion-label>
+            <ion-input> </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label> ESTADO </ion-label>
+            <ion-select> </ion-select>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title color="secondary"> DETALLES </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label> EMPRESA </ion-label>
+          </ion-item>
+          <ion-select></ion-select>
+        </ion-card-content>
+
+        <ion-card-content>
+          <ion-item>
+            <ion-label> CLIENTE </ion-label>
+          </ion-item>
+          <ion-select></ion-select>
+        </ion-card-content>
+
+        <ion-card-content>
+          <ion-item>
+            <ion-label> TELÉFONO </ion-label>
+          </ion-item>
+          <ion-input></ion-input>
+        </ion-card-content>
+
+        <ion-card-content>
+          <ion-item>
+            <ion-label> DESTINO </ion-label>
+          </ion-item>
+          <ion-select></ion-select>
+        </ion-card-content>
+
+        <ion-card-content>
+          <ion-item>
+            <ion-label> ORIGEN </ion-label>
+          </ion-item>
+          <ion-select></ion-select>
+        </ion-card-content>
+
+        <ion-card-content>
+          <ion-item>
+            <ion-label>FECHA</ion-label>
+            <ion-datetime locale="es-MX"><span slot="time-label">HORA</span> </ion-datetime>
+          </ion-item>
+        </ion-card-content>
+
+
+
+      </ion-card>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

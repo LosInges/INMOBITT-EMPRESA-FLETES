@@ -19,7 +19,7 @@ export class AppComponent {
     { title: 'Login', url: '/login', icon:"logo-octocat"
   },
    { title: 'Sing Up', url: '/signup', icon: "person-add"},
-   { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
+   { title: 'Fletes_Jaz', url: '/fletes', icon: 'bus-outline' },
    { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
    { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
    { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
