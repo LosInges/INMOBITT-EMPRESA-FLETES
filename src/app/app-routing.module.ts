@@ -25,6 +25,10 @@ const routes: Routes = [
   {
     path: 'fletes',
     loadChildren: () => import('./fletes/fletes.module').then( m => m.FletesPageModule)
+  },
+  {
+    path: 'precarga',
+    loadChildren: () => import('./precarga/precarga.module').then( m => m.PrecargaPageModule)
   }
 
 ];
