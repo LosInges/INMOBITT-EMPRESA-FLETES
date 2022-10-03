@@ -5,38 +5,58 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'folder/Inbox',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
-    path: 'folder', 
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    path: 'folder',
+    loadChildren: () =>
+      import('./folder/folder.module').then((m) => m.FolderPageModule),
   },
   {
     path: 'signup',
-    loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
+    loadChildren: () =>
+      import('./signup/signup.module').then((m) => m.SignupPageModule),
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },  {
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginPageModule),
+  },
+  {
     path: 'inicio',
-    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
+    loadChildren: () =>
+      import('./inicio/inicio.module').then((m) => m.InicioPageModule),
   },
   {
     path: 'fletes',
-    loadChildren: () => import('./fletes/fletes.module').then( m => m.FletesPageModule)
+    loadChildren: () =>
+      import('./fletes/fletes.module').then((m) => m.FletesPageModule),
   },
   {
     path: 'precarga',
-    loadChildren: () => import('./precarga/precarga.module').then( m => m.PrecargaPageModule)
-  }
-
+    loadChildren: () =>
+      import('./precarga/precarga.module').then((m) => m.PrecargaPageModule),
+  },
+  {
+    path: 'transportes',
+    loadChildren: () =>
+      import('./transportes/transportes.module').then(
+        (m) => m.TransportesPageModule
+      ),
+  },
+  {
+    path: 'cargadores',
+    loadChildren: () =>
+      import('./cargadores/cargadores.module').then(
+        (m) => m.CargadoresPageModule
+      ),
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
