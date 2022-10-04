@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { FletesPageRoutingModule } from './fletes-routing.module';
 
 import { FletesPage } from './fletes.page';
+import { AltaComponent } from './alta/alta.component';
+import { PrecargaComponent } from './precarga/precarga.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FletesPageRoutingModule
+    FletesPageRoutingModule,
   ],
-  declarations: [FletesPage]
+  declarations: [FletesPage, AltaComponent, PrecargaComponent],
 })
 export class FletesPageModule {}

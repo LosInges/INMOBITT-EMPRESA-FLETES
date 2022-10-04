@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Empresa } from '../fletes/interfaces/empresa';
-import { EstadosService } from '../services/estados.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { EmpresaService } from '../fletes/services/empresa.service';
+import { Empresa } from 'src/app/fletes/interfaces/empresa';
+import { EmpresaService } from 'src/app/fletes/services/empresa.service';
+import { EstadosService } from 'src/app/services/estados.service';
 
 @Component({
   selector: 'app-signup',
-  templateUrl: './signup.page.html',
-  styleUrls: ['./signup.page.scss'],
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss'],
 })
-export class SignupPage implements OnInit {
+export class SignupComponent implements OnInit {
   empresa: Empresa = {
     nombre: '',
     correo: '',
@@ -22,8 +21,7 @@ export class SignupPage implements OnInit {
 
   constructor(
     private estadosService: EstadosService,
-    private empresaService: EmpresaService,
-    public formBuilder: FormBuilder
+    private empresaService: EmpresaService
   ) {}
 
   ngOnInit() {}

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TransportesPageRoutingModule } from './transportes-routing.module';
 
 import { TransportesPage } from './transportes.page';
+import { AltaComponent } from './alta/alta.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { TransportesPage } from './transportes.page';
     IonicModule,
     TransportesPageRoutingModule
   ],
-  declarations: [TransportesPage]
+  declarations: [TransportesPage, AltaComponent]
 })
 export class TransportesPageModule {}

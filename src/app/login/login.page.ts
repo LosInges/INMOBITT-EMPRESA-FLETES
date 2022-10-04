@@ -6,16 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  email: string = "";
-  password: string = "";
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() { }
-
-  onSubmit() {
-    alert(
-     this.email + ', ' + this.password
-    )
- }
+  ngOnInit() {}
 }
