@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AltaComponent } from './alta/alta.component';
 
 import { FletesPage } from './fletes.page';
+import { PaqueteComponent } from './paquetes/paquete/paquete.component';
+import { PaquetesComponent } from './paquetes/paquetes.component';
 import { PrecargaComponent } from './precarga/precarga.component';
 
 const routes: Routes = [
@@ -17,6 +19,16 @@ const routes: Routes = [
   {
     path: 'precarga',
     component: PrecargaComponent,
+  },
+  {
+    path: 'paquetes',
+    component: PaquetesComponent,
+    children: [
+      {
+        path: ':id/items',
+        component: PaqueteComponent,
+      },
+    ],
   },
 ];
 
