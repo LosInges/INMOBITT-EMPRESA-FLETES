@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CargadoresPageRoutingModule } from './cargadores-routing.module';
 
 import { CargadoresPage } from './cargadores.page';
+import { AltaComponent } from './alta/alta.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { CargadoresPage } from './cargadores.page';
     IonicModule,
     CargadoresPageRoutingModule
   ],
-  declarations: [CargadoresPage]
+  declarations: [CargadoresPage, AltaComponent]
 })
 export class CargadoresPageModule {}
