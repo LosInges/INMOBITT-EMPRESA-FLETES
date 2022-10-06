@@ -30,6 +30,16 @@ export class EmpresaService {
   deleteEmpresa(correo: string): Observable<any> {
     return this.httpClient.delete<any>(`${environment.api}/empresa`, {
       body: { correo },
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      headers: { 'Content-Type': 'application/json' },
     });
+  }
+
+  login(correo: string, contrasenia: string): Observable<any> {
+    return this.httpClient.get<any>(`${environment.api}/login`);
+  }
+
+  logOut(): Observable<any>{
+    return this.httpClient.get<any>(`${environment.api}/signOut`);
   }
 }
