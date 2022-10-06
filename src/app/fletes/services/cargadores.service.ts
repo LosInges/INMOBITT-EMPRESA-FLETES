@@ -41,12 +41,4 @@ export class CargadoresService {
       body: { empresa, rfc },
     });
   }
-
-  login(correo: string, contrasenia: string): Observable<any>{
-    return this.httpClient.get<any>(`${environment.api}/login`);
-  }
-
-  logOut(): Observable<any>{
-    return this.httpClient.get<any>(`${environment.api}/logOut`);
-  }
 }
