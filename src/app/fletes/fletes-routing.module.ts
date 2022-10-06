@@ -21,7 +21,7 @@ const routes: Routes = [
     component: PrecargaComponent,
   },
   {
-    path: 'paquetes',
+    path: ':id/paquetes',
     component: PaquetesComponent,
     children: [
       {
