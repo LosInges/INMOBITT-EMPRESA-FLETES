@@ -14,7 +14,7 @@ export class AppComponent {
   public secondAppPages = [
     { title: 'Fletes_Jaz', url: '/fletes', icon: 'bus-outline' },
     { title: 'Precarga', url: '/precarga', icon: 'heart' },
-    { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
+    { title: 'Paquetes', url: '/fletes/1/paquetes', icon: 'archive' },
     { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
     { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
   ];
