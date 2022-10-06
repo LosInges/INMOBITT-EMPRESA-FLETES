@@ -3,6 +3,7 @@ import { Cargador } from '../interfaces/cargador';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { env } from 'process';
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +40,13 @@ export class CargadoresService {
     return this.httpClient.delete<any>(`${environment.api}/cargador`, {
       body: { empresa, rfc },
     });
+  }
+
+  login(correo: string, contrasenia: string): Observable<any>{
+    return this.httpClient.get<any>(`${environment.api}/login`);
+  }
+
+  logOut(): Observable<any>{
+    return this.httpClient.get<any>(`${environment.api}/logOut`);
   }
 }
