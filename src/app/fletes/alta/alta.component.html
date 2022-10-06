@@ -19,14 +19,22 @@
           <ion-card-title color="secondary"> LOCALIZACIÓN </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <ion-item>
-            <ion-label> ID </ion-label>
-            <ion-input> </ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label> ESTADO </ion-label>
-            <ion-select> </ion-select>
-          </ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="ion-margin-top ion-margin-bottom">
+                <ion-item>
+                  <ion-label> ID </ion-label>
+                  <ion-input> </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col class="ion-margin-top ion-margin-bottom">
+                <ion-item>
+                  <ion-label> ESTADO </ion-label>
+                  <ion-select> </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-card-content>
       </ion-card>
 
@@ -35,47 +43,59 @@
           <ion-card-title color="secondary"> DETALLES </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <ion-item>
-            <ion-label> EMPRESA </ion-label>
-          </ion-item>
-          <ion-select></ion-select>
-        </ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="ion-margin-top ion-margin-bottom">
+                <ion-item>
+                  <ion-label> EMPRESA </ion-label>
+                  <ion-select> </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col class="ion-margin-top ion-margin-bottom">
+                <ion-item>
+                  <ion-label> CLIENTE </ion-label>
+                  <ion-select> </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col class="ion-margin-top ion-margin-bottom">
+                <ion-item>
+                  <ion-label> TELEFONO </ion-label>
+                  <ion-input> </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
 
-        <ion-card-content>
-          <ion-item>
-            <ion-label> CLIENTE </ion-label>
-          </ion-item>
-          <ion-select></ion-select>
-        </ion-card-content>
+            <ion-row>
+              <ion-col class="ion-margin-top ion-margin-bottom" size-md="4">
+                <ion-item>
+                  <ion-label> DESTINO </ion-label>
+                  <ion-input> </ion-input>
+                </ion-item>
+              </ion-col>
 
-        <ion-card-content>
-          <ion-item>
-            <ion-label> TELÉFONO </ion-label>
-          </ion-item>
-          <ion-input></ion-input>
-        </ion-card-content>
+              <ion-col class="ion-margin-top ion-margin-bottom" size-md="4">
+                <ion-item>
+                  <ion-label> DESTINO </ion-label>
+                  <ion-input> </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
 
-        <ion-card-content>
-          <ion-item>
-            <ion-label> ORIGEN </ion-label>
-          </ion-item>
-          <ion-select></ion-select>
-        </ion-card-content>
-
-        <ion-card-content>
-          <ion-item>
-            <ion-label> DESTINO </ion-label>
-          </ion-item>
-          <ion-select></ion-select>
-        </ion-card-content>
-
-        <ion-card-content>
-          <ion-item>
-            <ion-label>FECHA</ion-label>
-            <ion-datetime locale="es-MX"
-              ><span slot="time-label">HORA</span>
-            </ion-datetime>
-          </ion-item>
+            <ion-row>
+              <ion-col class="ion-margin-top ion-margin-bottom" size-md="4">
+                <ion-item>
+                  <ion-label> FECHA </ion-label>
+                  <ion-input> </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col class="ion-margin-top ion-margin-bottom" size-md="4">
+                <ion-item>
+                  <ion-label> HORA </ion-label>
+                  <ion-select> </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-card-content>
 
         <ion-card-content>
