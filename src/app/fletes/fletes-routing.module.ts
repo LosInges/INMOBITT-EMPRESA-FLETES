@@ -23,12 +23,11 @@ const routes: Routes = [
   {
     path: ':id/paquetes',
     component: PaquetesComponent,
-    children: [
-      {
-        path: ':id/items',
-        component: PaqueteComponent,
-      },
-    ],
+  },
+  {
+    path: ':id/paquetes/:id/items',
+    component: PaqueteComponent,
+
   },
 ];
 
