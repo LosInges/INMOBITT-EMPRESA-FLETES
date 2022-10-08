@@ -15,7 +15,7 @@ export class AppComponent {
     { title: 'Fletes_Jaz', url: '/fletes', icon: 'bus-outline' },
     { title: 'Precarga', url: '/precarga', icon: 'heart' },
     { title: 'Paquetes', url: '/fletes/1/paquetes', icon: 'archive' },
-    { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
+    { title: 'Trash', url: '/fletes/1/paquetes/1/items', icon: 'trash' },
     { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
   ];
   constructor() {}
