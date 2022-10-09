@@ -15,7 +15,7 @@ import { PrecargaService } from '../../services/precarga.service';
 export class PrecargaComponent implements OnInit {
   fecha: string = new Date().toISOString();
   consulta = false;
-  id = this.activatedRoute.snapshot.paramMap.get('id');
+  id: string;
 
   precarga: Precarga = {
     id: '',
@@ -59,29 +59,30 @@ export class PrecargaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.id) {
+    if (this.activatedRoute.snapshot.paramMap.get('id')) {
+      this.id = this.activatedRoute.snapshot.paramMap.get('id');
       this.consulta = true;
+      this.precargaService.getPrecarga('empresa@mail.com', this.id).subscribe(
+        (precarga) => {
+          this.precarga = precarga;
+          let hr = Number(this.precarga.hora.split(':')[0]);
+          hr = hr >= 6 ? hr - 6 : hr + 18;
+          const fecha = new Date(
+            Number(this.precarga.fecha.split('-')[0]),
+            Number(this.precarga.fecha.split('-')[1]) - 1,
+            Number(this.precarga.fecha.split('-')[2]),
+            hr,
+            Number(this.precarga.hora.split(':')[1])
+          );
+          this.fecha = fecha.toISOString();
+          console.log(fecha.toISOString(), this.precarga.hora);
+          console.log(this.precarga);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     }
-    this.precargaService.getPrecarga('empresa@mail.com', this.id).subscribe(
-      (precarga) => {
-        this.precarga = precarga;
-        let hr = Number(this.precarga.hora.split(':')[0]);
-        hr = hr >= 6 ? hr - 6 : hr + 18;
-        const fecha = new Date(
-          Number(this.precarga.fecha.split('-')[0]),
-          Number(this.precarga.fecha.split('-')[1]) - 1,
-          Number(this.precarga.fecha.split('-')[2]),
-          hr,
-          Number(this.precarga.hora.split(':')[1])
-        );
-        this.fecha = fecha.toISOString();
-        console.log(fecha.toISOString(), this.precarga.hora);
-        console.log(this.precarga);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
     this.empresaService.getEmpresas().subscribe((empresas) => {
       this.empresas = empresas;
     });
@@ -110,5 +111,10 @@ export class PrecargaComponent implements OnInit {
     this.fletesService.postFlete(flete).subscribe((res) => {
       console.log(res);
     });
+    this.precargaService
+      .deletePrecarga(this.precarga.empresa, this.precarga.id)
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }

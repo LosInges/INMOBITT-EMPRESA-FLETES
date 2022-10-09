@@ -22,7 +22,6 @@ export class PrecargasComponent implements OnInit {
       .getPrecargas('empresa@mail.com')
       .subscribe((precargas) => {
         this.precargas = precargas;
-        console.log(this.precargas);
       });
   }
 }
