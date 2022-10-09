@@ -14,8 +14,8 @@ export class EmpresaService {
     return this.httpClient.get<Empresa[]>(`${environment.api}/empresas`);
   }
 
-  getEmpresa(correo: string): Observable<Empresa[]> {
-    return this.httpClient.get<Empresa[]>(
+  getEmpresa(correo: string): Observable<Empresa> {
+    return this.httpClient.get<Empresa>(
       `${environment.api}/empresa/${correo}`
     );
   }

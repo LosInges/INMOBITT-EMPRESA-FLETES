@@ -1,8 +1,8 @@
 export interface Direccion {
   calle: string;
-  codigoPostal: string;
+  codigopostal: string;
   colonia: string;
-  numeroExterior: string;
-  numeroInterior: string;
+  numeroexterior: string;
+  numerointerior: string;
   estado: string;
 }

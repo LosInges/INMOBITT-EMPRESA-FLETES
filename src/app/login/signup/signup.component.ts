@@ -24,7 +24,9 @@ export class SignupComponent implements OnInit {
     private empresaService: EmpresaService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.estados);
+  }
 
   onSubmit() {
     if (this.confirmPassword === this.empresa.password) {

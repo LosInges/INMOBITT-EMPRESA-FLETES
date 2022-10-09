@@ -8,9 +8,10 @@ import { FletesPageRoutingModule } from './fletes-routing.module';
 
 import { FletesPage } from './fletes.page';
 import { AltaComponent } from './alta/alta.component';
-import { PrecargaComponent } from './precarga/precarga.component';
+import { PrecargaComponent } from './precargas/precarga/precarga.component';
 import { PaqueteComponent } from './paquetes/paquete/paquete.component';
 import { PaquetesComponent } from './paquetes/paquetes.component';
+import { PrecargasComponent } from './precargas/precargas.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, FletesPageRoutingModule],
@@ -20,6 +21,7 @@ import { PaquetesComponent } from './paquetes/paquetes.component';
     PrecargaComponent,
     PaqueteComponent,
     PaquetesComponent,
+    PrecargasComponent,
   ],
 })
 export class FletesPageModule {}

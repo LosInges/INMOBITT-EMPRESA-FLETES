@@ -10,8 +10,14 @@ export class FletesPage implements OnInit {
   constructor(private sessionService: SessionService) {}
 
   ngOnInit() {
-    this.sessionService.keys().then((data) => {
-      console.log(data);
+    this.sessionService.keys()?.then((data) => {
+      if (data) {
+        data.forEach((key) => {
+          this.sessionService.get(key).then((value) => {
+            console.log(key + ': ' + value);
+          });
+        });
+      }
     });
   }
 }

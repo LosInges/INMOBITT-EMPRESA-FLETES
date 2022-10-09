@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CargadoresService } from 'src/app/fletes/services/cargadores.service';
-import { EmpresaService } from 'src/app/fletes/services/empresa.service';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/app/fletes/services/login.service';
 import { SessionService } from 'src/app/services/session.service';
 
@@ -15,7 +14,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -27,19 +27,16 @@ export class LoginComponent implements OnInit {
   login() {
     this.loginService.login(this.email, this.password).subscribe(
       (res) => {
-        this.sessionService.set('email', res.session.email);
-        this.sessionService.set('tipo', res.session.tipo);
+        const promesas: Promise<any>[] = [
+          this.sessionService.set('email', res.session.email),
+          this.sessionService.set('tipo', res.session.tipo),
+        ];
         if (res.tipo === 'cargador') {
-          this.sessionService.set('empresa', res.empresa);
+          promesas.push(this.sessionService.set('empresa', res.empresa));
         }
-        this.sessionService
-          .keys()
-          .then((data) => {
-            console.log(data, res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        Promise.all(promesas).then(() => {
+          this.router.navigate(['/fletes']);
+        });
       },
       (err) => console.log(err)
     );

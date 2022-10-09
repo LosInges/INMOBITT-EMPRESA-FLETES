@@ -16,16 +16,16 @@ export class SessionService {
     this.myStorage = storage;
   }
 
-  public set(key: string, value: string) {
-    this.myStorage?.set(key, value);
+  public set(key: string, value: string): Promise<any> {
+    return this.myStorage?.set(key, value);
   }
 
   public get(key: string): Promise<any> {
     return this.myStorage?.get(key);
   }
 
-  public clear() {
-    this.myStorage?.clear();
+  public clear(): Promise<void> {
+    return this.myStorage?.clear();
   }
 
   public keys(): Promise<string[]> {
