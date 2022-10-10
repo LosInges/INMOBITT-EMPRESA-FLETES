@@ -34,7 +34,7 @@ const routes: Routes = [
     component: PaquetesComponent,
   },
   {
-    path: ':id/paquetes/:id/items',
+    path: ':flete/paquetes/:id/items',
     component: PaqueteComponent,
   },
 ];

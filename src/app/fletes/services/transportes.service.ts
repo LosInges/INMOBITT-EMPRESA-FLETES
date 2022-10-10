@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Transporte } from '../interfaces/transporte';
 
 @Injectable({
@@ -11,19 +12,19 @@ export class TransportesService {
 
   getTransportes(empresa: string): Observable<Transporte[]> {
     return this.httpClient.get<Transporte[]>(
-      `http://localhost:3000/transportes/${empresa}`
+      `${environment.api}/transportes/${empresa}`
     );
   }
 
-  getTransporte(empresa: string, matricula: string): Observable<Transporte[]> {
-    return this.httpClient.get<Transporte[]>(
-      `http://localhost:3000/transporte/${empresa}/${matricula}`
+  getTransporte(empresa: string, matricula: string): Observable<Transporte> {
+    return this.httpClient.get<Transporte>(
+      `${environment.api}/transporte/${empresa}/${matricula}`
     );
   }
 
   postTransporte(transporte: Transporte): Observable<any> {
     return this.httpClient.post<any>(
-      `http://localhost:3000/transporte`,
+      `${environment.api}/transporte`,
       transporte,
       {
         // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -33,7 +34,7 @@ export class TransportesService {
   }
 
   deleteTransporte(transporte: Transporte): Observable<any> {
-    return this.httpClient.delete(`http://localhost:3000/transporte`, {
+    return this.httpClient.delete(`${environment.api}/transporte`, {
       body: transporte,
     });
   }

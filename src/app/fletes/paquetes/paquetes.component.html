@@ -4,6 +4,11 @@
       <ion-back-button defaultHref="paquetes"></ion-back-button>
     </ion-buttons>
     <ion-title color="secondary">PAQUETES</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="secondary" (click)="cambiarId()">
+        CREAR NUEVO
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
     <!-- COLOCAR UN ICONO PARA LIMPIAR-->
@@ -12,34 +17,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-content>
-      <ion-card>
-        <ion-card-header>
-          <ion-toolbar>
-            <ion-buttons slot="end">
-              <ion-button [routerLink]="['/', 'paquetes', 'alta']" color="secondary">
-                CREAR NUEVO
-              </ion-button>
-            </ion-buttons>
-            <ion-card-title color="secondary"> VISTA GENERAL </ion-card-title>
-          </ion-toolbar>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-item>
-            <ion-label> ESTADO </ion-label>
-            <ion-select> </ion-select>
-            <!--RELLENAR COMBO -->
-          </ion-item>
-
-          <ion-button class="ion-float-right ion-margin-top" type="submit">
-            CONFIRMAR
-          </ion-button>
-        </ion-card-content>
-      </ion-card>
-    </ion-card-content>
-  </ion-card>
-
   <!--TABLA = TARJETAS-->
   <ion-card>
     <ion-card-header>
