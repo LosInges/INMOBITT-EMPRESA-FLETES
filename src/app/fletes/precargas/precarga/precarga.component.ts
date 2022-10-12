@@ -61,9 +61,9 @@ export class PrecargaComponent implements OnInit {
   ngOnInit() {
     if (this.activatedRoute.snapshot.paramMap.get('id')) {
       this.id = this.activatedRoute.snapshot.paramMap.get('id');
-      this.consulta = true;
       this.precargaService.getPrecarga('empresa@mail.com', this.id).subscribe(
         (precarga) => {
+          this.consulta = true;
           this.precarga = precarga;
           let hr = Number(this.precarga.hora.split(':')[0]);
           hr = hr >= 6 ? hr - 6 : hr + 18;
@@ -80,6 +80,7 @@ export class PrecargaComponent implements OnInit {
         },
         (err) => {
           console.log(err);
+          this.consulta = false;
         }
       );
     }
