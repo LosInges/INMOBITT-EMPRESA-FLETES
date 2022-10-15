@@ -1,3 +1,5 @@
+import { ModalController } from '@ionic/angular';
+import { AltaComponent } from './alta/alta.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Cargador } from '../fletes/interfaces/cargador';
@@ -14,7 +16,8 @@ export class CargadoresPage implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private cargadoresService: CargadoresService
+    private cargadoresService: CargadoresService,
+    private modalController: ModalController
   ) {
     this.eventosRouter = this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -30,10 +33,20 @@ export class CargadoresPage implements OnInit, OnDestroy {
         this.cargadores = cargadores;
       });
   }
+  
 
   ngOnDestroy(): void {
     if (this.eventosRouter) {
       this.eventosRouter.unsubscribe();
     }
+  }
+
+  async abrirRegistro(){
+    const modal = await this.modalController.create({
+      component: AltaComponent,
+
+    });
+
+    return await modal.present();
   }
 }

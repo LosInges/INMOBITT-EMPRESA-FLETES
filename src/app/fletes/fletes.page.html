@@ -17,7 +17,11 @@
     <ion-card-header>
       <ion-toolbar>
         <ion-buttons slot="end">
-          <ion-button [routerLink]="['/', 'fletes', 'alta']" color="secondary">
+          <ion-button
+          (click)="abrirRegistro()"
+           color="secondary"
+
+          >
             CREAR NUEVO
           </ion-button>
         </ion-buttons>
