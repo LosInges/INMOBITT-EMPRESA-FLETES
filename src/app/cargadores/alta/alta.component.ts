@@ -1,3 +1,5 @@
+
+import { ModalController } from '@ionic/angular';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Cargador } from 'src/app/fletes/interfaces/cargador';
@@ -24,7 +26,8 @@ export class AltaComponent implements OnInit, OnDestroy {
 
   constructor(
     private cargadoresService: CargadoresService,
-    private router: Router
+    private router: Router,
+    private modalController: ModalController
   ) {
     this.eventosRouter = this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -34,6 +37,10 @@ export class AltaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {}
+
+  cerrar() {
+    return this.modalController.dismiss();
+  }
 
   ngOnDestroy(): void {
     if (this.eventosRouter) {
@@ -56,4 +63,5 @@ export class AltaComponent implements OnInit, OnDestroy {
       this.router.navigate(['/cargadores']);
     });
   }
+
 }

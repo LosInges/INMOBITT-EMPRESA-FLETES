@@ -1,8 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="cargadores"></ion-back-button>
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close-circle" color="secondary"></ion-icon>
+      </ion-button>
     </ion-buttons>
+
     <ion-title color="secondary">CARGADORES</ion-title>
   </ion-toolbar>
 </ion-header>
