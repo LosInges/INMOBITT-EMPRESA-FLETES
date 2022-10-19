@@ -87,7 +87,7 @@
   </ion-card>
 
   <ion-content>
-    <ion-card *ngFor="let cargador of cargadores">
+    <ion-card *ngFor="let cargador of cargadores" (click)="detalleCargador(cargador.rfc)">
       <ion-grid>
         <ion-row>
           <ion-col size-xs="0.1"> </ion-col>

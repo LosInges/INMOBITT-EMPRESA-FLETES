@@ -1,5 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Empresa } from 'src/app/fletes/interfaces/empresa';
 import { EmpresaService } from 'src/app/fletes/services/empresa.service';
 import { EstadosService } from 'src/app/services/estados.service';
@@ -22,7 +23,8 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private estadosService: EstadosService,
-    private empresaService: EmpresaService
+    private empresaService: EmpresaService,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -35,5 +37,8 @@ export class SignupComponent implements OnInit {
         console.log(res);
       });
     }
+  }
+  cerrar(){
+    this.modalController.dismiss()
   }
 }
