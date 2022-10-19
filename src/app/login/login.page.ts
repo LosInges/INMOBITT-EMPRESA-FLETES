@@ -1,6 +1,3 @@
-
-import { ModalController } from '@ionic/angular';
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { LoginComponent } from './login/login.component';
@@ -16,7 +13,7 @@ export class LoginPage implements OnInit {
   constructor(private modalController: ModalController) {}
 
   ngOnInit() {}
-  
+
   async abrirRegistro(){
     const modal = await this.modalController.create({
       component: SignupComponent
