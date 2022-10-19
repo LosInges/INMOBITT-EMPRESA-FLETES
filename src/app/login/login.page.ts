@@ -1,3 +1,6 @@
+
+import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { LoginComponent } from './login/login.component';
@@ -9,6 +12,7 @@ import { SignupComponent } from './signup/signup.component';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+
   constructor(private modalController: ModalController) {}
 
   ngOnInit() {}
@@ -26,5 +30,5 @@ export class LoginPage implements OnInit {
     });
     return await modal.present();
   }
- 
+
 }

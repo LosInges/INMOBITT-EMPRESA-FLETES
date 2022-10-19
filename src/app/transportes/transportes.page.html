@@ -12,10 +12,7 @@
     <ion-card-header>
       <ion-toolbar>
         <ion-buttons slot="end">
-          <ion-button
-          (click)="abrirRegistro()"
-            color="secondary"
-          >
+          <ion-button (click)="abrirRegistro()" color="secondary">
             CREAR NUEVO
           </ion-button>
         </ion-buttons>
@@ -93,7 +90,9 @@
 
   <ion-content>
     <ng-container *ngFor="let transporte of transportes">
-      <ion-card *ngIf="transporte.activo" [routerLink]="['./', transporte.matricula]">
+      <ion-card
+        *ngIf="transporte.activo"
+      >
         <ion-grid>
           <ion-row>
             <ion-col size-xs="0.1"> </ion-col>
@@ -102,6 +101,7 @@
               <ion-card-title
                 class="ion-margin-top ion-margin-bottom"
                 type="submit"
+                (click)="abrirDetalle(transporte)"
               >
                 Matricula: {{transporte.matricula}}
               </ion-card-title>

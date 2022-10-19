@@ -4,6 +4,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Transporte } from '../fletes/interfaces/transporte';
 import { TransportesService } from '../fletes/services/transportes.service';
+import { DetalleComponent } from './detalle/detalle.component';
 
 @Component({
   selector: 'app-transportes',
@@ -38,12 +39,20 @@ export class TransportesPage implements OnInit, OnDestroy {
     }
   }
 
+  async abrirDetalle(transporte:Transporte){
+    const modal = await this.modalController.create({
+      component: DetalleComponent,
+      componentProps: {transporte}
+    });
+    return await modal.present();
+  }
+
+
   async abrirRegistro(){
     const modal = await this.modalController.create({
-      component: AltaComponent,
-
+      component: AltaComponent
     });
-
+    
     return await modal.present();
   }
 }
