@@ -4,6 +4,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Cargador } from '../fletes/interfaces/cargador';
 import { CargadoresService } from '../fletes/services/cargadores.service';
+import { DetalleComponent } from './detalle/detalle.component';
 
 @Component({
   selector: 'app-cargadores',
@@ -49,4 +50,15 @@ export class CargadoresPage implements OnInit, OnDestroy {
 
     return await modal.present();
   }
+  
+  async detalleCargador(rfc:string){
+      
+    const modal = await this.modalController.create({
+      component: DetalleComponent,
+      componentProps: {cargador:this.cargadores.filter((cargador)=>cargador.rfc===rfc)[0]}
+    });
+
+    return await modal.present();
+  }
+
 }
