@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="fletes"></ion-back-button>
+      <ion-back-button defaultHref="fletes">
+        <ion-icon name="close-circle" color="secondary"></ion-icon>
+      </ion-back-button>
     </ion-buttons>
     <ion-title color="secondary">PRECARGAS</ion-title>
     <ion-buttons slot="end">
@@ -93,7 +95,7 @@
   <ion-content>
     <ion-card
       *ngFor="let precarga of precargas"
-      [routerLink]="['/', 'fletes', 'precarga', precarga.id]"
+      (click)="abrirDetalle(precarga)"
     >
       <ion-grid>
         <ion-row>

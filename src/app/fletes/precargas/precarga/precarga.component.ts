@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+
+import { ModalController } from '@ionic/angular';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Empresa } from '../../interfaces/empresa';
 import { Flete } from '../../interfaces/flete';
@@ -13,6 +15,7 @@ import { PrecargaService } from '../../services/precarga.service';
   styleUrls: ['./precarga.component.scss'],
 })
 export class PrecargaComponent implements OnInit {
+  eventosRouter: any;
   fecha: string = new Date().toISOString();
   consulta = false;
   id: string;
@@ -55,8 +58,9 @@ export class PrecargaComponent implements OnInit {
     private empresaService: EmpresaService,
     private precargaService: PrecargaService,
     private activatedRoute: ActivatedRoute,
-    private fletesService: FletesService
-  ) {}
+    private fletesService: FletesService,
+  ){
+  }
 
   ngOnInit() {
     if (this.activatedRoute.snapshot.paramMap.get('id')) {
@@ -89,12 +93,15 @@ export class PrecargaComponent implements OnInit {
     });
   }
 
+
+
   registrarPrecarga() {
-    this.precarga.fecha = this.fecha.split('T')[0];
+   this.precarga.fecha = this.fecha.split('T')[0];
     this.precarga.hora = this.fecha.split('T')[1].split('.')[0].substring(0, 5);
-    this.precargaService.postPrecarga(this.precarga).subscribe((res) => {
+     this.precargaService.postPrecarga(this.precarga).subscribe((res) => {
       console.log(res);
     });
+    console.log(this.precarga);
   }
 
   registrarFlete() {
@@ -118,4 +125,5 @@ export class PrecargaComponent implements OnInit {
         console.log(res);
       });
   }
+
 }

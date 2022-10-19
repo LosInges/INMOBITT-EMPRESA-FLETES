@@ -26,6 +26,10 @@ const routes: Routes = [
     component: PrecargaComponent,
   },
   {
+    path: 'precargas/alta',
+    component: PrecargaComponent,
+  },
+  {
     path: 'precarga/:id',
     component: PrecargaComponent,
   },
