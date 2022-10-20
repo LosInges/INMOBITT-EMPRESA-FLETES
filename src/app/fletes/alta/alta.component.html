@@ -57,7 +57,7 @@
               <ion-col class="ion-margin-top ion-margin-bottom">
                 <ion-item>
                   <ion-label position="floating"> CLIENTE </ion-label>
-                  <ion-select [(ngModel)]="detalleFlete.cliente"> </ion-select>
+                  <ion-input  [(ngModel)]="detalleFlete.cliente" >  </ion-input>
                 </ion-item>
               </ion-col>
               <ion-col class="ion-margin-top ion-margin-bottom">
@@ -86,20 +86,23 @@
 
             <ion-row>
               <ion-col >
-                <ion-card-title
-                  class="ion-margin-top ion-margin-bottom"
-                  type="submit"
-                  color="secondary"
-                >
-                  Fecha
-                </ion-card-title>
+                
                 <ion-card-content>
-                  <ion-datetime-button datetime="datetime"></ion-datetime-button>
-                <ion-modal [keepContentsMounted]="true">
-                  <ng-template>
-                    <ion-datetime id="datetime"></ion-datetime>
-                  </ng-template>
-                </ion-modal>
+                  <ion-item id="open-modal2">
+                    <ion-label>Fecha</ion-label>
+                    <ion-note>{{fecha| date : 'medium'}}</ion-note>
+                  </ion-item>
+
+                  <ion-modal trigger="open-modal2" [cssClass]="'bottom-end'">
+                    <ng-template>
+                      <ion-datetime
+                        [(ngModel)]="fecha"
+                        size="cover"
+                        [showDefaultButtons]="true"
+                      ></ion-datetime>
+                    </ng-template> </ion-modal
+                >
+                
                 </ion-card-content>
 
               </ion-col>
@@ -112,9 +115,7 @@
             CONFIRMAR
           </ion-button>
 
-          <ion-button class="ion-margin-top" type="submit" color="light">
-            CERRAR
-          </ion-button>
+          
         </ion-card-content>
       </ion-card>
     </ion-card-content>

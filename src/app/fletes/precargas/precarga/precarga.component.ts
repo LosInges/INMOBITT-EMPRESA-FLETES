@@ -94,8 +94,6 @@ export class PrecargaComponent implements OnInit {
     });
   }
 
-
-
   registrarPrecarga() {
    this.precarga.fecha = this.fecha.split('T')[0];
     this.precarga.hora = this.fecha.split('T')[1].split('.')[0].substring(0, 5);

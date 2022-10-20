@@ -32,7 +32,7 @@ export class DetalleComponent implements OnInit {
  async abrirRegistroFlete(){
     const modal= await this.modalControler.create({
       component: AltaComponent,
-      componentProps: { precarga: this.precarga}
+      componentProps: { precarga: this.precarga, fecha: this.fecha}
     })
     return await modal.present()
   }
