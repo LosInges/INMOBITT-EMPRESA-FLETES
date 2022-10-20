@@ -72,15 +72,16 @@ export class PrecargaComponent implements OnInit {
           let hr = Number(this.precarga.hora.split(':')[0]);
           hr = hr >= 6 ? hr - 6 : hr + 18;
           const fecha = new Date(
-            Number(this.precarga.fecha.split('-')[0]),
-            Number(this.precarga.fecha.split('-')[1]) - 1,
-            Number(this.precarga.fecha.split('-')[2]),
-            hr,
-            Number(this.precarga.hora.split(':')[1])
-          );
+            Number(this.precarga.fecha.split('-')[0]), //AÑO
+            Number(this.precarga.fecha.split('-')[1]) - 1, //MES (INDICE)
+            Number(this.precarga.fecha.split('-')[2]), //DÍA
+            hr, //HORA
+            Number(this.precarga.hora.split(':')[1]) //MINUTOS
+            );
           this.fecha = fecha.toISOString();
           console.log(fecha.toISOString(), this.precarga.hora);
           console.log(this.precarga);
+
         },
         (err) => {
           console.log(err);

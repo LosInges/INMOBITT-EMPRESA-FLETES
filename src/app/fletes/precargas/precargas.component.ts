@@ -53,10 +53,19 @@ export class PrecargasComponent implements OnInit, OnDestroy {
     }
   }
   async abrirDetalle(precarga:Precarga){
-    console.log(precarga)
-    const modal = await this.modalController.create({
+    let hr = Number(precarga.hora.split(':')[0]);
+          hr = hr >= 6 ? hr - 6 : hr + 18;
+
+    const fecha = new Date(
+      Number(precarga.fecha.split('-')[0]), //AÑO
+      Number(precarga.fecha.split('-')[1]) - 1, //MES (INDICE)
+      Number(precarga.fecha.split('-')[2]), //DÍA
+      hr, //HORA
+      Number(precarga.hora.split(':')[1]) //MINUTOS
+      );
+      const modal = await this.modalController.create({
       component: DetalleComponent,
-     componentProps: {precarga, empresas: this.empresas}
+     componentProps: {precarga, empresas: this.empresas, fecha:fecha.toISOString()}
     });
     return await modal.present();
   }
