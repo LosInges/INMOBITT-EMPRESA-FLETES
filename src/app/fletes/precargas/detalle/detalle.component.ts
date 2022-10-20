@@ -12,7 +12,6 @@ import { Precarga } from '../../interfaces/precarga';
 })
 export class DetalleComponent implements OnInit {
   @Input() fecha: string
-  @Input() empresas: Empresa[]
   @Input() precarga: Precarga
 
 
@@ -21,9 +20,7 @@ export class DetalleComponent implements OnInit {
 
   ) { }
 
-  ngOnInit() {
-    console.log(this.precarga)
-  }
+  ngOnInit() {}
 
   cerrar(){
     this.modalControler.dismiss()

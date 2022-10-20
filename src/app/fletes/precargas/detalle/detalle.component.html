@@ -29,26 +29,13 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> EMPRESA </ion-label>
-              <ion-select [(ngModel)]="precarga.empresa" disabled>
-                <ion-select-option value=""
-                  >Seleccione una empresa</ion-select-option
-                >
-                <ion-select-option
-                  *ngFor="let empresa of empresas"
-                  [value]="empresa.correo"
-                >
-                  {{ empresa.nombre }}
-                </ion-select-option>
-              </ion-select>
+              <ion-input [(ngModel)]="precarga.empresa" disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> CLIENTE </ion-label>
-              <ion-input
-                [(ngModel)]="precarga.cliente"
-                disabled
-              ></ion-input>
+              <ion-input [(ngModel)]="precarga.cliente" disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
@@ -73,41 +60,25 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> CAJAS CHICAS </ion-label>
-              <ion-input
-                type="number"
-                [(ngModel)]="precarga.cajas_chicas"
-                disabled
-              ></ion-input>
+              <ion-input type="number" [(ngModel)]="precarga.cajas_chicas" disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> CAJAS MEDIANAS </ion-label>
-              <ion-input
-                type="number"
-                [(ngModel)]="precarga.cajas_medianas"
-                disabled
-              ></ion-input>
+              <ion-input type="number" [(ngModel)]="precarga.cajas_medianas" disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> CAJAS GRANDES </ion-label>
-              <ion-input
-                type="number"
-                [(ngModel)]="precarga.cajas_grandes"
-                disabled
-              ></ion-input>
+              <ion-input type="number" [(ngModel)]="precarga.cajas_grandes" disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> MUEBLES </ion-label>
-              <ion-input
-                type="number"
-                [(ngModel)]="precarga.muebles"
-                disabled
-              ></ion-input>
+              <ion-input type="number" [(ngModel)]="precarga.muebles" disabled></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -149,7 +120,7 @@
         </ion-row>
       </ion-grid>
 
-      <ion-button (click)="abrirRegistroFlete()" class="ion-margin-top" type="submit" color="light" >
+      <ion-button (click)="abrirRegistroFlete()" class="ion-margin-top" type="submit" color="light">
         Registrar Flete
       </ion-button>
     </ion-card-content>
