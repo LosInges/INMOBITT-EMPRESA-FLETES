@@ -5,18 +5,21 @@ import { environment } from 'src/environments/environment';
 import { Flete } from '../interfaces/flete';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FletesService {
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getFletesE(empresa: string): Observable<Flete[]> {
-    return this.httpClient.get<Flete[]>(`${environment.api}/fletesE/${empresa}`);
+    return this.httpClient.get<Flete[]>(
+      `${environment.api}/fletesE/${empresa}`
+    );
   }
 
   getFletesC(cliente: string): Observable<Flete[]> {
-    return this.httpClient.get<Flete[]>(`${environment.api}/fletesC/${cliente}`);
+    return this.httpClient.get<Flete[]>(
+      `${environment.api}/fletesC/${cliente}`
+    );
   }
 
   getFlete(flete: string): Observable<Flete[]> {

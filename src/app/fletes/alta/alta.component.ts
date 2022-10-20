@@ -1,5 +1,11 @@
 import { ModalController } from '@ionic/angular';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Precarga } from '../interfaces/precarga';
 import { Flete } from '../interfaces/flete';
 import { TransporteFlete } from '../interfaces/transporte-flete';
@@ -7,6 +13,7 @@ import { TransportesService } from '../services/transportes.service';
 import { CargadoresService } from '../services/cargadores.service';
 import { Transporte } from '../interfaces/transporte';
 import { Cargador } from '../interfaces/cargador';
+import { FletesService } from '../services/fletes.service';
 
 @Component({
   selector: 'app-alta',
@@ -21,10 +28,10 @@ export class AltaComponent implements OnInit, OnChanges {
     flete: '',
     transporte: '',
     cargadores: [],
-    paquete: ''
-  }
-  transportes: Transporte[] = []
-  cargadores: Cargador[] = []
+    paquete: 'Paquete1',
+  };
+  transportes: Transporte[] = [];
+  cargadores: Cargador[] = [];
 
   detalleFlete: Flete = {
     activo: true,
@@ -52,13 +59,14 @@ export class AltaComponent implements OnInit, OnChanges {
     },
   };
 
-
-  constructor(private modalController: ModalController,
+  constructor(
+    private modalController: ModalController,
     private transporteServices: TransportesService,
-    private cargadoresServices: CargadoresService
-  ) { }
+    private cargadoresServices: CargadoresService,
+    private fletesServices: FletesService
+  ) {}
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
+    console.log(changes);
   }
 
   ngOnInit() {
@@ -70,22 +78,33 @@ export class AltaComponent implements OnInit, OnChanges {
     this.detalleFlete.fecha = this.precarga.fecha;
     this.detalleFlete.hora = this.precarga.hora;
     this.detalleFlete.telefono = this.precarga.telefono;
-    this.transporteServices.getTransportes(this.detalleFlete.empresa).subscribe(transportes => {
-      this.transportes = transportes
-    })
-    this.cargadoresServices.getCargadores(this.detalleFlete.empresa).subscribe( cargadores =>{
-      this.cargadores = cargadores
-    }
+    this.transporteServices
+      .getTransportes(this.detalleFlete.empresa)
+      .subscribe((transportes) => {
+        this.transportes = transportes;
+      });
+    this.cargadoresServices
+      .getCargadores(this.detalleFlete.empresa)
+      .subscribe((cargadores) => {
+        this.cargadores = cargadores;
+      });
+    this.transporteFlete.flete = this.precarga.id;
 
-    )
     //TransporteFlete
     console.log(this.fecha);
   }
+
+  registrarFlete() {
+    console.log(this.detalleFlete);
+    console.log(this.transporteFlete);
+    this.fletesServices
+      .postFlete(this.detalleFlete)
+      .subscribe((respuestaFlete) => {
+        console.log(respuestaFlete);
+      });
+  }
+
   cerrar() {
     return this.modalController.dismiss();
   }
-
-
-
 }
-
