@@ -1,6 +1,6 @@
 export interface TransporteFlete {
     flete: string;
     transporte: string;
-    paquete: string;
+    paquete: string[];
     cargadores: string[];
 }

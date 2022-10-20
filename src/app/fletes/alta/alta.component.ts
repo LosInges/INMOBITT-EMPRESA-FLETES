@@ -14,6 +14,7 @@ import { CargadoresService } from '../services/cargadores.service';
 import { Transporte } from '../interfaces/transporte';
 import { Cargador } from '../interfaces/cargador';
 import { FletesService } from '../services/fletes.service';
+import { TransporteFleteService } from '../services/transporte-flete.service';
 
 @Component({
   selector: 'app-alta',
@@ -28,7 +29,7 @@ export class AltaComponent implements OnInit, OnChanges {
     flete: '',
     transporte: '',
     cargadores: [],
-    paquete: 'Paquete1',
+    paquete: [],
   };
   transportes: Transporte[] = [];
   cargadores: Cargador[] = [];
@@ -63,7 +64,8 @@ export class AltaComponent implements OnInit, OnChanges {
     private modalController: ModalController,
     private transporteServices: TransportesService,
     private cargadoresServices: CargadoresService,
-    private fletesServices: FletesService
+    private fletesServices: FletesService,
+    private transporteFletesService: TransporteFleteService
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
@@ -102,6 +104,9 @@ export class AltaComponent implements OnInit, OnChanges {
       .subscribe((respuestaFlete) => {
         console.log(respuestaFlete);
       });
+    this.transporteFletesService
+      .postTransportesFlete(this.transporteFlete)
+      .subscribe((val) => console.log(val));
   }
 
   cerrar() {
