@@ -65,7 +65,7 @@ export class PrecargasComponent implements OnInit, OnDestroy {
       );
       const modal = await this.modalController.create({
       component: DetalleComponent,
-     componentProps: {precarga, empresas: this.empresas, fecha:fecha.toISOString()}
+     componentProps: {precarga, fecha:fecha.toISOString()}
     });
     return await modal.present();
   }
