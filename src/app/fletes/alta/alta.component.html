@@ -26,14 +26,14 @@
             <ion-row>
               <ion-col class="ion-margin-top ion-margin-bottom">
                 <ion-item>
-                  <ion-label> ID </ion-label>
-                  <ion-input> </ion-input>
+                  <ion-label position="floating"> ID </ion-label>
+                  <ion-input [(ngModel)]="detalleFlete.id"> </ion-input>
                 </ion-item>
               </ion-col>
               <ion-col class="ion-margin-top ion-margin-bottom">
                 <ion-item>
-                  <ion-label> ESTADO </ion-label>
-                  <ion-select> </ion-select>
+                  <ion-label position="floating"> ESTADO </ion-label>
+                  <ion-select > </ion-select>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -50,20 +50,20 @@
             <ion-row>
               <ion-col class="ion-margin-top ion-margin-bottom">
                 <ion-item>
-                  <ion-label> EMPRESA </ion-label>
-                  <ion-select> </ion-select>
+                  <ion-label position="floating"> EMPRESA </ion-label>
+                  <ion-select [(ngModel)]="detalleFlete.empresa"> </ion-select>
                 </ion-item>
               </ion-col>
               <ion-col class="ion-margin-top ion-margin-bottom">
                 <ion-item>
-                  <ion-label> CLIENTE </ion-label>
-                  <ion-select> </ion-select>
+                  <ion-label position="floating"> CLIENTE </ion-label>
+                  <ion-select [(ngModel)]="detalleFlete.cliente"> </ion-select>
                 </ion-item>
               </ion-col>
               <ion-col class="ion-margin-top ion-margin-bottom">
                 <ion-item>
-                  <ion-label> TELEFONO </ion-label>
-                  <ion-input> </ion-input>
+                  <ion-label position="floating"> TELEFONO </ion-label>
+                  <ion-input [(ngModel)]="detalleFlete.telefono"> </ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -71,31 +71,37 @@
             <ion-row>
               <ion-col class="ion-margin-top ion-margin-bottom" size-md="4">
                 <ion-item>
-                  <ion-label> DESTINO </ion-label>
-                  <ion-input> </ion-input>
+                  <ion-label position="floating"> DESTINO </ion-label>
+                  <ion-input > </ion-input>
                 </ion-item>
               </ion-col>
 
               <ion-col class="ion-margin-top ion-margin-bottom" size-md="4">
                 <ion-item>
-                  <ion-label> DESTINO </ion-label>
-                  <ion-input> </ion-input>
+                  <ion-label position="floating"> ORIGEN </ion-label>
+                  <ion-input > </ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
 
             <ion-row>
-              <ion-col class="ion-margin-top ion-margin-bottom" size-md="4">
-                <ion-item>
-                  <ion-label> FECHA </ion-label>
-                  <ion-input> </ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col class="ion-margin-top ion-margin-bottom" size-md="4">
-                <ion-item>
-                  <ion-label> HORA </ion-label>
-                  <ion-select> </ion-select>
-                </ion-item>
+              <ion-col >
+                <ion-card-title
+                  class="ion-margin-top ion-margin-bottom"
+                  type="submit"
+                  color="secondary"
+                >
+                  Fecha
+                </ion-card-title>
+                <ion-card-content>
+                  <ion-datetime-button datetime="datetime"></ion-datetime-button>
+                <ion-modal [keepContentsMounted]="true">
+                  <ng-template>
+                    <ion-datetime id="datetime"></ion-datetime>
+                  </ng-template>
+                </ion-modal>
+                </ion-card-content>
+
               </ion-col>
             </ion-row>
           </ion-grid>
