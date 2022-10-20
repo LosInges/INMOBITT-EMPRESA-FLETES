@@ -10,6 +10,7 @@ import { Flete } from '../interfaces/flete';
 })
 export class AltaComponent implements OnInit {
   @Input() precarga: Precarga;
+  @Input() fecha: string; 
   detalleFlete: Flete = {
     activo: true,
     id: '',
@@ -46,10 +47,13 @@ export class AltaComponent implements OnInit {
     this.detalleFlete.fecha = this.precarga.fecha;
     this.detalleFlete.hora = this.precarga.hora;
     this.detalleFlete.telefono = this.precarga.telefono;
+    console.log(this.fecha);
   }
   cerrar() {
     return this.modalController.dismiss();
   }
+  
+
   
 }
 
