@@ -11,29 +11,23 @@ import { Paquete } from '../interfaces/paquete';
   styleUrls: ['./paquetes.component.scss'],
 })
 export class PaquetesComponent implements OnInit {
-  id: string;
-
-  paquete:  Paquete[] = [];
+  paquete: Paquete[] = [];
 
   constructor(
     private router: Router,
     private modalController: ModalController
-    ) {
+  ) {
 
-    }
-
-  ngOnInit() {}
-
-  cambiarId() {
-    this.id = uuidv4();
-    this.router.navigate([this.router.url, this.id, 'items']);
   }
 
-  async altaPaquete(){
+  ngOnInit() { }
+
+  async altaPaquete() {
     const modal = await this.modalController.create({
       component: PaqueteComponent,
+      componentProps: { id: uuidv4() }
     })
-    
+    modal.onDidDismiss().then(v => console.log(v))
     return await modal.present();
   }
 }
