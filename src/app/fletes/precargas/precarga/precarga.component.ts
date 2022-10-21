@@ -103,26 +103,4 @@ export class PrecargaComponent implements OnInit {
     console.log(this.precarga);
   }
 
-  registrarFlete() {
-    const flete: Flete = {
-      activo: true,
-      id: this.precarga.id,
-      empresa: this.precarga.empresa,
-      cliente: this.precarga.cliente,
-      destino: this.precarga.destino,
-      fecha: this.precarga.fecha,
-      hora: this.precarga.hora,
-      origen: this.precarga.origen,
-      telefono: this.precarga.telefono,
-    };
-    this.fletesService.postFlete(flete).subscribe((res) => {
-      console.log(res);
-    });
-    this.precargaService
-      .deletePrecarga(this.precarga.empresa, this.precarga.id)
-      .subscribe((res) => {
-        console.log(res);
-      });
-  }
-
 }
