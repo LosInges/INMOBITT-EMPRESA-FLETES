@@ -89,6 +89,8 @@
   <ion-content>
     <ion-card *ngFor="let cargador of cargadores" (click)="detalleCargador(cargador.rfc)">
       <ion-grid>
+          <ion-item-sliding>
+          <ion-item>
         <ion-row>
           <ion-col size-xs="0.1"> </ion-col>
 
@@ -124,6 +126,18 @@
 
           <ion-col size-xs="0.1"> </ion-col>
         </ion-row>
+      </ion-item>
+      <ion-item-options side="end" (ionSwipe)="eliminar(cargador)">
+        <ion-item-option expandable color="danger">
+          <ion-icon name="trash-outline"> </ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item-options side="start" (ionSwipe)="detalleCargador(cargador.rfc)">
+        <ion-item-option expandable color="success">
+          <ion-icon name="trash-outline"> </ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
       </ion-grid>
     </ion-card>
   </ion-content>

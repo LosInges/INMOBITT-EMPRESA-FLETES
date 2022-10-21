@@ -1,7 +1,6 @@
-
 import { ModalController } from '@ionic/angular';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router,NavigationEnd} from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Estado } from 'src/app/interfaces/estado';
 import { EstadosService } from 'src/app/services/estados.service';
 import { Precarga } from '../interfaces/precarga';
@@ -19,16 +18,16 @@ export class PrecargasComponent implements OnInit, OnDestroy {
   estados: Estado[] = this.estadosService.getEstados();
   precargas?: Precarga[];
   eventosRouter: any;
-  @Input() precarga: Precarga
-  empresas: Empresa[]
+  @Input() precarga: Precarga;
+  empresas: Empresa[];
 
   constructor(
     private empresaService: EmpresaService,
     private estadosService: EstadosService,
     private precargaService: PrecargaService,
-    private modalController: ModalController,
+    private modalControler: ModalController,
     private router: Router
-  )  {
+  ) {
     this.eventosRouter = this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         this.ngOnInit();
@@ -38,7 +37,8 @@ export class PrecargasComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.empresaService
-    .getEmpresas().subscribe((empresas)=> this.empresas=empresas)
+      .getEmpresas()
+      .subscribe((empresas) => (this.empresas = empresas));
     this.precargaService
       .getPrecargas('empresa@mail.com')
       .subscribe((precargas) => {
@@ -46,15 +46,14 @@ export class PrecargasComponent implements OnInit, OnDestroy {
       });
   }
 
-
   ngOnDestroy(): void {
     if (this.eventosRouter) {
       this.eventosRouter.unsubscribe();
     }
   }
-  async abrirDetalle(precarga:Precarga){
+  async abrirDetalle(precarga: Precarga) {
     let hr = Number(precarga.hora.split(':')[0]);
-          hr = hr >= 6 ? hr - 6 : hr + 18;
+    hr = hr >= 6 ? hr - 6 : hr + 18;
 
     const fecha = new Date(
       Number(precarga.fecha.split('-')[0]), //AÑO
@@ -62,12 +61,33 @@ export class PrecargasComponent implements OnInit, OnDestroy {
       Number(precarga.fecha.split('-')[2]), //DÍA
       hr, //HORA
       Number(precarga.hora.split(':')[1]) //MINUTOS
-      );
-      const modal = await this.modalController.create({
+    );
+    const modal = await this.modalControler.create({
       component: DetalleComponent,
-     componentProps: {precarga, fecha:fecha.toISOString()}
+      componentProps: { precarga, fecha: fecha.toISOString() },
     });
     return await modal.present();
   }
 
+  async abrirRegistro(precarga: Precarga) {
+    const modal = await this.modalControler.create({
+      component: PrecargasComponent,
+      componentProps: { precarga: this.precarga },
+    });
+    return await modal.present();
+  }
+
+  cerrar() {
+    this.modalControler.dismiss();
+  }
+
+  eliminar(precarga: Precarga) {
+    this.precargaService
+      .deletePrecarga(precarga.empresa, precarga.id)
+      .subscribe((val) => {
+        this.precargas = val.results
+          ? this.precargas.filter((p) => p != precarga)
+          : this.precargas;
+      });
+  }
 }
