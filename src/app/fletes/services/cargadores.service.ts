@@ -35,9 +35,9 @@ export class CargadoresService {
     });
   }
 
-  deleteCargador(empresa: string, rfc: string): Observable<any> {
+  deleteCargador(cargador: Cargador): Observable<any> {
     return this.httpClient.delete<any>(`${environment.api}/cargador`, {
-      body: { empresa, rfc },
+      body: cargador,
     });
   }
 }

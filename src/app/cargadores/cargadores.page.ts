@@ -34,7 +34,6 @@ export class CargadoresPage implements OnInit, OnDestroy {
         this.cargadores = cargadores;
       });
   }
-  
 
   ngOnDestroy(): void {
     if (this.eventosRouter) {
@@ -42,23 +41,30 @@ export class CargadoresPage implements OnInit, OnDestroy {
     }
   }
 
-  async abrirRegistro(){
+  async abrirRegistro() {
     const modal = await this.modalController.create({
       component: AltaComponent,
-
     });
 
     return await modal.present();
   }
-  
-  async detalleCargador(rfc:string){
-      
+
+  async detalleCargador(rfc: string) {
     const modal = await this.modalController.create({
       component: DetalleComponent,
-      componentProps: {cargador:this.cargadores.filter((cargador)=>cargador.rfc===rfc)[0]}
+      componentProps: {
+        cargador: this.cargadores.filter((cargador) => cargador.rfc === rfc)[0],
+      },
     });
 
     return await modal.present();
   }
 
+  eliminar(cargador: Cargador) {
+    this.cargadoresService.deleteCargador(cargador).subscribe((valor) => {
+      this.cargadores = valor.results
+        ? this.cargadores.filter((c) => c != cargador)
+        : this.cargadores;
+    });
+  }
 }

@@ -69,7 +69,7 @@ export class PrecargasComponent implements OnInit, OnDestroy {
     return await modal.present();
   }
 
-  async abrirRegistro() {
+  async abrirRegistro(precarga: Precarga) {
     const modal = await this.modalControler.create({
       component: PrecargasComponent,
       componentProps: { precarga: this.precarga },
@@ -79,5 +79,15 @@ export class PrecargasComponent implements OnInit, OnDestroy {
 
   cerrar() {
     this.modalControler.dismiss();
+  }
+
+  eliminar(precarga: Precarga) {
+    this.precargaService
+      .deletePrecarga(precarga.empresa, precarga.id)
+      .subscribe((val) => {
+        this.precargas = val.results
+          ? this.precargas.filter((p) => p != precarga)
+          : this.precargas;
+      });
   }
 }
