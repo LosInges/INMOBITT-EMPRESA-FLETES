@@ -66,7 +66,7 @@ export class AltaComponent implements OnInit, OnChanges {
     private cargadoresServices: CargadoresService,
     private fletesServices: FletesService,
     private transporteFletesService: TransporteFleteService
-  ) {}
+  ) { }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
   }
