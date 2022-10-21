@@ -52,7 +52,17 @@ export class TransportesPage implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: AltaComponent
     });
-    
+
     return await modal.present();
   }
+
+  eliminar(transporte: Transporte){
+    this.transportesService.deleteTransporte(transporte).subscribe((val)=>{
+      this.transportes = val.results
+      ? this.transportes.filter((t) => t != transporte)
+      : this.transportes;
+    });
+  }
+
+
 }
