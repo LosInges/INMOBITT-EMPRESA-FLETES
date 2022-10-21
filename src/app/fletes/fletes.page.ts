@@ -47,10 +47,9 @@ export class FletesPage implements OnInit, OnDestroy {
       this.eventosRouter.unsubscribe();
     }
   }
-  async abrirRegistro(){
+  async abrirRegistro() {
     const modal = await this.modalController.create({
       component: AltaComponent,
-
     });
 
     return await modal.present();

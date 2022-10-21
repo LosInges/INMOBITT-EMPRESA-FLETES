@@ -1,10 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-
-      <ion-back-button defaultHref="fletes/precargas">
-
-      </ion-back-button>
+      <ion-back-button defaultHref="fletes/precargas"> </ion-back-button>
     </ion-buttons>
     <ion-title color="secondary">PRECARGA</ion-title>
   </ion-toolbar>
@@ -158,15 +155,11 @@
       </ion-button>
 
       <ion-button
-        *ngIf="consulta"
-        class="ion-float-right ion-margin-top"
-        fill="solid"
-        (click)="registrarFlete()"
+        class="ion-margin-top"
+        type="submit"
+        color="light"
+        [routerLink]="consulta ? ['/', 'fletes', 'precargas'] : ['/', 'fletes']"
       >
-        ACEPTAR
-      </ion-button>
-
-      <ion-button class="ion-margin-top" type="submit" color="light" [routerLink]="consulta ? ['/', 'fletes', 'precargas'] : ['/', 'fletes']">
         CERRAR
       </ion-button>
     </ion-card-content>
