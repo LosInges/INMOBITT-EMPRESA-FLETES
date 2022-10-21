@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { Paquete } from '../../interfaces/paquete';
+import { Flete } from '../../interfaces/flete';
 
 @Component({
   selector: 'app-paquete',
@@ -7,12 +10,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./paquete.component.scss'],
 })
 export class PaqueteComponent implements OnInit {
-  id = this.activatedRoute.snapshot.paramMap.get('id');
-  flete = this.activatedRoute.snapshot.paramMap.get('flete');
+  @Input() id: string; 
+  @Input() flete: Flete; 
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(private modalController: ModalController) { }
 
   ngOnInit() {
     console.log(this.id, this.flete);
   }
+
+  cerrar() { this.modalController.dismiss() }
+  actualizarCargador() { }
 }
