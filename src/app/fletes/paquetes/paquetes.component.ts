@@ -2,9 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { v4 as uuidv4 } from 'uuid';
 import { ModalController } from '@ionic/angular';
+<<<<<<< HEAD
+import { Paquete } from '../interfaces/paquete';
+import { InfoPaquetesComponent } from './info-paquetes/info-paquetes.component';
+=======
 import { TransporteFlete } from '../interfaces/transporte-flete';
 import { TransporteFleteService } from '../services/transporte-flete.service';
 
+>>>>>>> main
 
 @Component({
   selector: 'app-paquetes',
@@ -23,8 +28,11 @@ export class PaquetesComponent implements OnInit {
   constructor(
     private router: Router,
     private modalController: ModalController,
+<<<<<<< HEAD
+=======
     private activedRoute: ActivatedRoute,
     private transporteFleteService: TransporteFleteService
+>>>>>>> main
   ) {
 
   }
@@ -56,5 +64,12 @@ export class PaquetesComponent implements OnInit {
     // })
     // modal.onDidDismiss().then(v => console.log(v))
     // return await modal.present();
+  }
+
+  async verInformacion(){
+    const modal = await this.modalController.create({
+      component: InfoPaquetesComponent
+    })
+    return await modal.present();
   }
 }
