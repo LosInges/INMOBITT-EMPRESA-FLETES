@@ -66,7 +66,7 @@ export class AltaComponent implements OnInit, OnChanges {
     private cargadoresServices: CargadoresService,
     private fletesServices: FletesService,
     private transporteFletesService: TransporteFleteService
-  ) { }
+  ) {}
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
   }
@@ -83,7 +83,9 @@ export class AltaComponent implements OnInit, OnChanges {
     this.transporteServices
       .getTransportes(this.detalleFlete.empresa)
       .subscribe((transportes) => {
-        this.transportes = transportes;
+        this.transportes = transportes.filter(
+          (transporte) => transporte.activo
+        );
       });
     this.cargadoresServices
       .getCargadores(this.detalleFlete.empresa)
