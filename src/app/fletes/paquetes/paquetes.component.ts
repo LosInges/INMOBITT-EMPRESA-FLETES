@@ -7,7 +7,6 @@ import { TransporteFlete } from '../interfaces/transporte-flete';
 import { TransporteFleteService } from '../services/transporte-flete.service';
 import { InfoPaquetesComponent } from './info-paquetes/info-paquetes.component';
 
-
 @Component({
   selector: 'app-paquetes',
   templateUrl: './paquetes.component.html',
@@ -20,50 +19,44 @@ export class PaquetesComponent implements OnInit {
     transporte: '',
     paquete: [],
     cargadores: [],
-  }
+  };
 
   constructor(
     private router: Router,
     private modalController: ModalController,
     private activedRoute: ActivatedRoute,
     private transporteFleteService: TransporteFleteService
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
     this.activedRoute.params.subscribe((params) => {
       //Solicitar info de transporte flete y guardar los paquetes de la respuesta en paquetes
-      this.transporteFleteService.getTransportesFlete(params.id).subscribe(transporteFlete => {
-        this.transporteFlete = transporteFlete
-        this.paquetes = transporteFlete.paquete
-      })
-    })
-
+      this.transporteFleteService
+        .getTransportesFlete(params.id)
+        .subscribe((transporteFlete) => {
+          this.transporteFlete = transporteFlete;
+          this.paquetes = transporteFlete.paquete;
+        });
+    });
   }
 
   async altaPaquete() {
     if (this.paquetes) {
-      this.paquetes.push(uuidv4())
+      this.paquetes.push(uuidv4());
+    } else {
+      this.paquetes = [uuidv4()];
+      this.transporteFlete.paquete = this.paquetes;
     }
-    else {
-      this.paquetes = [uuidv4()]
-      this.transporteFlete.paquete = this.paquetes
-    }
-    this.transporteFleteService.postTransportesFlete(this.transporteFlete).subscribe()
-    //Actualizar transporteFlete
-    // const modal = await this.modalController.create({
-    //   component: PaqueteComponent,
-    //   componentProps: { id: uuidv4() }
-    // })
-    // modal.onDidDismiss().then(v => console.log(v))
-    // return await modal.present();
+    this.transporteFleteService
+      .postTransportesFlete(this.transporteFlete)
+      .subscribe();
   }
 
-  async verInformacion(){
+  async verInformacion() {
     const modal = await this.modalController.create({
-      component: InfoPaquetesComponent
-    })
+      component: InfoPaquetesComponent,
+      componentProps: { flete: this.transporteFlete.flete },
+    });
     return await modal.present();
   }
 }

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Cargador } from '../../interfaces/cargador';
-import { Transporte } from '../../interfaces/transporte';
+import { TransporteFlete } from '../../interfaces/transporte-flete';
 import { CargadoresService } from '../../services/cargadores.service';
 import { TransporteFleteService } from '../../services/transporte-flete.service';
 @Component({
@@ -12,8 +12,14 @@ import { TransporteFleteService } from '../../services/transporte-flete.service'
 export class InfoPaquetesComponent implements OnInit {
   @Input() flete: string;
   cargadores: Cargador[] = [];
-  transporte: string;
   cargadoresEmpresa: Cargador[] = [];
+  cargador: string;
+  transporteFlete: TransporteFlete = {
+    flete: '',
+    transporte: '',
+    paquete: [],
+    cargadores: [],
+  };
 
   constructor(
     private modalController: ModalController,
@@ -25,8 +31,8 @@ export class InfoPaquetesComponent implements OnInit {
     this.transporteFletesService
       .getTransportesFlete(this.flete)
       .subscribe((transporteFlete) => {
-        this.transporte = transporteFlete.transporte;
-        transporteFlete.cargadores.forEach((cargador) => {
+        this.transporteFlete = transporteFlete;
+        transporteFlete.cargadores?.forEach((cargador) => {
           if (this.cargadores)
             this.cargadoresService
               .getCargador('empresa@mail.com', cargador)
@@ -38,17 +44,39 @@ export class InfoPaquetesComponent implements OnInit {
         });
       });
 
-      this.cargadoresService.getCargadores('empresa@mail.com').subscribe((c) =>
-        this.cargadoresEmpresa = c
-
-      )
+    this.cargadoresService
+      .getCargadores('empresa@mail.com')
+      .subscribe((c) => (this.cargadoresEmpresa = c));
   }
 
   cerrar() {
-    return this.modalController.dismiss();
+    this.transporteFlete.cargadores = this.cargadores.map(
+      (cargador) => cargador.rfc
+    );
+    this.transporteFletesService
+      .postTransportesFlete(this.transporteFlete)
+      .subscribe((val) => {
+        if (val.results) this.modalController.dismiss();
+      });
   }
 
-  eliminar(cargador: string) {}
+  eliminar(cargador: Cargador) {
+    this.cargadores = this.cargadores.filter((c) => c != cargador);
+  }
 
-  agregar() {}
+  agregar() {
+    if (!this.cargador) return;
+    if (
+      this.cargadores.filter((cargador) => cargador.rfc == this.cargador)
+        .length == 0
+    )
+      if (this.cargadores)
+        this.cargadores.push(
+          this.cargadoresEmpresa.filter((c) => c.rfc == this.cargador)[0]
+        );
+      else
+        this.cargadores = [
+          this.cargadoresEmpresa.filter((c) => c.rfc == this.cargador)[0],
+        ];
+  }
 }
