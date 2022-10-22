@@ -13,12 +13,8 @@ import { PaqueteComponent } from './paquetes/paquete/paquete.component';
 import { PaquetesComponent } from './paquetes/paquetes.component';
 import { PrecargasComponent } from './precargas/precargas.component';
 import { DetalleComponent as DetallePrecarga } from '../fletes/precargas/detalle/detalle.component';
-<<<<<<< HEAD
-import { InfoPaquetesComponent } from './paquetes/info-paquetes/info-paquetes.component';
-=======
-import { DetalleFleteComponent } from './detalle-flete/detalle-flete.component';
 import { DetallePaqueteComponent } from './paquetes/detalle-paquete/detalle-paquete.component';
->>>>>>> main
+import { InfoPaquetesComponent } from './paquetes/info-paquetes/info-paquetes.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, FletesPageRoutingModule],
@@ -30,12 +26,8 @@ import { DetallePaqueteComponent } from './paquetes/detalle-paquete/detalle-paqu
     PaquetesComponent,
     PrecargasComponent,
     DetallePrecarga,
-<<<<<<< HEAD
-    InfoPaquetesComponent
-=======
-    DetalleFleteComponent,
+    InfoPaquetesComponent,
     DetallePaqueteComponent
->>>>>>> main
   ],
 })
 export class FletesPageModule {}

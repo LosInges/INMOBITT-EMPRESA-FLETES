@@ -22,8 +22,8 @@ export class CargadoresService {
     );
   }
 
-  getCargador(empresa: string, rfc: string): Observable<Cargador[]> {
-    return this.httpClient.get<Cargador[]>(
+  getCargador(empresa: string, rfc: string): Observable<Cargador> {
+    return this.httpClient.get<Cargador>(
       `${environment.api}/cargador/${empresa}/${rfc}`
     );
   }
