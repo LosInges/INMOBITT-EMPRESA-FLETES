@@ -1,0 +1,60 @@
+<!--
+  ion-input tipo texto para mostrar tranporte
+  ion-select para mostrar cargadores
+  con botón agregar
+  en un sliding || con opción de eliminar
+    lista de cargadores motrando el nombredel cargador
+-->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close-circle" color="secondary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="secondary">
+        INFORMACIÓN DE PAQUETES
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-card>
+        <ion-item-sliding>
+          <ion-item>
+            <ion-grid>
+              <ion-row>
+                <ion-col class="ion-margin-top ion-margin-bottom">
+                  <ion-item>
+                    <!---MOSTRAR TRANSPORTES-->
+                    <ion-input [(ngModel)]="transporte" placeholder="TRANSPORTES"> </ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col class="ion-margin-top ion-margin-bottom">
+                  <ion-item>
+                    <ion-select placeholder="PARA MOSTRAR CARGADORES ">
+
+                    </ion-select>
+                  </ion-item>
+
+                  <ion-buttons>
+                    <ion-button (click)="agregar()" color="secondary" > AGREGAR </ion-button>
+                  </ion-buttons>
+
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <!---->
+          <ion-item-options side="end" (ionSwipe)="eliminar()">
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-card>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { DetalleFleteComponent } from './detalle-flete.component';
+import { InfoPaquetesComponent } from './info-paquetes.component';
 
-describe('DetalleFleteComponent', () => {
-  let component: DetalleFleteComponent;
-  let fixture: ComponentFixture<DetalleFleteComponent>;
+describe('InfoPaquetesComponent', () => {
+  let component: InfoPaquetesComponent;
+  let fixture: ComponentFixture<InfoPaquetesComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetalleFleteComponent ],
+      declarations: [ InfoPaquetesComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DetalleFleteComponent);
+    fixture = TestBed.createComponent(InfoPaquetesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
