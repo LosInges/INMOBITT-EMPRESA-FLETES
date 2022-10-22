@@ -1,6 +1,4 @@
 export interface Paquete {
-  flete: string;
-  transporte: string;
-  paquete: string;
-  cargadores: string[];
+  id: string;
+  items: string[];
 }
