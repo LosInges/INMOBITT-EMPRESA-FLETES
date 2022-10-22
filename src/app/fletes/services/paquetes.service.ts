@@ -21,4 +21,15 @@ export class PaquetesService {
       body: { paquete },
     });
   }
+
+  postPaquetes(paquete: Paquete): Observable<any> {
+    return this.httpClient.post<any>(
+      `${environment.api}/paquetes`,
+      paquete,
+      {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
 }
