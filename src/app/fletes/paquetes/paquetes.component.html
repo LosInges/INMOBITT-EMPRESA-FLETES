@@ -21,9 +21,9 @@
 
 <ion-content>
   <!--TABLA = TARJETAS-->
-  <ion-card>
+  <ion-card *ngFor="let paquete of paquetes">
     <ion-card-header>
-      <ion-card-title> NOMBRE </ion-card-title>
+      <ion-card-title> {{paquete}} </ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-item>

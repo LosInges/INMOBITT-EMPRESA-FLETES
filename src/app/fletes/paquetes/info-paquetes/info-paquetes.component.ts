@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Cargador } from '../../interfaces/cargador';
 import { Transporte } from '../../interfaces/transporte';
@@ -9,21 +9,33 @@ import { TransporteFleteService } from '../../services/transporte-flete.service'
   styleUrls: ['./info-paquetes.component.scss'],
 })
 export class InfoPaquetesComponent implements OnInit {
-  cargadores: Cargador[] = [];
-  transporte: Transporte
+  @Input() flete: string
+  cargadores: string[] = [];
+  transporte: string
+  cargadoresEmpresa: string[] = []
 
   constructor(
     private modalController: ModalController,
-    private transporteFletes: TransporteFleteService
+    private transporteFletesService: TransporteFleteService
   ) { }
 
-  ngOnInit() {}
+
+  ngOnInit() {
+    this.transporteFletesService
+    .getTransportesFlete(this.flete).subscribe((transporteFlete)=>{
+      this.transporte = transporteFlete.transporte;
+      this.cargadores = transporteFlete.cargadores
+    });
+  }
 
   cerrar(){
     return this.modalController.dismiss()
   }
 
-  eliminar(){
+
+
+  eliminar(cargador: string){
+
   }
 
   agregar(){
