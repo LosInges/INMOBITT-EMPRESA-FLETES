@@ -21,31 +21,41 @@
     <ion-col size="3">
       <ion-item>
         <!---MOSTRAR TRANSPORTES-->
-        <ion-input [(ngModel)]="transporte" placeholder="TRANSPORTES">
+        <ion-input [(ngModel)]="transporteFlete.transporte">
         </ion-input>
       </ion-item>
     </ion-col>
     <ion-col size="6">
       <ion-item>
-        <ion-select placeholder="PARA MOSTRAR CARGADORES "> </ion-select>
+        <ion-select [(ngModel)]="cargador" placeholder="SELECCIONE UN CARGADOR">
+          <ion-select-option
+            *ngFor="let cargador of cargadoresEmpresa"
+            [value]="cargador.rfc"
+            >{{ cargador.nombre }} {{ cargador.apellido }}</ion-select-option
+          >
+        </ion-select>
       </ion-item>
     </ion-col>
     <ion-col size="3">
       <ion-button (click)="agregar()" color="secondary"> AGREGAR </ion-button>
     </ion-col>
-
-    <ion-row>
-      <ion-col>
-        <ion-list>
-          <ion-item-sliding *ngFor="let cargador of cargadores">
-            <ion-item>
-              <ion-label>
-                {{ cargador.nombre }} {{cargador.apellido}}
-              </ion-label>
-            </ion-item>
-          </ion-item-sliding>
-        </ion-list>
-      </ion-col>
-    </ion-row>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-list>
+        <ion-item-sliding *ngFor="let cargador of cargadores">
+          <ion-item>
+            <ion-label>
+              {{ cargador.nombre }} {{ cargador.apellido }}
+            </ion-label>
+          </ion-item>
+          <ion-item-options side="end" (ionSwipe)="eliminar(cargador)">
+            <ion-item-option expandable color="danger">
+              <ion-icon name="trash-outline"> </ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-col>
   </ion-row>
 </ion-content>
