@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AltaComponent } from './alta/alta.component';
 
 import { FletesPage } from './fletes.page';
+import { DetallePaqueteComponent } from './paquetes/detalle-paquete/detalle-paquete.component';
 import { PaqueteComponent } from './paquetes/paquete/paquete.component';
 import { PaquetesComponent } from './paquetes/paquetes.component';
 import { PrecargaComponent } from './precargas/precarga/precarga.component';
@@ -39,7 +40,7 @@ const routes: Routes = [
   },
   {
     path: ':flete/paquetes/:id/items',
-    component: PaqueteComponent,
+    component: DetallePaqueteComponent,
   },
 ];
 
