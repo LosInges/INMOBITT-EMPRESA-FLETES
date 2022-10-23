@@ -5,6 +5,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Cargador } from '../fletes/interfaces/cargador';
 import { CargadoresService } from '../fletes/services/cargadores.service';
 import { DetalleComponent } from './detalle/detalle.component';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-cargadores',
@@ -14,11 +15,13 @@ import { DetalleComponent } from './detalle/detalle.component';
 export class CargadoresPage implements OnInit, OnDestroy {
   eventosRouter: any;
   cargadores: Cargador[] = [];
+  empresa: string
 
   constructor(
     private router: Router,
     private cargadoresService: CargadoresService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private sessionService: SessionService
   ) {
     this.eventosRouter = this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -28,11 +31,14 @@ export class CargadoresPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.cargadoresService
-      .getCargadores('empresa@mail.com')
-      .subscribe((cargadores) => {
-        this.cargadores = cargadores;
-      });
+    this.sessionService.get('email')?.then(empresa => {
+      this.empresa = empresa
+      this.cargadoresService
+        .getCargadores(empresa)
+        .subscribe((cargadores) => {
+          this.cargadores = cargadores;
+        });
+    })
   }
 
   ngOnDestroy(): void {
@@ -44,8 +50,12 @@ export class CargadoresPage implements OnInit, OnDestroy {
   async abrirRegistro() {
     const modal = await this.modalController.create({
       component: AltaComponent,
+      componentProps: { empresa: this.empresa }
     });
-
+    modal.onDidDismiss().then(val => {
+      if (val.data) this.cargadores.push(val.data)
+      else console.log(val)
+    })
     return await modal.present();
   }
 
@@ -56,7 +66,10 @@ export class CargadoresPage implements OnInit, OnDestroy {
         cargador: this.cargadores.filter((cargador) => cargador.rfc === rfc)[0],
       },
     });
-
+    modal.onDidDismiss().then(val => {
+      if (val.data.actualizado)
+        this.cargadores.filter((cargador) => cargador.rfc === rfc)[0] = val.data.cargador
+    })
     return await modal.present();
   }
 

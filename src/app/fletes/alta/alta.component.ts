@@ -66,7 +66,7 @@ export class AltaComponent implements OnInit, OnChanges {
     private cargadoresServices: CargadoresService,
     private fletesServices: FletesService,
     private transporteFletesService: TransporteFleteService
-  ) {}
+  ) { }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
   }
@@ -99,16 +99,15 @@ export class AltaComponent implements OnInit, OnChanges {
   }
 
   registrarFlete() {
-    console.log(this.detalleFlete);
-    console.log(this.transporteFlete);
+    this.transporteFletesService
+      .postTransportesFlete(this.transporteFlete)
+      .subscribe((val) =>{});
     this.fletesServices
       .postFlete(this.detalleFlete)
       .subscribe((respuestaFlete) => {
-        console.log(respuestaFlete);
+        this.modalController.dismiss({ registrado: true })        
       });
-    this.transporteFletesService
-      .postTransportesFlete(this.transporteFlete)
-      .subscribe((val) => console.log(val));
+    
   }
 
   cerrar() {

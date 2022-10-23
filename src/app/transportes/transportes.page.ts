@@ -39,28 +39,35 @@ export class TransportesPage implements OnInit, OnDestroy {
     }
   }
 
-  async abrirDetalle(transporte:Transporte){
+  async abrirDetalle(transporte: Transporte) {
     const modal = await this.modalController.create({
       component: DetalleComponent,
-      componentProps: {transporte}
+      componentProps: { transporte }
     });
+    modal.onDidDismiss().then(val => {
+      if (val.data.actualizado)
+        this.transportes.filter((t) => t == transporte)[0] = val.data.transporte
+    })
     return await modal.present();
   }
 
 
-  async abrirRegistro(){
+  async abrirRegistro() {
     const modal = await this.modalController.create({
       component: AltaComponent
     });
-
+    modal.onDidDismiss().then(val => {
+      if (val.data) this.transportes.push(val.data)
+      else console.log(val)
+    })
     return await modal.present();
   }
 
-  eliminar(transporte: Transporte){
-    this.transportesService.deleteTransporte(transporte).subscribe((val)=>{
+  eliminar(transporte: Transporte) {
+    this.transportesService.deleteTransporte(transporte).subscribe((val) => {
       this.transportes = val.results
-      ? this.transportes.filter((t) => t != transporte)
-      : this.transportes;
+        ? this.transportes.filter((t) => t != transporte)
+        : this.transportes;
     });
   }
 

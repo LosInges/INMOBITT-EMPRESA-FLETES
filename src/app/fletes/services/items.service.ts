@@ -21,9 +21,15 @@ export class ItemsService {
     });
   }
 
-  deleteItem(id: string, idItem: string): Observable<any> {
+  deleteItem(id: string, id_item: string): Observable<any> {
     return this.httpClient.delete<any>(`${environment.api}/item`, {
-      body: { id, idItem },
+      body: { id, id_item },
+    });
+  }
+
+  deleteUltimoItem(idPaquete: string): Observable<any> {
+    return this.httpClient.delete<any>(`${environment.api}/ultimoItem`, {
+      body: { id: idPaquete },
     });
   }
 }

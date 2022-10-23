@@ -1,6 +1,6 @@
 
 import { ModalController } from '@ionic/angular';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Cargador } from 'src/app/fletes/interfaces/cargador';
 import { CargadoresService } from 'src/app/fletes/services/cargadores.service';
@@ -11,6 +11,7 @@ import { CargadoresService } from 'src/app/fletes/services/cargadores.service';
   styleUrls: ['./alta.component.scss'],
 })
 export class AltaComponent implements OnInit, OnDestroy {
+  @Input() empresa: string
   apellido1 = '';
   apellido2 = '';
   eventosRouter: any;
@@ -21,7 +22,7 @@ export class AltaComponent implements OnInit, OnDestroy {
     password: '',
     telefono: '',
     foto: '',
-    empresa: 'empresa@mail.com',
+    empresa: '',
   };
 
   constructor(
@@ -36,7 +37,7 @@ export class AltaComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { this.cargador.empresa = this.empresa }
 
   cerrar() {
     return this.modalController.dismiss();
@@ -51,16 +52,7 @@ export class AltaComponent implements OnInit, OnDestroy {
   registrarCargador() {
     this.cargador.apellido = this.apellido1 + ' ' + this.apellido2;
     this.cargadoresService.postCargador(this.cargador).subscribe((res) => {
-      this.cargador = {
-        rfc: '',
-        nombre: '',
-        apellido: '',
-        password: '',
-        telefono: '',
-        foto: '',
-        empresa: 'empresa@mail.com',
-      };
-      this.router.navigate(['/cargadores']);
+      this.modalController.dismiss(this.cargador)
     });
   }
 
