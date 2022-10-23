@@ -8,6 +8,7 @@ import { Precarga } from '../../interfaces/precarga';
 import { EmpresaService } from '../../services/empresa.service';
 import { FletesService } from '../../services/fletes.service';
 import { PrecargaService } from '../../services/precarga.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-precarga',
@@ -59,6 +60,7 @@ export class PrecargaComponent implements OnInit {
     private precargaService: PrecargaService,
     private activatedRoute: ActivatedRoute,
     private fletesService: FletesService,
+    private router: Router
   ){
   }
 
@@ -100,7 +102,8 @@ export class PrecargaComponent implements OnInit {
      this.precargaService.postPrecarga(this.precarga).subscribe((res) => {
       console.log(res);
     });
-    console.log(this.precarga);
+    console.log(this.precarga); 
+    this.router.navigate(['/fletes/precargas']);
   }
 
 }

@@ -9,7 +9,7 @@ import { TransportesService } from 'src/app/fletes/services/transportes.service'
   templateUrl: './alta.component.html',
   styleUrls: ['./alta.component.scss'],
 })
-export class AltaComponent implements OnInit  {
+export class AltaComponent implements OnInit {
   eventosRouter: any;
   transporte: Transporte = {
     matricula: '',
@@ -21,9 +21,9 @@ export class AltaComponent implements OnInit  {
   constructor(
     private transportesService: TransportesService,
     private modalController: ModalController
-    ){}
+  ) { }
 
-  ngOnInit() {console.log()}
+  ngOnInit() { console.log() }
 
   cerrar() {
     return this.modalController.dismiss();
@@ -32,6 +32,6 @@ export class AltaComponent implements OnInit  {
   registrarTransporte() {
     this.transportesService
       .postTransporte(this.transporte)
-      .subscribe((transporte) => console.log(transporte));
+      .subscribe((transporte) => this.modalController.dismiss(this.transporte));
   }
 }

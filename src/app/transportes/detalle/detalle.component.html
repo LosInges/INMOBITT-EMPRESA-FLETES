@@ -1,9 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button
-        color="secondary"
-      >
+      <ion-button color="secondary">
         CREAR NUEVO
       </ion-button>
     </ion-buttons>
@@ -34,17 +32,14 @@
               <ion-col class="ion-margin-top ion-margin-bottom">
                 <ion-item>
                   <ion-label position="floating"> MATRICULA </ion-label>
-                  <ion-input type="text" [(ngModel)]="transporte.matricula">
+                  <ion-input type="text" [(ngModel)]="transporte.matricula" disabled>
                   </ion-input>
                 </ion-item>
               </ion-col>
               <ion-col class="ion-margin-top ion-margin-bottom">
                 <ion-item>
                   <ion-label position="floating"> EMPRESA </ion-label>
-                  <ion-input
-                    disabled
-                    [(ngModel)]="transporte.empresa"
-                  ></ion-input>
+                  <ion-input disabled [(ngModel)]="transporte.empresa"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -69,12 +64,7 @@
             </ion-row>
           </ion-grid>
         </ion-card-content>
-
         <ion-card-content>
-          <ion-button class="ion-float-right ion-margin-top" fill="solid" (click)="bajaTransporte()" color="danger">
-            DAR DE BAJA
-          </ion-button>
-
           <ion-button class="ion-margin-top" type="submit" color="success" (click)="actualizarTransporte()">
             GUARDAR
           </ion-button>

@@ -16,8 +16,7 @@ export class DetalleComponent implements OnInit {
 
 
   constructor(
-    private modalControler: ModalController,
-
+    private modalControler: ModalController
   ) { }
 
   ngOnInit() {}
@@ -31,7 +30,11 @@ export class DetalleComponent implements OnInit {
       component: AltaComponent,
       componentProps: { precarga: this.precarga, fecha: this.fecha}
     })
+    modal.onDidDismiss().then(val=>{
+      if(val.data?.registrado) this.modalControler.dismiss(this.precarga)
+    })
     return await modal.present()
   }
-
+  
 }
+

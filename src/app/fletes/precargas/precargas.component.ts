@@ -16,7 +16,7 @@ import { Empresa } from '../interfaces/empresa';
 })
 export class PrecargasComponent implements OnInit, OnDestroy {
   estados: Estado[] = this.estadosService.getEstados();
-  precargas?: Precarga[];
+  precargas: Precarga[];
   eventosRouter: any;
   @Input() precarga: Precarga;
   empresas: Empresa[];
@@ -66,6 +66,9 @@ export class PrecargasComponent implements OnInit, OnDestroy {
       component: DetalleComponent,
       componentProps: { precarga, fecha: fecha.toISOString() },
     });
+    modal.onDidDismiss().then(val => {
+      if (val.data) this.precargas = this.precargas.filter(p => precarga != p)
+    })
     return await modal.present();
   }
 

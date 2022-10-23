@@ -25,7 +25,7 @@ export class InfoPaquetesComponent implements OnInit {
     private modalController: ModalController,
     private transporteFletesService: TransporteFleteService,
     private cargadoresService: CargadoresService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.transporteFletesService
@@ -33,14 +33,12 @@ export class InfoPaquetesComponent implements OnInit {
       .subscribe((transporteFlete) => {
         this.transporteFlete = transporteFlete;
         transporteFlete.cargadores?.forEach((cargador) => {
-          if (this.cargadores)
-            this.cargadoresService
-              .getCargador('empresa@mail.com', cargador)
-              .subscribe((c) => (this.cargadores = [c]));
-          else
-            this.cargadoresService
-              .getCargador('empresa@mail.com', cargador)
-              .subscribe((c) => this.cargadores.push(c));
+          this.cargadoresService
+            .getCargador('empresa@mail.com', cargador)
+            .subscribe((c) => {
+              if (this.cargadores.length == 0) this.cargadores = [c]
+              else this.cargadores.push(c)
+            });
         });
       });
 
