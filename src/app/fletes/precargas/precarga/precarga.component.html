@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="fletes/precargas"> </ion-back-button>
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close-circle" color="secondary"></ion-icon>
+       </ion-button>
     </ion-buttons>
     <ion-title color="secondary">PRECARGA</ion-title>
   </ion-toolbar>
@@ -18,14 +20,14 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> ID </ion-label>
-              <ion-input [(ngModel)]="precarga.id" [disabled]="consulta">
+              <ion-input [(ngModel)]="precarga.id"  >
               </ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> EMPRESA </ion-label>
-              <ion-select [(ngModel)]="precarga.empresa" [disabled]="consulta">
+              <ion-select [(ngModel)]="precarga.empresa"  >
                 <ion-select-option value=""
                   >Seleccione una empresa</ion-select-option
                 >
@@ -43,14 +45,14 @@
               <ion-label position="floating"> CLIENTE </ion-label>
               <ion-input
                 [(ngModel)]="precarga.cliente"
-                [disabled]="consulta"
+
               ></ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> TELEFONO </ion-label>
-              <ion-input [(ngModel)]="precarga.telefono" [disabled]="consulta">
+              <ion-input [(ngModel)]="precarga.telefono"  >
               </ion-input>
             </ion-item>
           </ion-col>
@@ -72,7 +74,7 @@
               <ion-input
                 type="number"
                 [(ngModel)]="precarga.cajas_chicas"
-                [disabled]="consulta"
+
               ></ion-input>
             </ion-item>
           </ion-col>
@@ -82,7 +84,7 @@
               <ion-input
                 type="number"
                 [(ngModel)]="precarga.cajas_medianas"
-                [disabled]="consulta"
+
               ></ion-input>
             </ion-item>
           </ion-col>
@@ -92,7 +94,7 @@
               <ion-input
                 type="number"
                 [(ngModel)]="precarga.cajas_grandes"
-                [disabled]="consulta"
+
               ></ion-input>
             </ion-item>
           </ion-col>
@@ -102,7 +104,7 @@
               <ion-input
                 type="number"
                 [(ngModel)]="precarga.muebles"
-                [disabled]="consulta"
+
               ></ion-input>
             </ion-item>
           </ion-col>
@@ -121,14 +123,14 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> ORIGEN </ion-label>
-              <ion-input [disabled]="consulta"> </ion-input>
+              <ion-input  > </ion-input>
             </ion-item>
           </ion-col>
 
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> DESTINO </ion-label>
-              <ion-input [disabled]="consulta"> </ion-input>
+              <ion-input  > </ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -137,7 +139,7 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label>Fecha y Hora</ion-label>
-              <ion-datetime [(ngModel)]="fecha" [disabled]="consulta">
+              <ion-datetime [(ngModel)]="fecha"  >
                 <span slot="time-label">Hora</span>
               </ion-datetime>
             </ion-item>
@@ -146,21 +148,11 @@
       </ion-grid>
 
       <ion-button
-        *ngIf="!consulta"
         class="ion-float-right ion-margin-top"
         fill="solid"
         (click)="registrarPrecarga()"
       >
         SOLICITAR
-      </ion-button>
-
-      <ion-button
-        class="ion-margin-top"
-        type="submit"
-        color="light"
-        [routerLink]="consulta ? ['/', 'fletes', 'precargas'] : ['/', 'fletes']"
-      >
-        CERRAR
       </ion-button>
     </ion-card-content>
   </ion-card>

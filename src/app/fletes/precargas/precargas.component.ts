@@ -8,6 +8,8 @@ import { PrecargaService } from '../services/precarga.service';
 import { DetalleComponent } from './detalle/detalle.component';
 import { EmpresaService } from '../services/empresa.service';
 import { Empresa } from '../interfaces/empresa';
+import { SessionService } from 'src/app/services/session.service';
+import { PrecargaComponent } from './precarga/precarga.component';
 
 @Component({
   selector: 'app-precargas',
@@ -18,15 +20,16 @@ export class PrecargasComponent implements OnInit, OnDestroy {
   estados: Estado[] = this.estadosService.getEstados();
   precargas: Precarga[];
   eventosRouter: any;
-  @Input() precarga: Precarga;
   empresas: Empresa[];
+  empresa: string;
 
   constructor(
     private empresaService: EmpresaService,
     private estadosService: EstadosService,
     private precargaService: PrecargaService,
     private modalControler: ModalController,
-    private router: Router
+    private router: Router,
+    private sessionService: SessionService
   ) {
     this.eventosRouter = this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -36,14 +39,15 @@ export class PrecargasComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.empresaService
-      .getEmpresas()
-      .subscribe((empresas) => (this.empresas = empresas));
-    this.precargaService
-      .getPrecargas('empresa@mail.com')
-      .subscribe((precargas) => {
+    this.sessionService.get('empresa')?.then((empresa) => {
+      this.empresa = empresa
+      this.empresaService
+        .getEmpresas()
+        .subscribe((empresas) => (this.empresas = empresas));
+      this.precargaService.getPrecargas(empresa).subscribe((precargas) => {
         this.precargas = precargas;
       });
+    });
   }
 
   ngOnDestroy(): void {
@@ -66,16 +70,24 @@ export class PrecargasComponent implements OnInit, OnDestroy {
       component: DetalleComponent,
       componentProps: { precarga, fecha: fecha.toISOString() },
     });
-    modal.onDidDismiss().then(val => {
-      if (val.data) this.precargas = this.precargas.filter(p => precarga != p)
-    })
+    modal.onDidDismiss().then((val) => {
+      if (val.data)
+        this.precargas = this.precargas.filter((p) => precarga != p);
+    });
     return await modal.present();
   }
 
-  async abrirRegistro(precarga: Precarga) {
+  async abrirRegistro() {
     const modal = await this.modalControler.create({
-      component: PrecargasComponent,
-      componentProps: { precarga: this.precarga },
+      component: PrecargaComponent,
+      componentProps: { empresas: this.empresas },
+    });
+    modal.onDidDismiss().then((val) => {
+      if (val.data) {
+        if(val.data.empresa == this.empresa) this.precargas.push(val.data);
+      }
+
+      console.log(val)
     });
     return await modal.present();
   }
