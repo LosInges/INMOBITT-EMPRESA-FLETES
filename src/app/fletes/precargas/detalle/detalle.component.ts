@@ -23,7 +23,7 @@ export class DetalleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sessionService.get('email')?.then(empresa =>{
+    this.sessionService.get('empresa')?.then(empresa =>{
       this.empresa= empresa
      //precarga service ..()
     })

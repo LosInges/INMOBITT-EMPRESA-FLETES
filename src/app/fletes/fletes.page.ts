@@ -1,16 +1,11 @@
 import { ModalController } from '@ionic/angular';
 import { AltaComponent } from './alta/alta.component';
-import {
-  Component,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SessionService } from '../services/session.service';
 import { Flete } from './interfaces/flete';
 import { FletesService } from './services/fletes.service';
+import { TransporteFleteService } from './services/transporte-flete.service';
 //[routerLink]="['/', 'fletes', flete.id, 'paquetes']"
 
 @Component({
@@ -18,39 +13,41 @@ import { FletesService } from './services/fletes.service';
   templateUrl: './fletes.page.html',
   styleUrls: ['./fletes.page.scss'],
 })
-export class FletesPage implements OnInit, OnDestroy, OnChanges {
+export class FletesPage implements OnInit {
   eventosRouter: any;
   fletes: Flete[] = [];
   constructor(
     private router: Router,
     private sessionService: SessionService,
     private fletesService: FletesService,
+    private transporteFleteService: TransporteFleteService,
     private modalController: ModalController
-  ) {
-    this.eventosRouter = this.router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd) {
-        this.ngOnInit();
-      }
-    });
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-  }
+  ) {}
 
   ngOnInit() {
-    this.sessionService.get('email')?.then((empresa) => {
+    this.sessionService.get('empresa')?.then((empresa) => {
       this.fletesService.getFletesE(empresa).subscribe((fletes) => {
-        this.fletes = fletes;
+        this.sessionService.get('tipo')?.then((tipo) => {
+          if (tipo === 'cargador')
+            this.sessionService.get('rfc')?.then((rfc) => {
+              fletes.forEach((flete) =>
+                this.transporteFleteService
+                  .getTransportesFlete(flete.id)
+                  .subscribe((transporteFlete) => {
+                    console.log(transporteFlete);
+                    if (transporteFlete.cargadores != null) {
+                      if (transporteFlete.cargadores.indexOf(rfc) >= 0)
+                        this.fletes.push(flete);
+                    }
+                  })
+              );
+            });
+          else this.fletes = fletes;
+        });
       });
     });
   }
-  
 
-  ngOnDestroy(): void {
-    if (this.eventosRouter) {
-      this.eventosRouter.unsubscribe();
-    }
-  }
   async abrirRegistro() {
     const modal = await this.modalController.create({
       component: AltaComponent,

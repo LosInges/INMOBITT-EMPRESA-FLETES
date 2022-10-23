@@ -29,10 +29,10 @@ export class CargadoresPage implements OnInit, OnDestroy {
       }
     });
   }
-  
+
 
   ngOnInit() {
-    this.sessionService.get('email')?.then(empresa => {
+    this.sessionService.get('empresa')?.then(empresa => {
       this.empresa = empresa
       this.cargadoresService
         .getCargadores(empresa)
