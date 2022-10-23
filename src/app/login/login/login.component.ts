@@ -36,14 +36,14 @@ export class LoginComponent implements OnInit {
         if (res.tipo === 'cargador') {
           promesas.push(this.sessionService.set('empresa', res.empresa));
         }
-        Promise.all(promesas).then(() => {
-          this.router.navigate(['/fletes']);
+        Promise.all(promesas).then((val) => {
+          console.log(val)
         });
       },
       (err) => console.log(err)
     );
   }
   cerrar(){
-    this.modalController.dismiss(); 
+    this.modalController.dismiss();
   }
 }

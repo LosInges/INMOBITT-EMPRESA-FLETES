@@ -38,19 +38,13 @@ export class FletesPage implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit() {
-    this.sessionService.keys()?.then((data) => {
-      if (data) {
-        data.forEach((key) => {
-          this.sessionService.get(key).then((value) => {
-            console.log(key + ': ' + value);
-          });
-        });
-      }
-    });
-    this.fletesService.getFletesE('empresa@mail.com').subscribe((fletes) => {
-      this.fletes = fletes;
+    this.sessionService.get('email')?.then((empresa) => {
+      this.fletesService.getFletesE(empresa).subscribe((fletes) => {
+        this.fletes = fletes;
+      });
     });
   }
+  
 
   ngOnDestroy(): void {
     if (this.eventosRouter) {

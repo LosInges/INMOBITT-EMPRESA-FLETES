@@ -1,6 +1,5 @@
 import { ModalController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 import { Transporte } from 'src/app/fletes/interfaces/transporte';
 import { TransportesService } from 'src/app/fletes/services/transportes.service';
 
@@ -10,20 +9,23 @@ import { TransportesService } from 'src/app/fletes/services/transportes.service'
   styleUrls: ['./alta.component.scss'],
 })
 export class AltaComponent implements OnInit {
-  eventosRouter: any;
+  @Input() empresa: string;
+
   transporte: Transporte = {
     matricula: '',
     capacidad: 0,
-    empresa: 'empresa@mail.com',
+    empresa: '',
     activo: true,
   };
 
   constructor(
     private transportesService: TransportesService,
     private modalController: ModalController
-  ) { }
+  ) {}
 
-  ngOnInit() { console.log() }
+  ngOnInit() {
+    this.transporte.empresa = this.empresa;
+  }
 
   cerrar() {
     return this.modalController.dismiss();
