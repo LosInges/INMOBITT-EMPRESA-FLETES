@@ -29,12 +29,15 @@ export class LoginComponent implements OnInit {
   login() {
     this.loginService.login(this.email, this.password).subscribe(
       (res) => {
+        console.log(res)
+
         const promesas: Promise<any>[] = [
           this.sessionService.set('email', res.session.email),
           this.sessionService.set('tipo', res.session.tipo),
         ];
-        if (res.tipo === 'cargador') {
-          promesas.push(this.sessionService.set('empresa', res.empresa));
+        if (res.session.tipo === 'cargador' ) {
+          promesas.push(this.sessionService.set('empresa', res.session.empresa));
+          console.log('ENTRÓ')
         }
         Promise.all(promesas).then((val) => {
           console.log(val)
