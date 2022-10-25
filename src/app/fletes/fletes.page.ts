@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { SessionService } from '../services/session.service';
 import { Flete } from './interfaces/flete';
 import { FletesService } from './services/fletes.service';
-import { TransporteFleteService } from './services/transporte-flete.service';
 //[routerLink]="['/', 'fletes', flete.id, 'paquetes']"
 
 @Component({
@@ -20,30 +19,13 @@ export class FletesPage implements OnInit {
     private router: Router,
     private sessionService: SessionService,
     private fletesService: FletesService,
-    private transporteFleteService: TransporteFleteService,
     private modalController: ModalController
   ) {}
 
   ngOnInit() {
     this.sessionService.get('empresa')?.then((empresa) => {
       this.fletesService.getFletesE(empresa).subscribe((fletes) => {
-        this.sessionService.get('tipo')?.then((tipo) => {
-          if (tipo === 'cargador')
-            this.sessionService.get('rfc')?.then((rfc) => {
-              fletes.forEach((flete) =>
-                this.transporteFleteService
-                  .getTransportesFlete(flete.id)
-                  .subscribe((transporteFlete) => {
-                    console.log(transporteFlete);
-                    if (transporteFlete.cargadores != null) {
-                      if (transporteFlete.cargadores.indexOf(rfc) >= 0)
-                        this.fletes.push(flete);
-                    }
-                  })
-              );
-            });
-          else this.fletes = fletes;
-        });
+          this.fletes = fletes;
       });
     });
   }
@@ -52,7 +34,6 @@ export class FletesPage implements OnInit {
     const modal = await this.modalController.create({
       component: AltaComponent,
     });
-
     return await modal.present();
   }
 
