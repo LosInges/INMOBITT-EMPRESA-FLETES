@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
         else{
           promesas.push(this.sessionService.set('empresa', res.session.email));
         }
+        this.cerrar()
         Promise.all(promesas).then((val) => {
           this.sessionService.keys()?.then(v=>{
             console.log(v)
@@ -50,7 +51,15 @@ export class LoginComponent implements OnInit {
       (err) => console.log(err)
     );
   }
+
+  onKeydown(event: Event){
+    console.log(event)
+    
+    this.login()
+    this.cerrar()
+  }
   cerrar(){
     this.modalController.dismiss();
   }
+
 }

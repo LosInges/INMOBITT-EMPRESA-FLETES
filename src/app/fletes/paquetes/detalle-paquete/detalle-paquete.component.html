@@ -1,8 +1,8 @@
 <!--
-  Lista de items en el paquete con un boton de agrear item e implemetar el formulario que esta 
+  Lista de items en el paquete con un boton de agrear item e implemetar el formulario que esta
   en el paquete.component.html
 
-  Generar un componente nuevo para guardar los archivos de paquete y usarlo de formulario de 
+  Generar un componente nuevo para guardar los archivos de paquete y usarlo de formulario de
   registro cuando se registre un item se debe cerrar el modal retornando el item agregado,
   junto con esta operacion se tiene que guardar el item en la tabla de paquetes utilizando el
   servicio de items.
@@ -31,7 +31,7 @@
     <ion-title color="secondary">PAQUETES</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="agregarItem()">      
+      <ion-button (click)="agregarItem()">
         AGREGAR ITEM
       </ion-button>
     </ion-buttons>
@@ -81,7 +81,7 @@
                 type="submit"
                 color="secondary"
               >
-              ANCHO: {{item.ancho_item}} 
+              ANCHO: {{item.ancho_item}}
               </ion-card-title>
             </ion-col>
 
@@ -103,7 +103,7 @@
           <ion-icon name="trash-outline"> </ion-icon>
         </ion-item-option>
       </ion-item-options>
-      
+
     </ion-item-sliding>
   </ion-card>
 </ion-content>

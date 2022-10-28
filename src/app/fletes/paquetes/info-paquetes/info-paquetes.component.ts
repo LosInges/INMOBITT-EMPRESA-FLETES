@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { SessionService } from 'src/app/services/session.service';
 import { Cargador } from '../../interfaces/cargador';
 import { TransporteFlete } from '../../interfaces/transporte-flete';
 import { CargadoresService } from '../../services/cargadores.service';
@@ -24,27 +25,31 @@ export class InfoPaquetesComponent implements OnInit {
   constructor(
     private modalController: ModalController,
     private transporteFletesService: TransporteFleteService,
-    private cargadoresService: CargadoresService
-  ) { }
+    private cargadoresService: CargadoresService,
+    private sessionService: SessionService
+  ) {}
 
   ngOnInit() {
-    this.transporteFletesService
-      .getTransportesFlete(this.flete)
-      .subscribe((transporteFlete) => {
-        this.transporteFlete = transporteFlete;
-        transporteFlete.cargadores?.forEach((cargador) => {
-          this.cargadoresService
-            .getCargador('empresa@mail.com', cargador)
-            .subscribe((c) => {
-              if (this.cargadores.length == 0) this.cargadores = [c]
-              else this.cargadores.push(c)
-            });
+    this.sessionService.get('empresa').then((empresa) => {
+      if (!empresa) return;
+      this.transporteFletesService
+        .getTransportesFlete(this.flete)
+        .subscribe((transporteFlete) => {
+          this.transporteFlete = transporteFlete;
+          transporteFlete.cargadores?.forEach((cargador) => {
+            this.cargadoresService
+              .getCargador(empresa, cargador)
+              .subscribe((c) => {
+                if (this.cargadores.length == 0) this.cargadores = [c];
+                else this.cargadores.push(c);
+              });
+          });
         });
-      });
 
-    this.cargadoresService
-      .getCargadores('empresa@mail.com')
-      .subscribe((c) => (this.cargadoresEmpresa = c));
+      this.cargadoresService
+        .getCargadores(empresa)
+        .subscribe((c) => (this.cargadoresEmpresa = c));
+    });
   }
 
   cerrar() {
