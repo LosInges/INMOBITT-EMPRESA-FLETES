@@ -9,7 +9,7 @@
       [(ngModel)]="email"
       type="text"
       required
-      placeholder="Nombre"
+      placeholder="Correo"
     ></ion-input>
     <ion-label>
       <ion-icon name="person"></ion-icon>
@@ -23,13 +23,12 @@
       type="text"
       required
       placeholder="Contraseña"
+      (keydown.enter)="onKeydown($event)"
     ></ion-input>
     <ion-label>
       <ion-icon name="lock-closed"></ion-icon>
     </ion-label>
   </ion-item>
-
-
 
   <ion-button
     class="ion-margin-top"

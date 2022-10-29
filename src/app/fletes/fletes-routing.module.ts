@@ -15,10 +15,6 @@ const routes: Routes = [
     component: FletesPage,
   },
   {
-    path: 'alta',
-    component: AltaComponent,
-  },
-  {
     path: 'precargas',
     component: PrecargasComponent,
   },
