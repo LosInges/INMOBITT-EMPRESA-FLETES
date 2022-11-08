@@ -37,7 +37,7 @@ export class DetalleComponent implements OnInit {
     const modal= await this.modalControler.create({
       component: AltaComponent,
       componentProps: { precarga: this.precarga, fecha: this.fecha},
-
+      cssClass: 'modalGeneral'
     })
     modal.onDidDismiss().then(val=>{
       if(val.data?.registrado) this.modalControler.dismiss(this.precarga)

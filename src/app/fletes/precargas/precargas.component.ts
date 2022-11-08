@@ -69,6 +69,7 @@ export class PrecargasComponent implements OnInit, OnDestroy {
     const modal = await this.modalControler.create({
       component: DetalleComponent,
       componentProps: { precarga, fecha: fecha.toISOString() },
+      cssClass: 'modalGeneral'
     });
     modal.onDidDismiss().then((val) => {
       if (val.data)
@@ -81,6 +82,7 @@ export class PrecargasComponent implements OnInit, OnDestroy {
     const modal = await this.modalControler.create({
       component: PrecargaComponent,
       componentProps: { empresas: this.empresas },
+      cssClass: 'modalGeneral'
     });
     modal.onDidDismiss().then((val) => {
       if (val.data) {

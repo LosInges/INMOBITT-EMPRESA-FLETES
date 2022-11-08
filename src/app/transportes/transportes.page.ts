@@ -49,6 +49,7 @@ export class TransportesPage implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: DetalleComponent,
       componentProps: { transporte },
+      cssClass: 'modalGeneral'
     });
     modal.onDidDismiss().then((val) => {
       if (val.data.actualizado)
@@ -62,6 +63,7 @@ export class TransportesPage implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: AltaComponent,
       componentProps: { empresa: this.empresa },
+      cssClass: 'modalGeneral'
     });
     modal.onDidDismiss().then((val) => {
       if (val.data) this.transportes.push(val.data);

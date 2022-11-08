@@ -35,6 +35,7 @@ export class SignupComponent implements OnInit {
     if (this.confirmPassword === this.empresa.password) {
       this.empresaService.postEmpresa(this.empresa).subscribe((res) => {
         console.log(res);
+        this.cerrar()
       });
     }
   }
