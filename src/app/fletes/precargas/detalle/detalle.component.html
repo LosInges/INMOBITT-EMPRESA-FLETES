@@ -119,8 +119,14 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-
-      <ion-button (click)="abrirRegistroFlete()" class="ion-margin-top" type="submit" color="light">
+      <ion-button
+    class=" ion-margin-top"
+    color="dark"
+    fill="outline"
+    (click)="cerrar()"
+    >CERRAR
+  </ion-button>
+      <ion-button (click)="abrirRegistroFlete()" class="ion-float-right ion-margin-top" type="submit" color="light">
         Registrar Flete
       </ion-button>
     </ion-card-content>

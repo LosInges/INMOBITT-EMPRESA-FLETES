@@ -51,7 +51,8 @@ export class CargadoresPage implements OnInit, OnDestroy {
   async abrirRegistro() {
     const modal = await this.modalController.create({
       component: AltaComponent,
-      componentProps: { empresa: this.empresa }
+      componentProps: { empresa: this.empresa },
+      cssClass: 'modalGeneral'
     });
     modal.onDidDismiss().then(val => {
       if (val.data) this.cargadores.push(val.data)
@@ -66,6 +67,7 @@ export class CargadoresPage implements OnInit, OnDestroy {
       componentProps: {
         cargador: this.cargadores.filter((cargador) => cargador.rfc === rfc)[0],
       },
+      cssClass: 'modalGeneral'
     });
     modal.onDidDismiss().then(val => {
       if (val.data.actualizado)

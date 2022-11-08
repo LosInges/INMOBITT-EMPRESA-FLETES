@@ -33,6 +33,7 @@ export class FletesPage implements OnInit {
   async abrirRegistro() {
     const modal = await this.modalController.create({
       component: AltaComponent,
+      cssClass: 'modalGeneral'
     });
     return await modal.present();
   }
