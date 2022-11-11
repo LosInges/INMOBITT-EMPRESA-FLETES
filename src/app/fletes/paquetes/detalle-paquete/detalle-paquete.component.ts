@@ -5,6 +5,7 @@ import { PaqueteComponent } from '../paquete/paquete.component';
 import { v4 as uuidv4 } from 'uuid';
 import { ActivatedRoute } from '@angular/router';
 import { ItemsService } from '../../services/items.service';
+import { FotoService } from 'src/app/services/foto.service';
 
 @Component({
   selector: 'app-detalle-paquete',
@@ -18,7 +19,8 @@ export class DetallePaqueteComponent implements OnInit {
   constructor(
     private modalController: ModalController,
     private activatedRoute: ActivatedRoute,
-    private itemService: ItemsService
+    private itemService: ItemsService,
+    private fotoService: FotoService
   ) {}
 
   ngOnInit() {

@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { Item } from '../../interfaces/item';
 import { ItemsService } from '../../services/items.service';
 import { v4 as uuidv4 } from 'uuid';
+import { FotoService } from 'src/app/services/foto.service';
 
 @Component({
   selector: 'app-paquete',
@@ -24,7 +25,8 @@ export class PaqueteComponent implements OnInit {
   };
   constructor(
     private modalController: ModalController,
-    private itemService: ItemsService
+    private itemService: ItemsService,
+    private fotoService: FotoService
   ) {}
 
   ngOnInit() {
@@ -42,6 +44,29 @@ export class PaqueteComponent implements OnInit {
       if (res.results) {
         this.modalController.dismiss(this.item);
       }
+    });
+  }
+
+  tomarFotografia() {
+    this.fotoService.tomarFoto().then((photo) => {
+      // this.fotoService.subirMiniatura(photo.webPath).subscribe((data) => {
+      //   console.log(data);
+      // });
+      console.log(photo);
+      const reader = new FileReader();
+      const datos = new FormData();
+      reader.onload = () => {
+        const imgBlob = new Blob([reader.result], {
+          type: `image/${photo.format}`,
+        });
+        datos.append('img', imgBlob, `imagen.${photo.format}`);
+        this.fotoService
+          .subirMiniatura(datos)
+          .subscribe((res) => console.log(res));
+      };
+      const consulta = fetch(photo.webPath).then((v) =>
+        v.blob().then((imagen) => reader.readAsArrayBuffer(imagen))
+      );
     });
   }
 }

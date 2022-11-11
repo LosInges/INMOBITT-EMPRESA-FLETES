@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   Camera,
@@ -7,26 +8,27 @@ import {
 } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Preferences } from '@capacitor/preferences';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FotoService {
   public photos: UserPhoto[] = [];
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
-  public async agregarAGaleria() {
+  async tomarFoto() {
     // Take a photo
-    const capturedPhoto = await Camera.getPhoto({
+    return await Camera.getPhoto({
       resultType: CameraResultType.Uri,
       source: CameraSource.Camera,
       quality: 100,
     });
+  }
 
-    this.photos.unshift({
-      filepath: 'soon...',
-      webviewPath: capturedPhoto.webPath,
-    });
+  subirMiniatura(datos: FormData): Observable<object> {
+    return this.httpClient.post<object>(`${environment.api}/miniatura`, datos);
   }
 }
 

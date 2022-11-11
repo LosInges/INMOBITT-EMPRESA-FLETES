@@ -1,4 +1,3 @@
-
 import { ModalController } from '@ionic/angular';
 import { Component, Input, OnInit } from '@angular/core';
 import { Empresa } from '../../interfaces/empresa';
@@ -11,8 +10,8 @@ import { PrecargaService } from '../../services/precarga.service';
   styleUrls: ['./precarga.component.scss'],
 })
 export class PrecargaComponent implements OnInit {
+  @Input() empresas: Empresa[];
   fecha: string = new Date().toISOString();
-  @Input() empresas: Empresa[]
 
   precarga: Precarga = {
     id: '',
@@ -22,7 +21,7 @@ export class PrecargaComponent implements OnInit {
     cajas_grandes: 0,
     // eslint-disable-next-line @typescript-eslint/naming-convention
     cajas_medianas: 0,
-    muebles: 0,
+    muebles: [],
     empresa: '',
     cliente: '',
     destino: {
@@ -49,23 +48,23 @@ export class PrecargaComponent implements OnInit {
   constructor(
     private precargaService: PrecargaService,
     private modalController: ModalController
-  ){
-  }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   registrarPrecarga() {
-   this.precarga.fecha = this.fecha.split('T')[0];
+    this.precarga.fecha = this.fecha.split('T')[0];
     this.precarga.hora = this.fecha.split('T')[1].split('.')[0].substring(0, 5);
-     this.precargaService.postPrecarga(this.precarga).subscribe((res) => {
-     if (res.results) this.modalController.dismiss(this.precarga)
-     else console.log(res)
+    this.precargaService.postPrecarga(this.precarga).subscribe((res) => {
+      if (res.results) {
+        this.modalController.dismiss(this.precarga);
+      } else {
+        console.log(res);
+      }
     });
   }
 
-  cerrar(){
-    this.modalController.dismiss()
+  cerrar() {
+    this.modalController.dismiss();
   }
-
 }
