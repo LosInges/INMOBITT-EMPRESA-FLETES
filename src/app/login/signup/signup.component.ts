@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Empresa } from 'src/app/fletes/interfaces/empresa';
@@ -35,11 +34,11 @@ export class SignupComponent implements OnInit {
     if (this.confirmPassword === this.empresa.password) {
       this.empresaService.postEmpresa(this.empresa).subscribe((res) => {
         console.log(res);
-        this.cerrar()
+        this.cerrar();
       });
     }
   }
-  cerrar(){
-    this.modalController.dismiss()
+  cerrar() {
+    this.modalController.dismiss();
   }
 }

@@ -40,7 +40,7 @@ export class PrecargasComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sessionService.get('empresa')?.then((empresa) => {
-      this.empresa = empresa
+      this.empresa = empresa;
       this.empresaService
         .getEmpresas()
         .subscribe((empresas) => (this.empresas = empresas));
@@ -69,11 +69,12 @@ export class PrecargasComponent implements OnInit, OnDestroy {
     const modal = await this.modalControler.create({
       component: DetalleComponent,
       componentProps: { precarga, fecha: fecha.toISOString() },
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
     modal.onDidDismiss().then((val) => {
-      if (val.data)
-        this.precargas = this.precargas.filter((p) => precarga != p);
+      if (val.data) {
+        this.precargas = this.precargas.filter((p) => precarga !== p);
+      }
     });
     return await modal.present();
   }
@@ -82,14 +83,16 @@ export class PrecargasComponent implements OnInit, OnDestroy {
     const modal = await this.modalControler.create({
       component: PrecargaComponent,
       componentProps: { empresas: this.empresas },
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
     modal.onDidDismiss().then((val) => {
       if (val.data) {
-        if(val.data.empresa == this.empresa) this.precargas.push(val.data);
+        if (val.data.empresa === this.empresa) {
+          this.precargas.push(val.data);
+        }
       }
 
-      console.log(val)
+      console.log(val);
     });
     return await modal.present();
   }
@@ -103,7 +106,7 @@ export class PrecargasComponent implements OnInit, OnDestroy {
       .deletePrecarga(precarga.empresa, precarga.id)
       .subscribe((val) => {
         this.precargas = val.results
-          ? this.precargas.filter((p) => p != precarga)
+          ? this.precargas.filter((p) => p !== precarga)
           : this.precargas;
       });
   }

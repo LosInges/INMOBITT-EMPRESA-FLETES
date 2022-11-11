@@ -4,4 +4,5 @@ export interface Empresa {
   password: string;
   telefono: string;
   estados: string[];
+  logo?: string;
 }

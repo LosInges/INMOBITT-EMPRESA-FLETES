@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { v4 as uuidv4 } from 'uuid';
 import { ModalController } from '@ionic/angular';
-import { Paquete } from '../interfaces/paquete';
 import { TransporteFlete } from '../interfaces/transporte-flete';
 import { TransporteFleteService } from '../services/transporte-flete.service';
 import { InfoPaquetesComponent } from './info-paquetes/info-paquetes.component';
 import { PaquetesService } from '../services/paquetes.service';
-
 
 @Component({
   selector: 'app-paquetes',
@@ -15,7 +13,6 @@ import { PaquetesService } from '../services/paquetes.service';
   styleUrls: ['./paquetes.component.scss'],
 })
 export class PaquetesComponent implements OnInit {
-
   transporteFlete: TransporteFlete = {
     flete: '',
     transporte: '',
@@ -29,7 +26,7 @@ export class PaquetesComponent implements OnInit {
     private activedRoute: ActivatedRoute,
     private transporteFleteService: TransporteFleteService,
     private paquetesService: PaquetesService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.activedRoute.params.subscribe((params) => {
@@ -63,11 +60,16 @@ export class PaquetesComponent implements OnInit {
   eliminar(paquete: string) {
     this.paquetesService.deletePaquete(paquete).subscribe((va) => {
       this.transporteFlete.paquete = va.results
-        ? this.transporteFlete.paquete.filter((pa) => pa != paquete) : this.transporteFlete.paquete
-      this.transporteFleteService.postTransportesFlete(this.transporteFlete).subscribe()
-    })
+        ? this.transporteFlete.paquete.filter((pa) => pa !== paquete)
+        : this.transporteFlete.paquete;
+      this.transporteFleteService
+        .postTransportesFlete(this.transporteFlete)
+        .subscribe();
+    });
   }
   navegar(paquete: string) {
-    this.router.navigate(['./', paquete, 'items'], { relativeTo: this.activedRoute })
+    this.router.navigate(['./', paquete, 'items'], {
+      relativeTo: this.activedRoute,
+    });
   }
 }
