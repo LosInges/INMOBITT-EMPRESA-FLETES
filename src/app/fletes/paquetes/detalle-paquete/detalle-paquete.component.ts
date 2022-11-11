@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { Item } from '../../interfaces/item';
-import { PaqueteComponent } from '../paquete/paquete.component';
-import { v4 as uuidv4 } from 'uuid';
+
 import { ActivatedRoute } from '@angular/router';
-import { ItemsService } from '../../services/items.service';
 import { FotoService } from 'src/app/services/foto.service';
+import { Item } from '../../interfaces/item';
+import { ItemsService } from '../../services/items.service';
+import { ModalController } from '@ionic/angular';
+import { PaqueteComponent } from '../paquete/paquete.component';
+import { environment } from 'src/environments/environment';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-detalle-paquete',
@@ -16,11 +18,11 @@ export class DetallePaqueteComponent implements OnInit {
   items: Item[] = [];
   total: number;
   id: string;
+  api = environment.api;
   constructor(
     private modalController: ModalController,
     private activatedRoute: ActivatedRoute,
     private itemService: ItemsService,
-    private fotoService: FotoService
   ) {}
 
   ngOnInit() {
