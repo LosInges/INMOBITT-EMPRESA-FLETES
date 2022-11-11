@@ -120,6 +120,11 @@
       </ion-row>
 
       <ion-button (click)="tomarFotografia()"> Foto </ion-button>
+      <div>
+        <ion-row>
+          <img *ngIf="item.foto" src="{{ api }}/{{ item.foto }}" />
+        </ion-row>
+      </div>
 
       <!--BOTONES-->
       <ion-col>

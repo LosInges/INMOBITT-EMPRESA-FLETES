@@ -1,10 +1,21 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { FotoService } from 'src/app/services/foto.service';
 import { Item } from '../../interfaces/item';
 import { ItemsService } from '../../services/items.service';
+import { ModalController } from '@ionic/angular';
+import { environment } from './../../../../environments/environment';
 import { v4 as uuidv4 } from 'uuid';
-import { FotoService } from 'src/app/services/foto.service';
+
+/* eslint-disable @typescript-eslint/naming-convention */
+
+
+
+
+
+
+
+
 
 @Component({
   selector: 'app-paquete',
@@ -14,6 +25,7 @@ import { FotoService } from 'src/app/services/foto.service';
 export class PaqueteComponent implements OnInit {
   @Input() id: string;
   @Input() total: number;
+  api = environment.api;
   item: Item = {
     id: '',
     id_item: '',
@@ -27,7 +39,7 @@ export class PaqueteComponent implements OnInit {
     private modalController: ModalController,
     private itemService: ItemsService,
     private fotoService: FotoService
-  ) {}
+  ) {  }
 
   ngOnInit() {
     this.item.id = this.id;
@@ -62,7 +74,9 @@ export class PaqueteComponent implements OnInit {
         datos.append('img', imgBlob, `imagen.${photo.format}`);
         this.fotoService
           .subirMiniatura(datos)
-          .subscribe((res) => console.log(res));
+          .subscribe((res) =>
+          this.item.foto = res.path
+          );
       };
       const consulta = fetch(photo.webPath).then((v) =>
         v.blob().then((imagen) => reader.readAsArrayBuffer(imagen))
