@@ -7,7 +7,7 @@
         <ion-icon name="close-circle" color="secondary"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title color="secondary">PAQUETES</ion-title>
+    <ion-title color="secondary">ITEM</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,7 +15,12 @@
   <ion-card>
     <ion-card-header>
       <ion-toolbar>
-        <ion-card-title color="secondary"> ALTA </ion-card-title>
+        <ion-card-title *ngIf="!editando" color="secondary">
+          ALTA
+        </ion-card-title>
+        <ion-card-title *ngIf="editando" color="secondary">
+          ACTUALIZACION
+        </ion-card-title>
       </ion-toolbar>
     </ion-card-header>
 
@@ -67,13 +72,14 @@
 
       <ion-row>
         <ion-col size-xs="0.1"> </ion-col>
-        <ion-col size="4">
-          <ion-label position="floating">OBJETO</ion-label>
+        <ion-col size="5">
+          <ion-label position="floating">NOMBRE</ion-label>
           <ion-list>
             <ion-item>
               <ion-input
-                placeholder="Nombre del objeto"
+                placeholder="Nombre del item"
                 [(ngModel)]="item.item"
+                [disabled]="!agregando && !editando"
               >
               </ion-input>
             </ion-item>
@@ -81,37 +87,26 @@
         </ion-col>
 
         <ion-col size="3">
-          <ion-label position="floating">TOTAL PAQUETE</ion-label>
-          <ion-list>
-            <ion-item>
-              <ion-input
-                placeholder="Ingrese el total"
-                [(ngModel)]="item.total"
-              >
-              </ion-input>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-
-        <ion-col size="2">
-          <ion-label position="floating">ANCHO</ion-label>
+          <ion-label position="floating">ANCHO(cm)</ion-label>
           <ion-list>
             <ion-item>
               <ion-input
                 placeholder="Ingrese Ancho"
                 [(ngModel)]="item.ancho_item"
+                [disabled]="!agregando && !editando"
               >
               </ion-input>
             </ion-item>
           </ion-list>
         </ion-col>
-        <ion-col size="2">
+        <ion-col size="3">
+          <ion-label position="floating">ALTO(cm)</ion-label>
           <ion-list>
             <ion-item>
-              <ion-label position="floating">ALTO</ion-label>
               <ion-input
                 placeholder="Ingrese Altura"
                 [(ngModel)]="item.alto_item"
+                [disabled]="!agregando && !editando"
               >
               </ion-input>
             </ion-item>
@@ -119,12 +114,18 @@
         </ion-col>
       </ion-row>
 
-      <ion-button (click)="tomarFotografia()"> Foto </ion-button>
-      <div>
-        <ion-row>
+      <ion-row>
+        <ion-button (click)="tomarFotografia()" *ngIf="agregando || editando">
+          Foto
+        </ion-button>
+      </ion-row>
+
+      <ion-row>
+        <img *ngIf="foto; else elseBlock" src="{{ api }}/{{ foto }}" />
+        <ng-template #elseBlock>
           <img *ngIf="item.foto" src="{{ api }}/{{ item.foto }}" />
-        </ion-row>
-      </div>
+        </ng-template>
+      </ion-row>
 
       <!--BOTONES-->
       <ion-col>
@@ -134,6 +135,7 @@
           (click)="agregarItem()"
           class="ion-margin-top ion-margin-bottom"
           type="submit"
+          *ngIf="agregando || editando"
         >
           CONFIRMAR
         </ion-button>

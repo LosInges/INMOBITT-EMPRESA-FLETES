@@ -83,7 +83,7 @@
 
   <ion-content>
     <ion-card *ngFor="let cargador of cargadores">
-      <ion-item-sliding>
+      <ion-item-sliding #itemSliding>
         <ion-item>
           <ion-grid>
             <ion-row>
@@ -118,26 +118,25 @@
               </ion-col>
 
               <ion-col>
-                <ion-card-title
+                <ion-card-subtitle
                   class="ion-margin-top ion-margin-bottom"
                   type="submit"
                   color="secondary"
                 >
-                  <ion-label placeholder="Foto">FOTO</ion-label>
                   <img *ngIf="cargador.foto" src="{{api}}/{{cargador.foto}}" />
-                </ion-card-title>
+                </ion-card-subtitle>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-item>
-        <ion-item-options side="end" (ionSwipe)="eliminar(cargador)">
+        <ion-item-options side="end" (ionSwipe)="eliminar(cargador); itemSliding.close()">
           <ion-item-option expandable color="danger">
             <ion-icon name="trash-outline"> </ion-icon>
           </ion-item-option>
         </ion-item-options>
         <ion-item-options
           side="start"
-          (ionSwipe)="detalleCargador(cargador.rfc)"
+          (ionSwipe)="detalleCargador(cargador.rfc); itemSliding.close()"
         >
           <ion-item-option expandable color="success">
             <ion-icon name="trash-outline"> </ion-icon>

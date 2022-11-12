@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Empresa } from '../../interfaces/empresa';
 import { Precarga } from '../../interfaces/precarga';
 import { PrecargaService } from '../../services/precarga.service';
+import { MueblesService } from 'src/app/services/muebles.service';
 
 @Component({
   selector: 'app-precarga',
@@ -12,6 +13,7 @@ import { PrecargaService } from '../../services/precarga.service';
 export class PrecargaComponent implements OnInit {
   @Input() empresas: Empresa[];
   fecha: string = new Date().toISOString();
+  muebles = this.mueblesService.getMuebles();
 
   precarga: Precarga = {
     id: '',
@@ -47,7 +49,8 @@ export class PrecargaComponent implements OnInit {
 
   constructor(
     private precargaService: PrecargaService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private mueblesService: MueblesService
   ) {}
 
   ngOnInit() {}

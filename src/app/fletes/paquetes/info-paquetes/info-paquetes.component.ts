@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SessionService } from 'src/app/services/session.service';
+import { environment } from 'src/environments/environment';
 import { Cargador } from '../../interfaces/cargador';
 import { TransporteFlete } from '../../interfaces/transporte-flete';
 import { CargadoresService } from '../../services/cargadores.service';
@@ -15,6 +16,7 @@ export class InfoPaquetesComponent implements OnInit {
   cargadores: Cargador[] = [];
   cargadoresEmpresa: Cargador[] = [];
   cargador: string;
+  api = environment.api;
   transporteFlete: TransporteFlete = {
     flete: '',
     transporte: '',
@@ -31,7 +33,9 @@ export class InfoPaquetesComponent implements OnInit {
 
   ngOnInit() {
     this.sessionService.get('empresa').then((empresa) => {
-      if (!empresa) return;
+      if (!empresa) {
+        return;
+      }
       this.transporteFletesService
         .getTransportesFlete(this.flete)
         .subscribe((transporteFlete) => {
@@ -40,8 +44,11 @@ export class InfoPaquetesComponent implements OnInit {
             this.cargadoresService
               .getCargador(empresa, cargador)
               .subscribe((c) => {
-                if (this.cargadores.length == 0) this.cargadores = [c];
-                else this.cargadores.push(c);
+                if (this.cargadores.length === 0) {
+                  this.cargadores = [c];
+                } else {
+                  this.cargadores.push(c);
+                }
               });
           });
         });
@@ -59,27 +66,33 @@ export class InfoPaquetesComponent implements OnInit {
     this.transporteFletesService
       .postTransportesFlete(this.transporteFlete)
       .subscribe((val) => {
-        if (val.results) this.modalController.dismiss();
+        if (val.results) {
+          this.modalController.dismiss();
+        }
       });
   }
 
   eliminar(cargador: Cargador) {
-    this.cargadores = this.cargadores.filter((c) => c != cargador);
+    this.cargadores = this.cargadores.filter((c) => c !== cargador);
   }
 
   agregar() {
-    if (!this.cargador) return;
+    if (!this.cargador) {
+      return;
+    }
     if (
-      this.cargadores.filter((cargador) => cargador.rfc == this.cargador)
-        .length == 0
-    )
-      if (this.cargadores)
+      this.cargadores.filter((cargador) => cargador.rfc === this.cargador)
+        .length === 0
+    ) {
+      if (this.cargadores) {
         this.cargadores.push(
-          this.cargadoresEmpresa.filter((c) => c.rfc == this.cargador)[0]
+          this.cargadoresEmpresa.filter((c) => c.rfc === this.cargador)[0]
         );
-      else
+      } else {
         this.cargadores = [
-          this.cargadoresEmpresa.filter((c) => c.rfc == this.cargador)[0],
+          this.cargadoresEmpresa.filter((c) => c.rfc === this.cargador)[0],
         ];
+      }
+    }
   }
 }

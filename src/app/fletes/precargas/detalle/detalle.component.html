@@ -78,10 +78,32 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> MUEBLES </ion-label>
-              <ion-input type="number" [(ngModel)]="precarga.muebles" disabled></ion-input>
+              <ion-select
+                [(ngModel)]="precarga.muebles"
+                [multiple]="true"
+                placeholder="Muebles"
+              >
+                <ion-select-option
+                  *ngFor="let mueble of muebles"
+                  [value]="mueble"
+                >
+                  {{ mueble.nombre }}
+                </ion-select-option>
+              </ion-select>
             </ion-item>
           </ion-col>
         </ion-row>
+        <ion-list>
+          <ng-container *ngIf="precarga.muebles">
+            <ion-item *ngFor="let mueble of precarga.muebles">
+              <ion-label position="fixed"> {{ mueble.nombre }} </ion-label>
+              <ion-input
+                type="number"
+                [(ngModel)]="mueble.cantidad"
+              ></ion-input>
+            </ion-item>
+          </ng-container>
+        </ion-list>
       </ion-grid>
     </ion-card-content>
   </ion-card>

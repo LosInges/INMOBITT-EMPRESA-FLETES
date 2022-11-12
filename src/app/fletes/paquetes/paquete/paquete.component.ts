@@ -9,14 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 
-
-
-
-
-
-
-
-
 @Component({
   selector: 'app-paquete',
   templateUrl: './paquete.component.html',
@@ -25,8 +17,9 @@ import { v4 as uuidv4 } from 'uuid';
 export class PaqueteComponent implements OnInit {
   @Input() id: string;
   @Input() total: number;
-  api = environment.api;
-  item: Item = {
+  @Input() agregando = true;
+  @Input() editando = false;
+  @Input() item: Item = {
     id: '',
     id_item: '',
     foto: '',
@@ -35,16 +28,21 @@ export class PaqueteComponent implements OnInit {
     alto_item: 0,
     ancho_item: 0,
   };
+  foto = '';
+  api = environment.api;
   constructor(
     private modalController: ModalController,
     private itemService: ItemsService,
     private fotoService: FotoService
-  ) {  }
+  ) {}
 
   ngOnInit() {
-    this.item.id = this.id;
-    this.item.id_item = uuidv4();
-    this.item.total = this.total;
+    if (this.agregando) {
+      this.item.id = this.id;
+      this.item.id_item = uuidv4();
+    } else {
+      this.foto = `img/${this.item.foto.split('/').pop()}`;
+    }
   }
 
   cerrar() {
@@ -72,13 +70,12 @@ export class PaqueteComponent implements OnInit {
           type: `image/${photo.format}`,
         });
         datos.append('img', imgBlob, `imagen.${photo.format}`);
-        this.fotoService
-          .subirMiniatura(datos)
-          .subscribe((res) =>
-          this.item.foto = res.path
-          );
+        this.fotoService.subirImgMiniatura(datos).subscribe((res) => {
+          this.item.foto = res.miniatura;
+          console.log(res, this.item);
+        });
       };
-      const consulta = fetch(photo.webPath).then((v) =>
+      fetch(photo.webPath).then((v) =>
         v.blob().then((imagen) => reader.readAsArrayBuffer(imagen))
       );
     });

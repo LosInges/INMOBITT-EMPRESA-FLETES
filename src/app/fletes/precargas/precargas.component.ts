@@ -10,6 +10,7 @@ import { EmpresaService } from '../services/empresa.service';
 import { Empresa } from '../interfaces/empresa';
 import { SessionService } from 'src/app/services/session.service';
 import { PrecargaComponent } from './precarga/precarga.component';
+import { MueblesService } from 'src/app/services/muebles.service';
 
 @Component({
   selector: 'app-precargas',
@@ -27,6 +28,7 @@ export class PrecargasComponent implements OnInit, OnDestroy {
     private empresaService: EmpresaService,
     private estadosService: EstadosService,
     private precargaService: PrecargaService,
+    private mueblesService: MueblesService,
     private modalControler: ModalController,
     private router: Router,
     private sessionService: SessionService
@@ -66,6 +68,9 @@ export class PrecargasComponent implements OnInit, OnDestroy {
       hr, //HORA
       Number(precarga.hora.split(':')[1]) //MINUTOS
     );
+    precarga.muebles.forEach((mueble) => {
+      this.mueblesService.updateMueble(mueble);
+    });
     const modal = await this.modalControler.create({
       component: DetalleComponent,
       componentProps: { precarga, fecha: fecha.toISOString() },

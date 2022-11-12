@@ -49,6 +49,8 @@
             <ion-label>
               {{ cargador.nombre }} {{ cargador.apellido }}
             </ion-label>
+            <ion-label>{{ cargador.telefono }}</ion-label>
+            <ion-img src="{{ api }}/{{ cargador.foto }}"></ion-img>
           </ion-item>
           <ion-item-options side="end" (ionSwipe)="eliminar(cargador)">
             <ion-item-option expandable color="danger">
