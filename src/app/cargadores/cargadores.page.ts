@@ -1,11 +1,13 @@
-import { ModalController } from '@ionic/angular';
-import { AltaComponent } from './alta/alta.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+
+import { AltaComponent } from './alta/alta.component';
 import { Cargador } from '../fletes/interfaces/cargador';
 import { CargadoresService } from '../fletes/services/cargadores.service';
 import { DetalleComponent } from './detalle/detalle.component';
+import { ModalController } from '@ionic/angular';
 import { SessionService } from '../services/session.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cargadores',
@@ -16,7 +18,7 @@ export class CargadoresPage implements OnInit, OnDestroy {
   eventosRouter: any;
   cargadores: Cargador[] = [];
   empresa: string
-
+  api = environment.api;
   constructor(
     private router: Router,
     private cargadoresService: CargadoresService,
