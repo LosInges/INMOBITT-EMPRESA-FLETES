@@ -18,9 +18,9 @@ export class LoginComponent implements OnInit {
     private sessionService: SessionService,
     private router: Router,
     private modalController: ModalController
-  ) { }
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onSubmit() {
     alert(this.email + ', ' + this.password);
@@ -29,22 +29,25 @@ export class LoginComponent implements OnInit {
   login() {
     this.loginService.login(this.email, this.password).subscribe(
       (res) => {
-        console.log(res)
+        if (res.session.tipo !== 'empresa') {
+          return;
+        }
 
         const promesas: Promise<any>[] = [
           this.sessionService.set('tipo', res.session.tipo),
         ];
         if (res.session.tipo === 'cargador') {
-          promesas.push(this.sessionService.set('empresa', res.session.empresa));
+          promesas.push(
+            this.sessionService.set('empresa', res.session.empresa)
+          );
           promesas.push(this.sessionService.set('rfc', res.session.email));
-        }
-        else {
+        } else {
           promesas.push(this.sessionService.set('empresa', res.session.email));
         }
 
         Promise.all(promesas).then((val) => {
-          this.cerrar()
-          this.router.navigate(['/', 'fletes'])
+          this.cerrar();
+          this.router.navigate(['/', 'fletes']);
         });
       },
       (err) => console.log(err)
@@ -52,13 +55,12 @@ export class LoginComponent implements OnInit {
   }
 
   onKeydown(event: Event) {
-    console.log(event)
+    console.log(event);
 
-    this.login()
-    this.cerrar()
+    this.login();
+    this.cerrar();
   }
   cerrar() {
     this.modalController.dismiss();
   }
-
 }

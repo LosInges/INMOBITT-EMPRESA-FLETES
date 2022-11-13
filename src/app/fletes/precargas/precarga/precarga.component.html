@@ -26,17 +26,7 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> EMPRESA </ion-label>
-              <ion-select [(ngModel)]="precarga.empresa">
-                <ion-select-option value=""
-                  >Seleccione una empresa</ion-select-option
-                >
-                <ion-select-option
-                  *ngFor="let empresa of empresas"
-                  [value]="empresa.correo"
-                >
-                  {{ empresa.nombre }}
-                </ion-select-option>
-              </ion-select>
+              <ion-input [(ngModel)]="precarga.empresa" disabled > </ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">

@@ -21,11 +21,9 @@ export class PrecargasComponent implements OnInit, OnDestroy {
   estados: Estado[] = this.estadosService.getEstados();
   precargas: Precarga[];
   eventosRouter: any;
-  empresas: Empresa[];
   empresa: string;
 
   constructor(
-    private empresaService: EmpresaService,
     private estadosService: EstadosService,
     private precargaService: PrecargaService,
     private mueblesService: MueblesService,
@@ -43,9 +41,6 @@ export class PrecargasComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sessionService.get('empresa')?.then((empresa) => {
       this.empresa = empresa;
-      this.empresaService
-        .getEmpresas()
-        .subscribe((empresas) => (this.empresas = empresas));
       this.precargaService.getPrecargas(empresa).subscribe((precargas) => {
         this.precargas = precargas;
       });
@@ -87,7 +82,7 @@ export class PrecargasComponent implements OnInit, OnDestroy {
   async abrirRegistro() {
     const modal = await this.modalControler.create({
       component: PrecargaComponent,
-      componentProps: { empresas: this.empresas },
+      componentProps: { empresa: this.empresa },
       cssClass: 'modalGeneral',
     });
     modal.onDidDismiss().then((val) => {

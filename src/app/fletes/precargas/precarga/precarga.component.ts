@@ -11,7 +11,7 @@ import { MueblesService } from 'src/app/services/muebles.service';
   styleUrls: ['./precarga.component.scss'],
 })
 export class PrecargaComponent implements OnInit {
-  @Input() empresas: Empresa[];
+  @Input() empresa: string;
   fecha: string = new Date().toISOString();
   muebles = this.mueblesService.getMuebles();
 
@@ -53,7 +53,9 @@ export class PrecargaComponent implements OnInit {
     private mueblesService: MueblesService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.precarga.empresa = this.empresa;
+  }
 
   registrarPrecarga() {
     this.precarga.fecha = this.fecha.split('T')[0];
