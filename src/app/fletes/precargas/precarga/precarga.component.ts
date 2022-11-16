@@ -4,6 +4,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Empresa } from '../../interfaces/empresa';
 import { Precarga } from '../../interfaces/precarga';
 import { PrecargaService } from '../../services/precarga.service';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-precarga',
@@ -48,14 +50,31 @@ export class PrecargaComponent implements OnInit {
 
   constructor(
     private precargaService: PrecargaService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertCtrl: AlertController,
+    private router: Router,
   ){
   }
+
+  async mostrarAlerta(titulo:string, subtitulo:string, mensaje:string) {  
+    const alert = await this.alertCtrl.create({  
+      header: titulo,  
+      subHeader: subtitulo,  
+      message: mensaje,  
+      buttons: ['OK']  
+    });  
+    await alert.present();  
+    const result = await alert.onDidDismiss();  
+    console.log(result);  
+    this.router.navigate(['/', 'login'])
+  } 
 
   ngOnInit() {
   }
 
   registrarPrecarga() {
+   
+
    this.precarga.fecha = this.fecha.split('T')[0];
     this.precarga.hora = this.fecha.split('T')[1].split('.')[0].substring(0, 5);
      this.precargaService.postPrecarga(this.precarga).subscribe((res) => {
