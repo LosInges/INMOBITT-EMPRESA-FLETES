@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Direccion } from './direccion';
+import { Mueble } from './mueble';
 
 export interface Precarga {
   id: string;
   cajas_chicas: number;
   cajas_grandes: number;
   cajas_medianas: number;
-  muebles: number;
+  muebles: Mueble[];
   empresa: string;
   cliente: string;
   destino: Direccion;

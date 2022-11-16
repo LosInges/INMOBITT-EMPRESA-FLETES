@@ -22,14 +22,22 @@
         <ion-col size-xs="0.1"> </ion-col>
 
         <ion-col size="4">
-          <ion-card-title class="ion-margin-top" type="submit" color="secondary">
+          <ion-card-title
+            class="ion-margin-top"
+            type="submit"
+            color="secondary"
+          >
             Buscar
           </ion-card-title>
           <ion-searchbar animated="true" placeholder="Buscar"></ion-searchbar>
         </ion-col>
 
         <ion-col size="3">
-          <ion-card-title class="ion-margin-top" type="submit" color="secondary">
+          <ion-card-title
+            class="ion-margin-top"
+            type="submit"
+            color="secondary"
+          >
             EMPRESA
           </ion-card-title>
           <ion-list>
@@ -43,7 +51,11 @@
         </ion-col>
 
         <ion-col size="3">
-          <ion-card-title class="ion-margin-top" type="submit" color="secondary">
+          <ion-card-title
+            class="ion-margin-top"
+            type="submit"
+            color="secondary"
+          >
             ACTIVO
           </ion-card-title>
           <ion-list>
@@ -57,7 +69,11 @@
         </ion-col>
 
         <ion-col>
-          <ion-card-title class="ion-margin-top" type="submit" color="secondary">
+          <ion-card-title
+            class="ion-margin-top"
+            type="submit"
+            color="secondary"
+          >
           </ion-card-title>
           <ion-button class="ion-margin-top ion-margin-bottom" type="submit">
             CONFIRMAR
@@ -72,21 +88,26 @@
   <ion-content>
     <ng-container *ngFor="let transporte of transportes">
       <ion-card *ngIf="transporte.activo">
-
-        <ion-item-sliding>
+        <ion-item-sliding #itemSliding>
           <ion-item>
             <ion-grid>
               <ion-row>
                 <ion-col size-xs="0.1"> </ion-col>
 
                 <ion-col>
-                  <ion-card-title class="ion-margin-top ion-margin-bottom" type="submit">
+                  <ion-card-title
+                    class="ion-margin-top ion-margin-bottom"
+                    type="submit"
+                  >
                     Matricula: {{transporte.matricula}}
                   </ion-card-title>
                 </ion-col>
 
                 <ion-col>
-                  <ion-card-title class="ion-margin-top ion-margin-bottom" type="submit">
+                  <ion-card-title
+                    class="ion-margin-top ion-margin-bottom"
+                    type="submit"
+                  >
                     Capacidad: {{transporte.capacidad}}
                   </ion-card-title>
                 </ion-col>
@@ -95,14 +116,20 @@
               </ion-row>
             </ion-grid>
           </ion-item>
-          <ion-item-options side="end" (ionSwipe)="eliminar(transporte)">
+          <ion-item-options
+            side="end"
+            (ionSwipe)="eliminar(transporte); itemSliding.close()"
+          >
             <ion-item-option expandable color="danger">
               <ion-icon name="trash-outline"> </ion-icon>
             </ion-item-option>
           </ion-item-options>
-          <ion-item-options side="start" (ionSwipe)="abrirDetalle(transporte)">
+          <ion-item-options
+            side="start"
+            (ionSwipe)="abrirDetalle(transporte); itemSliding.close()"
+          >
             <ion-item-option expandable color="success">
-              <ion-icon name="trash-outline"> </ion-icon>
+              <ion-icon name="eye"> </ion-icon>
             </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>

@@ -11,6 +11,7 @@ import { Flete } from '../interfaces/flete';
 import { TransporteFlete } from '../interfaces/transporte-flete';
 import { TransportesService } from '../services/transportes.service';
 import { CargadoresService } from '../services/cargadores.service';
+import { AlertController } from '@ionic/angular';
 import { Transporte } from '../interfaces/transporte';
 import { Cargador } from '../interfaces/cargador';
 import { FletesService } from '../services/fletes.service';
@@ -65,8 +66,22 @@ export class AltaComponent implements OnInit, OnChanges {
     private transporteServices: TransportesService,
     private cargadoresServices: CargadoresService,
     private fletesServices: FletesService,
+    private alertCtrl: AlertController,
     private transporteFletesService: TransporteFleteService
   ) { }
+
+  async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
+    const alert = await this.alertCtrl.create({
+      header: titulo,
+      subHeader: subtitulo,
+      message: mensaje,
+      buttons: ['OK']
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    console.log(result);
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
   }
@@ -101,13 +116,12 @@ export class AltaComponent implements OnInit, OnChanges {
   registrarFlete() {
     this.transporteFletesService
       .postTransportesFlete(this.transporteFlete)
-      .subscribe((val) =>{});
+      .subscribe((val) => { });
     this.fletesServices
       .postFlete(this.detalleFlete)
       .subscribe((respuestaFlete) => {
-        this.modalController.dismiss({ registrado: true })        
+        this.modalController.dismiss({ registrado: true });
       });
-    
   }
 
   cerrar() {

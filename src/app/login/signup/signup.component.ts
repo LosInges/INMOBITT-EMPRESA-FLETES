@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ModalController, AlertController} from '@ionic/angular';
 import { Empresa } from 'src/app/fletes/interfaces/empresa';
@@ -56,6 +55,8 @@ export class SignupComponent implements OnInit {
       this.empresa.telefono.trim().length <= 0 ||
       this.empresa.estados.length <= 0
     ) {
+      this.mostrarAlerta("Error", "Campos vacios", "No deje espacios en blanco.")
+    }else{
       if (this.confirmPassword === this.empresa.password) {
         this.empresaService.postEmpresa(this.empresa).subscribe((res) => {
           console.log(res);
@@ -65,7 +66,7 @@ export class SignupComponent implements OnInit {
       }else{
         this.mostrarAlerta("Error:", "Confirmación de clave incorrecta", "¿es correcta o esta vacia?")
       }
-    } 
+    }
   }
   cerrar() {
     this.modalController.dismiss()

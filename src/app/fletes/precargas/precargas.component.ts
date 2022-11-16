@@ -10,6 +10,7 @@ import { EmpresaService } from '../services/empresa.service';
 import { Empresa } from '../interfaces/empresa';
 import { SessionService } from 'src/app/services/session.service';
 import { PrecargaComponent } from './precarga/precarga.component';
+import { MueblesService } from 'src/app/services/muebles.service';
 
 @Component({
   selector: 'app-precargas',
@@ -20,13 +21,12 @@ export class PrecargasComponent implements OnInit, OnDestroy {
   estados: Estado[] = this.estadosService.getEstados();
   precargas: Precarga[];
   eventosRouter: any;
-  empresas: Empresa[];
   empresa: string;
 
   constructor(
-    private empresaService: EmpresaService,
     private estadosService: EstadosService,
     private precargaService: PrecargaService,
+    private mueblesService: MueblesService,
     private modalControler: ModalController,
     private router: Router,
     private sessionService: SessionService
@@ -40,10 +40,7 @@ export class PrecargasComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sessionService.get('empresa')?.then((empresa) => {
-      this.empresa = empresa
-      this.empresaService
-        .getEmpresas()
-        .subscribe((empresas) => (this.empresas = empresas));
+      this.empresa = empresa;
       this.precargaService.getPrecargas(empresa).subscribe((precargas) => {
         this.precargas = precargas;
       });
@@ -66,14 +63,18 @@ export class PrecargasComponent implements OnInit, OnDestroy {
       hr, //HORA
       Number(precarga.hora.split(':')[1]) //MINUTOS
     );
+    precarga.muebles.forEach((mueble) => {
+      this.mueblesService.updateMueble(mueble);
+    });
     const modal = await this.modalControler.create({
       component: DetalleComponent,
       componentProps: { precarga, fecha: fecha.toISOString() },
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
     modal.onDidDismiss().then((val) => {
-      if (val.data)
-        this.precargas = this.precargas.filter((p) => precarga != p);
+      if (val.data) {
+        this.precargas = this.precargas.filter((p) => precarga !== p);
+      }
     });
     return await modal.present();
   }
@@ -81,15 +82,17 @@ export class PrecargasComponent implements OnInit, OnDestroy {
   async abrirRegistro() {
     const modal = await this.modalControler.create({
       component: PrecargaComponent,
-      componentProps: { empresas: this.empresas },
-      cssClass: 'modalGeneral'
+      componentProps: { empresa: this.empresa },
+      cssClass: 'modalGeneral',
     });
     modal.onDidDismiss().then((val) => {
       if (val.data) {
-        if(val.data.empresa == this.empresa) this.precargas.push(val.data);
+        if (val.data.empresa === this.empresa) {
+          this.precargas.push(val.data);
+        }
       }
 
-      console.log(val)
+      console.log(val);
     });
     return await modal.present();
   }
@@ -103,7 +106,7 @@ export class PrecargasComponent implements OnInit, OnDestroy {
       .deletePrecarga(precarga.empresa, precarga.id)
       .subscribe((val) => {
         this.precargas = val.results
-          ? this.precargas.filter((p) => p != precarga)
+          ? this.precargas.filter((p) => p !== precarga)
           : this.precargas;
       });
   }

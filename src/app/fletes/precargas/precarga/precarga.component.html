@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-button (click)="cerrar()">
         <ion-icon name="close-circle" color="secondary"></ion-icon>
-       </ion-button>
+      </ion-button>
     </ion-buttons>
     <ion-title color="secondary">PRECARGA</ion-title>
   </ion-toolbar>
@@ -20,40 +20,25 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> ID </ion-label>
-              <ion-input [(ngModel)]="precarga.id"  >
-              </ion-input>
+              <ion-input [(ngModel)]="precarga.id"> </ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> EMPRESA </ion-label>
-              <ion-select [(ngModel)]="precarga.empresa"  >
-                <ion-select-option value=""
-                  >Seleccione una empresa</ion-select-option
-                >
-                <ion-select-option
-                  *ngFor="let empresa of empresas"
-                  [value]="empresa.correo"
-                >
-                  {{ empresa.nombre }}
-                </ion-select-option>
-              </ion-select>
+              <ion-input [(ngModel)]="precarga.empresa" disabled > </ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> CLIENTE </ion-label>
-              <ion-input
-                [(ngModel)]="precarga.cliente"
-
-              ></ion-input>
+              <ion-input [(ngModel)]="precarga.cliente"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> TELEFONO </ion-label>
-              <ion-input [(ngModel)]="precarga.telefono"  >
-              </ion-input>
+              <ion-input [(ngModel)]="precarga.telefono"> </ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -74,7 +59,6 @@
               <ion-input
                 type="number"
                 [(ngModel)]="precarga.cajas_chicas"
-
               ></ion-input>
             </ion-item>
           </ion-col>
@@ -84,7 +68,6 @@
               <ion-input
                 type="number"
                 [(ngModel)]="precarga.cajas_medianas"
-
               ></ion-input>
             </ion-item>
           </ion-col>
@@ -94,21 +77,38 @@
               <ion-input
                 type="number"
                 [(ngModel)]="precarga.cajas_grandes"
-
               ></ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> MUEBLES </ion-label>
-              <ion-input
-                type="number"
+              <ion-select
                 [(ngModel)]="precarga.muebles"
-
-              ></ion-input>
+                [multiple]="true"
+                placeholder="Muebles"
+              >
+                <ion-select-option
+                  *ngFor="let mueble of muebles"
+                  [value]="mueble"
+                >
+                  {{ mueble.nombre }}
+                </ion-select-option>
+              </ion-select>
             </ion-item>
           </ion-col>
         </ion-row>
+        <ion-list>
+          <ng-container *ngIf="precarga.muebles">
+            <ion-item *ngFor="let mueble of precarga.muebles">
+              <ion-label position="fixed"> {{ mueble.nombre }} </ion-label>
+              <ion-input
+                type="number"
+                [(ngModel)]="mueble.cantidad"
+              ></ion-input>
+            </ion-item>
+          </ng-container>
+        </ion-list>
       </ion-grid>
     </ion-card-content>
   </ion-card>
@@ -123,14 +123,14 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> ORIGEN </ion-label>
-              <ion-input  > </ion-input>
+              <ion-input> </ion-input>
             </ion-item>
           </ion-col>
 
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> DESTINO </ion-label>
-              <ion-input  > </ion-input>
+              <ion-input> </ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -139,14 +139,14 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label>Fecha y Hora</ion-label>
-              <ion-datetime [(ngModel)]="fecha"  >
+              <ion-datetime [(ngModel)]="fecha">
                 <span slot="time-label">Hora</span>
               </ion-datetime>
             </ion-item>
           </ion-col>
         </ion-row>
       </ion-grid>
-      
+
       <ion-button
         class="ion-float-right ion-margin-top"
         fill="solid"
@@ -155,7 +155,12 @@
         SOLICITAR
       </ion-button>
 
-      <ion-button class="ion-margin-top" type="submit" color="light" (click)="cerrar()" >
+      <ion-button
+        class="ion-margin-top"
+        type="submit"
+        color="light"
+        (click)="cerrar()"
+      >
         CERRAR
       </ion-button>
     </ion-card-content>
