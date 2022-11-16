@@ -6,6 +6,8 @@ import { TransporteFlete } from '../interfaces/transporte-flete';
 import { TransporteFleteService } from '../services/transporte-flete.service';
 import { InfoPaquetesComponent } from './info-paquetes/info-paquetes.component';
 import { PaquetesService } from '../services/paquetes.service';
+import { environment } from 'src/environments/environment';
+import { Item } from '../interfaces/item';
 
 @Component({
   selector: 'app-paquetes',
@@ -13,6 +15,10 @@ import { PaquetesService } from '../services/paquetes.service';
   styleUrls: ['./paquetes.component.scss'],
 })
 export class PaquetesComponent implements OnInit {
+  items: Item[] = [];
+  total = 0;
+  id: string;
+  api = environment.api;
   transporteFlete: TransporteFlete = {
     flete: '',
     transporte: '',
@@ -36,7 +42,9 @@ export class PaquetesComponent implements OnInit {
         .subscribe((transporteFlete) => {
           this.transporteFlete = transporteFlete;
         });
+          
     });
+    
   }
 
   async altaPaquete() {
@@ -54,6 +62,7 @@ export class PaquetesComponent implements OnInit {
     const modal = await this.modalController.create({
       component: InfoPaquetesComponent,
       componentProps: { flete: this.transporteFlete.flete },
+      cssClass: 'modalGeneral'
     });
     return await modal.present();
   }
