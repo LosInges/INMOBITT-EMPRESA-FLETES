@@ -6,7 +6,6 @@ import { Precarga } from '../../interfaces/precarga';
 import { PrecargaService } from '../../services/precarga.service';
 import { MueblesService } from 'src/app/services/muebles.service';
 
-
 @Component({
   selector: 'app-precarga',
   templateUrl: './precarga.component.html',

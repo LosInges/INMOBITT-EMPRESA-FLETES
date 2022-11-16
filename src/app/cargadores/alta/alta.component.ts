@@ -94,5 +94,4 @@ export class AltaComponent implements OnInit {
       );
     });
   }
-
 }

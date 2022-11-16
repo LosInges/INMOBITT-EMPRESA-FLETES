@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private alertCtrl: AlertController,
     private modalController: ModalController
-  ) { }
+  ) {}
 
   async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
     const alert = await this.alertCtrl.create({

@@ -61,7 +61,7 @@ export class DetalleComponent implements OnInit {
         else console.log(val)
       })
     }
-  }
+  } 
 
   tomarFotografia() {
     this.fotoService.tomarFoto().then((photo) => {
