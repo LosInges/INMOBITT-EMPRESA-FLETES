@@ -114,14 +114,26 @@ export class AltaComponent implements OnInit, OnChanges {
   }
 
   registrarFlete() {
-    this.transporteFletesService
+    
+    if (
+      this.detalleFlete.id.trim().length <= 0 ||
+      this.detalleFlete.empresa.trim().length <= 0 ||
+      this.detalleFlete.cliente.trim().length <= 0 ||
+      this.detalleFlete.telefono.trim().length <= 0 || 
+      this.transporteFlete.cargadores.length <= 0 ||
+      this.transporteFlete.transporte.trim().length <= 0
+    ){
+      this.mostrarAlerta("Error", "Campos vacios", "No deje espacios en blanco.")
+    }else{
+      this.transporteFletesService
       .postTransportesFlete(this.transporteFlete)
       .subscribe((val) => { });
-    this.fletesServices
+      this.fletesServices
       .postFlete(this.detalleFlete)
       .subscribe((respuestaFlete) => {
         this.modalController.dismiss({ registrado: true });
       });
+    } 
   }
 
   cerrar() {
