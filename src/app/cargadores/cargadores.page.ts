@@ -25,6 +25,16 @@ export class CargadoresPage implements OnInit, OnDestroy {
     private modalController: ModalController,
     private sessionService: SessionService
   ) {
+    router.events.subscribe(e => {
+      if (e instanceof NavigationEnd) {
+        this.sessionService.keys().then(k => {
+          if (k.length <= 0) {
+            this.router.navigate([''])
+          }
+        })
+      }
+    })
+
     this.eventosRouter = this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         this.ngOnInit();

@@ -54,6 +54,7 @@ export class PaquetesComponent implements OnInit {
     const modal = await this.modalController.create({
       component: InfoPaquetesComponent,
       componentProps: { flete: this.transporteFlete.flete },
+      cssClass: 'modalGeneral'
     });
     return await modal.present();
   }
