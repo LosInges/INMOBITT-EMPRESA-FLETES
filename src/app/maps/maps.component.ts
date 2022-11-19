@@ -64,7 +64,7 @@ export class MapsComponent implements OnInit {
     const mapOptions = {
       center: latLng,
       zoom: 15,
-      disableDefaultUI: false,
+      disableDefaultUI: true,
       clickableIcons: false,
     };
 
@@ -91,6 +91,9 @@ export class MapsComponent implements OnInit {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng(),
       });
+    });
+    autocomplete.setComponentRestrictions({
+      country: ['mx'],
     });
     this.marker = new google.maps.Marker({
       map: this.map,
@@ -119,6 +122,7 @@ export class MapsComponent implements OnInit {
     this.marker.setPosition(latLng);
     this.map.panTo(latLng);
     this.positionSet = position;
+    console.log(this.marker);
   }
 
   async mylocation() {
