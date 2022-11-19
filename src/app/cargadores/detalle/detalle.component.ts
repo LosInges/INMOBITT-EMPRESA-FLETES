@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
+import { AlertController } from '@ionic/angular';
 import { Cargador } from 'src/app/fletes/interfaces/cargador';
 import { CargadoresService } from 'src/app/fletes/services/cargadores.service';
 import { FotoService } from './../../services/foto.service';
@@ -18,8 +18,21 @@ export class DetalleComponent implements OnInit {
   apellido2: string;
   constructor(private modalController: ModalController,
     private cargadoresService: CargadoresService,
-    private fotoService: FotoService
-    ) { }
+    private fotoService: FotoService,
+    private alertCtrl: AlertController,
+  ) { }
+
+  async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
+    const alert = await this.alertCtrl.create({
+      header: titulo,
+      subHeader: subtitulo,
+      message: mensaje,
+      buttons: ['OK']
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    console.log(result);
+  }
 
   ngOnInit() {
     this.apellido1 = this.cargador.apellido.split(" ")[0];
@@ -31,12 +44,24 @@ export class DetalleComponent implements OnInit {
   }
 
   actualizarCargador() {
-    this.cargador.apellido = this.apellido1 + ' ' + this.apellido2;
-    this.cargadoresService.postCargador(this.cargador).subscribe(val => {
-      if (val.results) this.modalController.dismiss({ cargador: this.cargador, actualizado: true })
-      else console.log(val)
-    })
-  }
+    if (
+      this.cargador.nombre.trim().length <= 0 ||
+      this.apellido1.length <= 0 ||
+      this.apellido2.length <= 0 ||
+      this.cargador.password.trim().length <= 0 ||
+      this.cargador.rfc.trim().length <= 0 ||
+      this.cargador.telefono.trim().length <= 0 ||
+      this.cargador.foto.length <= 0
+    ) {
+      this.mostrarAlerta("Error", "Campos vacios", "No deje espacios en blanco.")
+    } else {
+      this.cargador.apellido = this.apellido1 + ' ' + this.apellido2;
+      this.cargadoresService.postCargador(this.cargador).subscribe(val => {
+        if (val.results) this.modalController.dismiss({ cargador: this.cargador, actualizado: true })
+        else console.log(val)
+      })
+    }
+  } 
 
   tomarFotografia() {
     this.fotoService.tomarFoto().then((photo) => {

@@ -88,6 +88,7 @@ export class DetallePaqueteComponent implements OnInit {
         editando: true,
         item,
       },
+      cssClass: 'modalGeneral'
     });
     return await modal.present();
   }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { SessionService } from '../services/session.service';
 import { Flete } from './interfaces/flete';
 import { FletesService } from './services/fletes.service';
+import { NavigationEnd} from '@angular/router';
 //[routerLink]="['/', 'fletes', flete.id, 'paquetes']"
 
 @Component({
@@ -20,7 +21,17 @@ export class FletesPage implements OnInit {
     private sessionService: SessionService,
     private fletesService: FletesService,
     private modalController: ModalController
-  ) {}
+  ) {
+    router.events.subscribe(e=>{
+      if(e instanceof NavigationEnd){
+        this.sessionService.keys().then(k=>{
+          if(k.length <= 0){
+            this.router.navigate([''])
+          }
+        })
+      }
+    })
+  }
 
   ngOnInit() {
     this.sessionService.get('empresa')?.then((empresa) => {

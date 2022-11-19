@@ -30,7 +30,11 @@ const routes: Routes = [
       import('./cargadores/cargadores.module').then(
         (m) => m.CargadoresPageModule
       ),
+  },  {
+    path: 'prueba',
+    loadChildren: () => import('./prueba/prueba.module').then( m => m.PruebaPageModule)
   },
+
 ];
 
 @NgModule({
