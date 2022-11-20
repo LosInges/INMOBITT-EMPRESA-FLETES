@@ -108,15 +108,24 @@
                 </ion-card-title>
               </ion-col>
 
-              <ion-col>
-                <ion-card-title
+                <ion-col
                   class="ion-margin-top ion-margin-bottom"
                   type="submit"
                   color="secondary"
                 >
-                  {{flete.origen.estado}}
-                </ion-card-title>
-              </ion-col>
+                    <ion-button (click)="verPosicion(flete.origen)"
+                      >ORIGEN</ion-button
+                    >
+                  </ion-col>
+                  <ion-col
+                  class="ion-margin-top ion-margin-bottom"
+                  type="submit"
+                  color="secondary"
+                >
+                    <ion-button (click)="verPosicion(flete.destino)"
+                      >DESTINO</ion-button
+                    >
+                </ion-col>
 
               <ion-col>
                 <ion-card-title

@@ -1,4 +1,3 @@
-import { ModalController } from '@ionic/angular';
 import {
   Component,
   Input,
@@ -6,16 +5,20 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { Precarga } from '../interfaces/precarga';
-import { Flete } from '../interfaces/flete';
-import { TransporteFlete } from '../interfaces/transporte-flete';
-import { TransportesService } from '../services/transportes.service';
-import { CargadoresService } from '../services/cargadores.service';
+
 import { AlertController } from '@ionic/angular';
-import { Transporte } from '../interfaces/transporte';
 import { Cargador } from '../interfaces/cargador';
+import { CargadoresService } from '../services/cargadores.service';
+import { Direccion } from '../interfaces/direccion';
+import { Flete } from '../interfaces/flete';
 import { FletesService } from '../services/fletes.service';
+import { MapsComponent } from 'src/app/maps/maps.component';
+import { ModalController } from '@ionic/angular';
+import { Precarga } from '../interfaces/precarga';
+import { Transporte } from '../interfaces/transporte';
+import { TransporteFlete } from '../interfaces/transporte-flete';
 import { TransporteFleteService } from '../services/transporte-flete.service';
+import { TransportesService } from '../services/transportes.service';
 
 @Component({
   selector: 'app-alta',
@@ -106,12 +109,12 @@ export class AltaComponent implements OnInit, OnChanges {
   }
 
   registrarFlete() {
-    
+
     if (
       this.detalleFlete.id.trim().length <= 0 ||
       this.detalleFlete.empresa.trim().length <= 0 ||
       this.detalleFlete.cliente.trim().length <= 0 ||
-      this.detalleFlete.telefono.trim().length <= 0 || 
+      this.detalleFlete.telefono.trim().length <= 0 ||
       this.transporteFlete.cargadores.length <= 0 ||
       this.transporteFlete.transporte.trim().length <= 0
     ){
@@ -125,7 +128,16 @@ export class AltaComponent implements OnInit, OnChanges {
       .subscribe((respuestaFlete) => {
         this.modalController.dismiss({ registrado: true });
       });
-    } 
+    }
+  }
+
+  async verPosicion(position: Direccion) {
+    const modal = await this.modalController.create({
+      component: MapsComponent,
+      componentProps: { position },
+      cssClass: 'modalGeneral',
+    });
+    return modal.present();
   }
 
   cerrar() {
