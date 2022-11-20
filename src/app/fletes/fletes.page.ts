@@ -1,11 +1,15 @@
-import { ModalController } from '@ionic/angular';
-import { AltaComponent } from './alta/alta.component';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SessionService } from '../services/session.service';
+
+import { AltaComponent } from './alta/alta.component';
+import { Direccion } from './interfaces/direccion';
 import { Flete } from './interfaces/flete';
 import { FletesService } from './services/fletes.service';
-import { NavigationEnd} from '@angular/router';
+import { MapsComponent } from '../maps/maps.component';
+import { ModalController } from '@ionic/angular';
+import { NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
+import { SessionService } from '../services/session.service';
+
 //[routerLink]="['/', 'fletes', flete.id, 'paquetes']"
 
 @Component({
@@ -55,6 +59,15 @@ export class FletesPage implements OnInit {
         ? this.fletes.filter((f) => f != flete)
         : this.fletes;
     });
+  }
+
+  async verPosicion(position: Direccion) {
+    const modal = await this.modalController.create({
+      component: MapsComponent,
+      componentProps: { position },
+      cssClass: 'modalGeneral',
+    });
+    return modal.present();
   }
 
   navegar(flete: Flete) {
