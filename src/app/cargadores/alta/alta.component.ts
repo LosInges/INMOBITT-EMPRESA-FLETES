@@ -5,6 +5,7 @@ import { CargadoresService } from 'src/app/fletes/services/cargadores.service';
 import { FotoService } from 'src/app/services/foto.service';
 import { ModalController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
+import { LoginService } from 'src/app/fletes/services/login.service';
 
 @Component({
   selector: 'app-alta',
@@ -30,7 +31,8 @@ export class AltaComponent implements OnInit {
     private cargadoresService: CargadoresService,
     private modalController: ModalController,
     private alertCtrl: AlertController,
-    private fotoService: FotoService
+    private fotoService: FotoService,
+    private loginService: LoginService
   ) { }
 
   async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
@@ -66,9 +68,34 @@ export class AltaComponent implements OnInit {
       this.mostrarAlerta("Error", "Campos vacios", "No deje espacios en blanco.")
     } else {
       this.cargador.apellido = this.apellido1 + ' ' + this.apellido2;
-      this.cargadoresService.postCargador(this.cargador).subscribe((res) => {
-        this.modalController.dismiss(this.cargador);
+      this.loginService
+      .solicitarRegistro(this.cargador.rfc)
+      .subscribe((solicitud) => {
+        if (solicitud.permiso) {
+          this.cargadoresService
+            .postCargador(this.cargador)
+            .subscribe((res) => {
+              if (res.results) {
+                this.modalController.dismiss();
+              } else {
+                console.log(res);
+                this.mostrarAlerta(
+                  'Completado',
+                  'Creación',
+                  'Inmobiliaria creada exitosamente.'
+                );
+                this.cerrar();
+              }
+            });
+        } else {
+          this.mostrarAlerta(
+            'Error:',
+            'RFC ya registrado',
+            'Favor de introducir otro correo.'
+          );
+        }
       });
+
     }
   }
 

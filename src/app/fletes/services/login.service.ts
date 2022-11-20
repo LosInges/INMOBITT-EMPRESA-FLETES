@@ -19,4 +19,11 @@ export class LoginService {
   logOut(): Observable<any> {
     return this.httpClient.get<any>(`${environment.api}/signOut`);
   }
+
+  solicitarRegistro(correo: string): Observable<any> {
+    return this.httpClient.get<any>(
+      `${environment.api}/solicitar/registro/${correo}`
+    );
+  }
+
 }
