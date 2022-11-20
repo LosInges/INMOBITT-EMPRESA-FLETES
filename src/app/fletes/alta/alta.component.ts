@@ -44,20 +44,12 @@ export class AltaComponent implements OnInit, OnChanges {
     hora: '',
     telefono: '',
     destino: {
-      calle: '',
-      codigopostal: '',
-      colonia: '',
-      numeroexterior: '',
-      numerointerior: '',
-      estado: '',
+      lat: 0,
+      lng: 0
     },
     origen: {
-      calle: '',
-      codigopostal: '',
-      colonia: '',
-      numeroexterior: '',
-      numerointerior: '',
-      estado: '',
+      lat: 0,
+      lng: 0
     },
   };
 

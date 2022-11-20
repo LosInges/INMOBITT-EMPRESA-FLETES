@@ -28,22 +28,14 @@ export class PrecargaComponent implements OnInit {
     empresa: '',
     cliente: '',
     destino: {
-      calle: 'Lago Ontario',
-      codigopostal: '63173',
-      colonia: 'Lagos del Country',
-      numeroexterior: '10',
-      numerointerior: '',
-      estado: 'Nayarit',
+      lat: 0,
+      lng: 0
     },
     fecha: '',
     hora: '',
     origen: {
-      calle: 'Av. Tecnologico',
-      codigopostal: '63175',
-      colonia: 'Lagos del Country',
-      numeroexterior: '2595',
-      numerointerior: '',
-      estado: 'Nayarit',
+      lat: 0,
+      lng: 0
     },
     telefono: '',
   };
