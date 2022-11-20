@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { MapsComponent } from 'src/app/maps/maps.component';
 import { MueblesService } from 'src/app/services/muebles.service';
 import { SessionService } from 'src/app/services/session.service';
 import { AltaComponent } from '../../alta/alta.component';
+import { Direccion } from '../../interfaces/direccion';
 import { Empresa } from '../../interfaces/empresa';
 import { Precarga } from '../../interfaces/precarga';
 
@@ -20,7 +22,8 @@ export class DetalleComponent implements OnInit {
   constructor(
     private modalControler: ModalController,
     private sessionService: SessionService,
-    private mueblesService: MueblesService
+    private mueblesService: MueblesService,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -46,5 +49,28 @@ export class DetalleComponent implements OnInit {
       }
     });
     return await modal.present();
+  }
+
+  async verPosicion(position: Direccion) {
+    const modal = await this.modalController.create({
+      component: MapsComponent,
+      componentProps: { position },
+      cssClass: 'modalGeneral',
+    });
+    return modal.present();
+  }
+
+  async elegirLugar(position: Direccion) {
+    const modal = await this.modalController.create({
+      component: MapsComponent,
+      componentProps: { position },
+      cssClass: 'modalGeneral',
+    });
+    modal.onDidDismiss().then((res) => {
+      if (res.data) {
+        this.precarga.origen = res.data.pos;
+      }
+    });
+    return modal.present();
   }
 }
