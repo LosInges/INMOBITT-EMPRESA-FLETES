@@ -1,16 +1,18 @@
-import { ModalController } from '@ionic/angular';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+
+import { DetalleComponent } from './detalle/detalle.component';
+import { Direccion } from '../interfaces/direccion';
+import { Empresa } from '../interfaces/empresa';
+import { EmpresaService } from '../services/empresa.service';
 import { Estado } from 'src/app/interfaces/estado';
 import { EstadosService } from 'src/app/services/estados.service';
+import { MapsComponent } from 'src/app/maps/maps.component';
+import { ModalController } from '@ionic/angular';
+import { MueblesService } from 'src/app/services/muebles.service';
 import { Precarga } from '../interfaces/precarga';
 import { PrecargaService } from '../services/precarga.service';
-import { DetalleComponent } from './detalle/detalle.component';
-import { EmpresaService } from '../services/empresa.service';
-import { Empresa } from '../interfaces/empresa';
 import { SessionService } from 'src/app/services/session.service';
-import { PrecargaComponent } from './precarga/precarga.component';
-import { MueblesService } from 'src/app/services/muebles.service';
 
 @Component({
   selector: 'app-precargas',
@@ -29,7 +31,8 @@ export class PrecargasComponent implements OnInit, OnDestroy {
     private mueblesService: MueblesService,
     private modalControler: ModalController,
     private router: Router,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private modalController: ModalController
   ) {
     this.eventosRouter = this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -79,24 +82,6 @@ export class PrecargasComponent implements OnInit, OnDestroy {
     return await modal.present();
   }
 
-  async abrirRegistro() {
-    const modal = await this.modalControler.create({
-      component: PrecargaComponent,
-      componentProps: { empresa: this.empresa },
-      cssClass: 'modalGeneral',
-    });
-    modal.onDidDismiss().then((val) => {
-      if (val.data) {
-        if (val.data.empresa === this.empresa) {
-          this.precargas.push(val.data);
-        }
-      }
-
-      console.log(val);
-    });
-    return await modal.present();
-  }
-
   cerrar() {
     this.modalControler.dismiss();
   }
@@ -109,5 +94,13 @@ export class PrecargasComponent implements OnInit, OnDestroy {
           ? this.precargas.filter((p) => p !== precarga)
           : this.precargas;
       });
+  }
+  async verPosicion(position: Direccion) {
+    const modal = await this.modalController.create({
+      component: MapsComponent,
+      componentProps: { position },
+      cssClass: 'modalGeneral',
+    });
+    return modal.present();
   }
 }

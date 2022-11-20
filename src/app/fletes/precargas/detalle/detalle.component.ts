@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { MapsComponent } from 'src/app/maps/maps.component';
-import { MueblesService } from 'src/app/services/muebles.service';
-import { SessionService } from 'src/app/services/session.service';
+
 import { AltaComponent } from '../../alta/alta.component';
 import { Direccion } from '../../interfaces/direccion';
 import { Empresa } from '../../interfaces/empresa';
+import { MapsComponent } from 'src/app/maps/maps.component';
+import { ModalController } from '@ionic/angular';
+import { MueblesService } from 'src/app/services/muebles.service';
 import { Precarga } from '../../interfaces/precarga';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-detalle',
@@ -73,4 +74,6 @@ export class DetalleComponent implements OnInit {
     });
     return modal.present();
   }
+
+
 }
