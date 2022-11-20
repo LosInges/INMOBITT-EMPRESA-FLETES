@@ -51,10 +51,10 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     if (
-      this.empresa.nombre.trim().length > 0 ||
-      this.empresa.correo.trim().length > 0 ||
-      this.empresa.password.trim().length > 0 ||
-      this.empresa.telefono.trim().length > 0 ||
+      this.empresa.nombre.trim().length > 0 &&
+      this.empresa.correo.trim().length > 0 &&
+      this.empresa.password.trim().length > 0 &&
+      this.empresa.telefono.trim().length > 0 &&
       this.empresa.estados.length > 0
     ) {
       if (this.confirmPassword === this.empresa.password) {
