@@ -6,9 +6,6 @@
       </ion-back-button>
     </ion-buttons>
     <ion-title color="secondary">PRECARGAS</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="abrirRegistro()">Solicitar</ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -118,16 +115,21 @@
                   {{ precarga.cliente }}
                 </ion-card-title>
               </ion-col>
-              <!-- 
-              <ion-col>
-                <ion-card-title
-                  class="ion-margin-top ion-margin-bottom"
-                  type="submit"
-                  color="secondary"
-                >
-                  {{ precarga.origen }}
-                </ion-card-title>
-              </ion-col> -->
+
+              <ion-col
+                class="ion-margin-top ion-margin-bottom"
+                type="submitssss"
+                color="secondary"
+              >
+                <ion-item>
+                  <ion-button (click)="verPosicion(precarga.origen)"
+                    >ORIGEN</ion-button
+                  >
+                  <ion-button (click)="verPosicion(precarga.destino)"
+                    >DESTINO</ion-button
+                  >
+                </ion-item>
+              </ion-col>
 
               <ion-col>
                 <ion-card-title
