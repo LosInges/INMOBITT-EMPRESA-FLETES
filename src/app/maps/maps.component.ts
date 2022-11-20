@@ -11,6 +11,7 @@ import { ModalController } from '@ionic/angular';
 import { MapsService } from '../services/maps.service';
 import { Geolocation } from '@capacitor/geolocation';
 import { DOCUMENT } from '@angular/common';
+import { Direccion } from '../fletes/interfaces/direccion';
 
 declare let google: any;
 
@@ -20,7 +21,7 @@ declare let google: any;
   styleUrls: ['./maps.component.scss'],
 })
 export class MapsComponent implements OnInit {
-  @Input() position = {
+  @Input() position: Direccion = {
     lat: -2.898116,
     lng: -78.99958149999999,
   };
@@ -102,7 +103,6 @@ export class MapsComponent implements OnInit {
     });
     this.clickHandlerEvent();
     if (this.label.titulo.length) {
-      console.log(this.label.titulo);
       this.addMarker(pos);
     }
   }
@@ -122,7 +122,6 @@ export class MapsComponent implements OnInit {
     this.marker.setPosition(latLng);
     this.map.panTo(latLng);
     this.positionSet = position;
-    console.log(this.marker);
   }
 
   async mylocation() {

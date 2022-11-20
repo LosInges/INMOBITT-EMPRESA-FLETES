@@ -26,7 +26,7 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> EMPRESA </ion-label>
-              <ion-input [(ngModel)]="precarga.empresa" disabled > </ion-input>
+              <ion-input [(ngModel)]="precarga.empresa" disabled> </ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
@@ -122,15 +122,17 @@
         <ion-row>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
-              <ion-label position="floating"> ORIGEN </ion-label>
-              <ion-input> </ion-input>
+              <ion-button (click)="verPosicion(precarga.origen)"
+                >Ver Origen</ion-button
+              >
             </ion-item>
           </ion-col>
 
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
-              <ion-label position="floating"> DESTINO </ion-label>
-              <ion-input> </ion-input>
+              <ion-button (click)="verPosicion(precarga.destino)"
+                >Ver Destino</ion-button
+              >
             </ion-item>
           </ion-col>
         </ion-row>
