@@ -1,10 +1,8 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AltaComponent } from './alta/alta.component';
+import { RouterModule, Routes } from '@angular/router';
 
-import { FletesPage } from './fletes.page';
 import { DetallePaqueteComponent } from './paquetes/detalle-paquete/detalle-paquete.component';
-import { PaqueteComponent } from './paquetes/paquete/paquete.component';
+import { FletesPage } from './fletes.page';
+import { NgModule } from '@angular/core';
 import { PaquetesComponent } from './paquetes/paquetes.component';
 import { PrecargaComponent } from './precargas/precarga/precarga.component';
 import { PrecargasComponent } from './precargas/precargas.component';
