@@ -42,27 +42,30 @@ export class PaquetesComponent implements OnInit {
         .getTransportesFlete(params.id)
         .subscribe((transporteFlete) => {
           this.transporteFlete = transporteFlete;
+          console.log(transporteFlete);
         });
     });
   }
 
   async altaPaquete() {
+    const id = uuidv4();
+    if (this.transporteFlete.paquete) {
+      console.log('muchos paquetes');
+      this.transporteFlete.paquete.push(id);
+    } else {
+      console.log('un paquete');
+      this.transporteFlete.paquete = [id];
+    }
     this.transporteFleteService
       .postTransportesFlete(this.transporteFlete)
       .subscribe((res) => {
-        if (res.results) {
-          const id = uuidv4();
-          if (this.transporteFlete.paquete) {
-            this.transporteFlete.paquete.push(id);
-          } else {
-            this.transporteFlete.paquete = [id];
-          }
-        } else {
+        if (!res.results) {
           this.mostrarAlerta(
             'Error',
             'Error',
             'No se ha podido agregar un nuevo paquete'
           );
+          this.transporteFlete.paquete.pop();
         }
       });
   }

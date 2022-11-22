@@ -18,7 +18,6 @@ export class TransporteFleteService {
   }
 
   postTransportesFlete(transporteFlete: TransporteFlete): Observable<any> {
-    console.log(transporteFlete)
     return this.httpClient.post<any>(
       `${environment.api}/transporteFlete`,
       transporteFlete
