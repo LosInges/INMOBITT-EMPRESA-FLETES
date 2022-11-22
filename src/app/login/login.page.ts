@@ -11,21 +11,7 @@ import { SignupComponent } from './signup/signup.component';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  constructor(
-    private modalController: ModalController,
-    private router: Router,
-    private sessionService: SessionService
-  ) {
-    router.events.subscribe((e) => {
-      if (e instanceof NavigationEnd) {
-        this.sessionService.keys().then((k) => {
-          if (k.length <= 0) {
-            this.router.navigate(['']);
-          }
-        });
-      }
-    });
-  }
+  constructor(private modalController: ModalController) {}
 
   ngOnInit() {}
 

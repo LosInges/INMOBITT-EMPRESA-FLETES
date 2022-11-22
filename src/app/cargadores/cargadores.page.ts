@@ -17,7 +17,7 @@ import { environment } from 'src/environments/environment';
 export class CargadoresPage implements OnInit, OnDestroy {
   eventosRouter: any;
   cargadores: Cargador[] = [];
-  empresa: string
+  empresa: string;
   api = environment.api;
   constructor(
     private router: Router,
@@ -25,15 +25,15 @@ export class CargadoresPage implements OnInit, OnDestroy {
     private modalController: ModalController,
     private sessionService: SessionService
   ) {
-    router.events.subscribe(e => {
+    router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
-        this.sessionService.keys().then(k => {
+        this.sessionService.keys().then((k) => {
           if (k.length <= 0) {
-            this.router.navigate([''])
+            this.router.navigate(['']);
           }
-        })
+        });
       }
-    })
+    });
 
     this.eventosRouter = this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -42,16 +42,13 @@ export class CargadoresPage implements OnInit, OnDestroy {
     });
   }
 
-
   ngOnInit() {
-    this.sessionService.get('empresa')?.then(empresa => {
-      this.empresa = empresa
-      this.cargadoresService
-        .getCargadores(empresa)
-        .subscribe((cargadores) => {
-          this.cargadores = cargadores;
-        });
-    })
+    this.sessionService.get('empresa')?.then((empresa) => {
+      this.empresa = empresa;
+      this.cargadoresService.getCargadores(empresa).subscribe((cargadores) => {
+        this.cargadores = cargadores;
+      });
+    });
   }
 
   ngOnDestroy(): void {
@@ -64,12 +61,15 @@ export class CargadoresPage implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: AltaComponent,
       componentProps: { empresa: this.empresa },
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
-    modal.onDidDismiss().then(val => {
-      if (val.data) this.cargadores.push(val.data)
-      else console.log(val)
-    })
+    modal.onDidDismiss().then((val) => {
+      if (val.data) {
+        this.cargadores.push(val.data);
+      } else {
+        console.log(val);
+      }
+    });
     return await modal.present();
   }
 
@@ -79,19 +79,21 @@ export class CargadoresPage implements OnInit, OnDestroy {
       componentProps: {
         cargador: this.cargadores.filter((cargador) => cargador.rfc === rfc)[0],
       },
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
-    modal.onDidDismiss().then(val => {
-      if (val.data.actualizado)
-        this.cargadores.filter((cargador) => cargador.rfc === rfc)[0] = val.data.cargador
-    })
+    modal.onDidDismiss().then((val) => {
+      if (val.data.actualizado) {
+        this.cargadores.filter((cargador) => cargador.rfc === rfc)[0] =
+          val.data.cargador;
+      }
+    });
     return await modal.present();
   }
 
   eliminar(cargador: Cargador) {
     this.cargadoresService.deleteCargador(cargador).subscribe((valor) => {
       this.cargadores = valor.results
-        ? this.cargadores.filter((c) => c != cargador)
+        ? this.cargadores.filter((c) => c !== cargador)
         : this.cargadores;
     });
   }
