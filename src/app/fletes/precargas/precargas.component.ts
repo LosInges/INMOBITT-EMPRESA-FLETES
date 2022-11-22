@@ -1,14 +1,12 @@
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { DetalleComponent } from './detalle/detalle.component';
 import { Direccion } from '../interfaces/direccion';
-import { Empresa } from '../interfaces/empresa';
-import { EmpresaService } from '../services/empresa.service';
 import { Estado } from 'src/app/interfaces/estado';
 import { EstadosService } from 'src/app/services/estados.service';
 import { MapsComponent } from 'src/app/maps/maps.component';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { MueblesService } from 'src/app/services/muebles.service';
 import { Precarga } from '../interfaces/precarga';
 import { PrecargaService } from '../services/precarga.service';
@@ -32,7 +30,8 @@ export class PrecargasComponent implements OnInit, OnDestroy {
     private modalControler: ModalController,
     private router: Router,
     private sessionService: SessionService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertController: AlertController
   ) {
     this.eventosRouter = this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -90,9 +89,15 @@ export class PrecargasComponent implements OnInit, OnDestroy {
     this.precargaService
       .deletePrecarga(precarga.empresa, precarga.id)
       .subscribe((val) => {
-        this.precargas = val.results
-          ? this.precargas.filter((p) => p !== precarga)
-          : this.precargas;
+        if (val.results) {
+          this.precargas = this.precargas.filter((p) => precarga !== p);
+        } else {
+          this.mostrarAlerta(
+            'Error',
+            'No se pudo eliminar la precarga',
+            'Intente de nuevo'
+          );
+        }
       });
   }
   async verPosicion(position: Direccion) {
@@ -102,5 +107,15 @@ export class PrecargasComponent implements OnInit, OnDestroy {
       cssClass: 'modalGeneral',
     });
     return modal.present();
+  }
+
+  async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      subHeader: subtitulo,
+      message: mensaje,
+      buttons: ['OK'],
+    });
+    return alert.present();
   }
 }

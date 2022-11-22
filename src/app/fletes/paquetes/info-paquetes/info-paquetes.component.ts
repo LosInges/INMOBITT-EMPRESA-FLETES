@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { SessionService } from 'src/app/services/session.service';
 import { environment } from 'src/environments/environment';
 import { Cargador } from '../../interfaces/cargador';
@@ -28,7 +28,8 @@ export class InfoPaquetesComponent implements OnInit {
     private modalController: ModalController,
     private transporteFletesService: TransporteFleteService,
     private cargadoresService: CargadoresService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -68,6 +69,9 @@ export class InfoPaquetesComponent implements OnInit {
       .subscribe((val) => {
         if (val.results) {
           this.modalController.dismiss();
+        } else {
+          this.mostrarAlerta('Error', 'Error', 'No se pudo guardar');
+          this.modalController.dismiss();
         }
       });
   }
@@ -94,5 +98,15 @@ export class InfoPaquetesComponent implements OnInit {
         ];
       }
     }
+  }
+
+  async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      subHeader: subtitulo,
+      message: mensaje,
+      buttons: ['OK'],
+    });
+    return alert.present();
   }
 }

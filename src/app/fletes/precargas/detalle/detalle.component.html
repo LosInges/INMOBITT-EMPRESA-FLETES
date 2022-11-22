@@ -20,25 +20,25 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> ID </ion-label>
-              <ion-input [(ngModel)]="precarga.id" disabled> </ion-input>
+              <ion-input [(ngModel)]="precarga.id" type="text" disabled> </ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> EMPRESA </ion-label>
-              <ion-input [(ngModel)]="precarga.empresa" disabled></ion-input>
+              <ion-input [(ngModel)]="precarga.empresa" type="email" disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> CLIENTE </ion-label>
-              <ion-input [(ngModel)]="precarga.cliente" disabled></ion-input>
+              <ion-input [(ngModel)]="precarga.cliente" type="email" disabled></ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> TELEFONO </ion-label>
-              <ion-input [(ngModel)]="precarga.telefono" disabled> </ion-input>
+              <ion-input [(ngModel)]="precarga.telefono" type="tel" disabled> </ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -155,6 +155,7 @@
                 [(ngModel)]="fecha"
                 disabled
                 [yearValues]="precarga.fecha.split('-')[0]"
+                [min]="minima"
               >
                 <span slot="time-label">Hora</span>
               </ion-datetime>

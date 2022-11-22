@@ -5,7 +5,6 @@ import { Empresa } from 'src/app/fletes/interfaces/empresa';
 import { EmpresaService } from 'src/app/fletes/services/empresa.service';
 import { EstadosService } from 'src/app/services/estados.service';
 import { LoginService } from 'src/app/fletes/services/login.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -28,7 +27,6 @@ export class SignupComponent implements OnInit {
     private empresaService: EmpresaService,
     private modalController: ModalController,
     private alertCtrl: AlertController,
-    private router: Router,
     private loginService: LoginService
   ) {}
 
@@ -39,10 +37,7 @@ export class SignupComponent implements OnInit {
       message: mensaje,
       buttons: ['OK'],
     });
-    await alert.present();
-    const result = await alert.onDidDismiss();
-    console.log(result);
-    this.router.navigate(['/', 'login']);
+    return alert.present();
   }
 
   ngOnInit() {
@@ -50,52 +45,75 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    if (
-      this.empresa.nombre.trim().length > 0 &&
-      this.empresa.correo.trim().length > 0 &&
-      this.empresa.password.trim().length > 0 &&
-      this.empresa.telefono.trim().length > 0 &&
-      this.empresa.estados.length > 0
-    ) {
-      if (this.confirmPassword === this.empresa.password) {
-        this.loginService
-          .solicitarRegistro(this.empresa.correo)
-          .subscribe((solicitud) => {
-            if (solicitud.permiso) {
-              this.empresaService.postEmpresa(this.empresa).subscribe((res) => {
-                console.log(res);
+    if (this.validaciones()) {
+      this.loginService
+        .solicitarRegistro(this.empresa.correo)
+        .subscribe((solicitud) => {
+          if (solicitud.permiso) {
+            this.empresaService.postEmpresa(this.empresa).subscribe((res) => {
+              if (res.results) {
                 this.mostrarAlerta(
                   'Completado',
                   'Creación',
-                  'Cliente creado exitosamente.'
+                  'Empresa creada exitosamente.'
                 );
                 this.cerrar();
-              });
-            } else {
-              this.mostrarAlerta(
-                'Error:',
-                'Correo ya registrado',
-                'Favor de introducir otro correo.'
-              );
-            }
-          });
-      } else {
-        this.mostrarAlerta(
-          'Error:',
-          'Confirmación de clave incorrecta',
-          '¿es correcta o esta vacia?'
-        );
-      }
-    } else {
+              } else {
+                this.mostrarAlerta(
+                  'Error',
+                  'Creación',
+                  'Error al crear la empresa.'
+                );
+              }
+            });
+          } else {
+            this.mostrarAlerta(
+              'Error:',
+              'Correo ya registrado',
+              'Favor de introducir otro correo.'
+            );
+          }
+        });
+    }
+  }
+
+  validaciones(): boolean {
+    if (
+      this.empresa.nombre.trim().length <= 0 ||
+      this.empresa.telefono.trim().length <= 0 ||
+      this.empresa.correo.trim().length <= 0 ||
+      this.empresa.password.trim().length <= 0 ||
+      this.empresa.estados.length <= 0
+    ) {
       this.mostrarAlerta(
         'Error',
         'Campos vacios',
         'No deje espacios en blanco.'
       );
-      console.log(this.empresa);
-
+      return false;
     }
+
+    if (!this.empresa.correo.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+      this.mostrarAlerta('Error:', 'Revise el formato del correo', 'por favor');
+      return false;
+    }
+
+    if (!this.empresa.nombre.match(/^[_a-zA-Z ]+$/)) {
+      this.mostrarAlerta('Error:', 'Revise del campo nombre', 'por favor');
+      return false;
+    }
+    if (this.confirmPassword !== this.empresa.password) {
+      this.mostrarAlerta(
+        'Error:',
+        'Confirmación de clave incorrecta',
+        '¿Es correcta o esta vacia?'
+      );
+      return false;
+    }
+    console.log('TODO OK EN VALIDACIONES');
+    return true;
   }
+
   cerrar() {
     this.modalController.dismiss();
   }

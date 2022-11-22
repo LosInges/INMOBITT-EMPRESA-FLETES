@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChildActivationStart, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { LoginService } from 'src/app/fletes/services/login.service';
 import { SessionService } from 'src/app/services/session.service';
@@ -27,31 +27,34 @@ export class LoginComponent implements OnInit {
       header: titulo,
       subHeader: subtitulo,
       message: mensaje,
-      buttons: ['OK']
+      buttons: ['OK'],
     });
-    await alert.present();
-    const result = await alert.onDidDismiss();
-    console.log(result);
+    return alert.present();
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onSubmit() {
     alert(this.email + ', ' + this.password);
   }
 
   login() {
-    if (
-      this.email.trim().length <= 0 ||
-      this.password.trim().length <= 0
-    ) {
-      this.mostrarAlerta("Error", "Campos vacios", "No deje espacios en blanco.")
+    if (this.email.trim().length <= 0 || this.password.trim().length <= 0) {
+      this.mostrarAlerta(
+        'Error',
+        'Campos vacios',
+        'No deje espacios en blanco.'
+      );
     } else {
       this.loginService.login(this.email, this.password).subscribe(
         (res) => {
           if (res.session.tipo !== 'empresa') {
             console.log('NO es empresa');
-            this.mostrarAlerta("Error:", "Correo inválido", "Recuerde bien su correo y contraseña")
+            this.mostrarAlerta(
+              'Error:',
+              'Correo inválido',
+              'Recuerde bien su correo y contraseña'
+            );
             return;
           }
 
@@ -64,17 +67,19 @@ export class LoginComponent implements OnInit {
             );
             promesas.push(this.sessionService.set('rfc', res.session.email));
           } else {
-            promesas.push(this.sessionService.set('empresa', res.session.email));
+            promesas.push(
+              this.sessionService.set('empresa', res.session.email)
+            );
           }
 
-          Promise.all(promesas).then((val) => {
+          Promise.all(promesas).then(() => {
             this.cerrar();
             this.router.navigate(['/', 'fletes']);
           });
         },
         (err) => console.log(err)
       );
-    } 
+    }
   }
 
   onKeydown(event: Event) {

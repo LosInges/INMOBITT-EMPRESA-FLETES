@@ -19,6 +19,7 @@ export class DetalleComponent implements OnInit {
   @Input() precarga: Precarga;
   empresa: string;
   muebles = this.mueblesService.getMuebles();
+  minima = new Date().toISOString();
 
   constructor(
     private modalControler: ModalController,
@@ -60,20 +61,4 @@ export class DetalleComponent implements OnInit {
     });
     return modal.present();
   }
-
-  async elegirLugar(position: Direccion) {
-    const modal = await this.modalController.create({
-      component: MapsComponent,
-      componentProps: { position },
-      cssClass: 'modalGeneral',
-    });
-    modal.onDidDismiss().then((res) => {
-      if (res.data) {
-        this.precarga.origen = res.data.pos;
-      }
-    });
-    return modal.present();
-  }
-
-
 }

@@ -5,7 +5,7 @@ import { Direccion } from './interfaces/direccion';
 import { Flete } from './interfaces/flete';
 import { FletesService } from './services/fletes.service';
 import { MapsComponent } from '../maps/maps.component';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { NavigationEnd } from '@angular/router';
 import { Router } from '@angular/router';
 import { SessionService } from '../services/session.service';
@@ -24,23 +24,14 @@ export class FletesPage implements OnInit {
     private router: Router,
     private sessionService: SessionService,
     private fletesService: FletesService,
-    private modalController: ModalController
-  ) {
-    router.events.subscribe(e=>{
-      if(e instanceof NavigationEnd){
-        this.sessionService.keys().then(k=>{
-          if(k.length <= 0){
-            this.router.navigate([''])
-          }
-        })
-      }
-    })
-  }
+    private modalController: ModalController,
+    private alertController: AlertController
+  ) {}
 
   ngOnInit() {
     this.sessionService.get('empresa')?.then((empresa) => {
       this.fletesService.getFletesE(empresa).subscribe((fletes) => {
-          this.fletes = fletes;
+        this.fletes = fletes;
       });
     });
   }
@@ -48,16 +39,18 @@ export class FletesPage implements OnInit {
   async abrirRegistro() {
     const modal = await this.modalController.create({
       component: AltaComponent,
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
     return await modal.present();
   }
 
   eliminar(flete: Flete) {
     this.fletesService.deleteFlete(flete).subscribe((val) => {
-      this.fletes = val.results
-        ? this.fletes.filter((f) => f != flete)
-        : this.fletes;
+      if (val.results) {
+        this.fletes.filter((f) => f !== flete);
+      } else {
+        this.mostrarAlerta('Error', 'Error al eliminar', 'No se pudo eliminar');
+      }
     });
   }
 
@@ -72,5 +65,15 @@ export class FletesPage implements OnInit {
 
   navegar(flete: Flete) {
     this.router.navigate(['/', 'fletes', flete.id, 'paquetes']);
+  }
+
+  async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      subHeader: subtitulo,
+      message: mensaje,
+      buttons: ['OK'],
+    });
+    return alert.present();
   }
 }

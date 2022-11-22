@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { v4 as uuidv4 } from 'uuid';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { TransporteFlete } from '../interfaces/transporte-flete';
 import { TransporteFleteService } from '../services/transporte-flete.service';
 import { InfoPaquetesComponent } from './info-paquetes/info-paquetes.component';
@@ -31,7 +31,8 @@ export class PaquetesComponent implements OnInit {
     private modalController: ModalController,
     private activedRoute: ActivatedRoute,
     private transporteFleteService: TransporteFleteService,
-    private paquetesService: PaquetesService
+    private paquetesService: PaquetesService,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -42,43 +43,77 @@ export class PaquetesComponent implements OnInit {
         .subscribe((transporteFlete) => {
           this.transporteFlete = transporteFlete;
         });
-          
     });
-    
   }
 
   async altaPaquete() {
-    if (this.transporteFlete.paquete) {
-      this.transporteFlete.paquete.push(uuidv4());
-    } else {
-      this.transporteFlete.paquete = [uuidv4()];
-    }
     this.transporteFleteService
       .postTransportesFlete(this.transporteFlete)
-      .subscribe();
+      .subscribe((res) => {
+        if (res.results) {
+          const id = uuidv4();
+          if (this.transporteFlete.paquete) {
+            this.transporteFlete.paquete.push(id);
+          } else {
+            this.transporteFlete.paquete = [id];
+          }
+        } else {
+          this.mostrarAlerta(
+            'Error',
+            'Error',
+            'No se ha podido agregar un nuevo paquete'
+          );
+        }
+      });
   }
 
   async verInformacion() {
     const modal = await this.modalController.create({
       component: InfoPaquetesComponent,
       componentProps: { flete: this.transporteFlete.flete },
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
     return await modal.present();
   }
   eliminar(paquete: string) {
     this.paquetesService.deletePaquete(paquete).subscribe((va) => {
-      this.transporteFlete.paquete = va.results
-        ? this.transporteFlete.paquete.filter((pa) => pa !== paquete)
-        : this.transporteFlete.paquete;
-      this.transporteFleteService
-        .postTransportesFlete(this.transporteFlete)
-        .subscribe();
+      if (va.results) {
+        this.transporteFleteService
+          .postTransportesFlete(this.transporteFlete)
+          .subscribe((val) => {
+            if (val.results) {
+              this.transporteFlete.paquete =
+                this.transporteFlete.paquete.filter((item) => item !== paquete);
+            } else {
+              this.mostrarAlerta(
+                'Error',
+                'Error',
+                'No se ha podido eliminar el paquete'
+              );
+            }
+          });
+      } else {
+        this.mostrarAlerta(
+          'Error',
+          'Error',
+          'No se ha podido eliminar el paquete'
+        );
+      }
     });
   }
   navegar(paquete: string) {
     this.router.navigate(['./', paquete, 'items'], {
       relativeTo: this.activedRoute,
     });
+  }
+
+  async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      subHeader: subtitulo,
+      message: mensaje,
+      buttons: ['OK'],
+    });
+    return alert.present();
   }
 }

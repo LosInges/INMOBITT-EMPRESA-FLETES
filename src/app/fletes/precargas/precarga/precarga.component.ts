@@ -17,6 +17,7 @@ export class PrecargaComponent implements OnInit {
   @Input() empresa: string;
   fecha: string = new Date().toISOString();
   muebles = this.mueblesService.getMuebles();
+  minima = new Date().toISOString();
 
   precarga: Precarga = {
     id: '',
@@ -46,7 +47,6 @@ export class PrecargaComponent implements OnInit {
     private precargaService: PrecargaService,
     private modalController: ModalController,
     private alertCtrl: AlertController,
-    private router: Router,
     private mueblesService: MueblesService
   ) {}
 
@@ -98,7 +98,7 @@ export class PrecargaComponent implements OnInit {
     const modal = await this.modalController.create({
       component: MapsComponent,
       componentProps: { position },
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
   }
 

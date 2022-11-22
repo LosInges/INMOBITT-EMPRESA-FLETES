@@ -18,12 +18,12 @@
   <ion-item color="dark">
     <ion-input
       [(ngModel)]="empresa.correo"
-      type="mail"
+      type="email"
       required
       placeholder="Correo"
     ></ion-input>
     <ion-label>
-      <ion-icon name="mail"></ion-icon>
+      <ion-icon name="email"></ion-icon>
     </ion-label>
   </ion-item>
 
@@ -54,7 +54,7 @@
   <ion-item color="dark">
     <ion-input
       [(ngModel)]="empresa.telefono"
-      type="text"
+      type="tel"
       required
       placeholder="Teléfono"
     ></ion-input>
@@ -71,8 +71,10 @@
       [multiple]="true"
       [(ngModel)]="empresa.estados"
     >
-      <ion-select-option *ngFor="let estado of estados" [value]="estado.nombre"
-        >{{estado.nombre}}</ion-select-option
+      <ion-select-option
+        *ngFor="let estado of estados"
+        [value]="estado.nombre"
+        >{{ estado.nombre }}</ion-select-option
       >
     </ion-select>
   </ion-item>
@@ -87,7 +89,7 @@
   </ion-button>
 
   <ion-button
-    class=" ion-margin-top"
+    class="ion-margin-top"
     color="dark"
     fill="outline"
     (click)="cerrar()"

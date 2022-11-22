@@ -49,12 +49,13 @@ export class TransportesPage implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: DetalleComponent,
       componentProps: { transporte },
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
     modal.onDidDismiss().then((val) => {
-      if (val.data.actualizado)
-        this.transportes.filter((t) => t == transporte)[0] =
+      if (val.data.actualizado) {
+        this.transportes.filter((t) => t === transporte)[0] =
           val.data.transporte;
+      }
     });
     return await modal.present();
   }
@@ -63,11 +64,14 @@ export class TransportesPage implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: AltaComponent,
       componentProps: { empresa: this.empresa },
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
     modal.onDidDismiss().then((val) => {
-      if (val.data) this.transportes.push(val.data);
-      else console.log(val);
+      if (val.data) {
+        this.transportes.push(val.data);
+      } else {
+        console.log(val);
+      }
     });
     return await modal.present();
   }
@@ -75,7 +79,7 @@ export class TransportesPage implements OnInit, OnDestroy {
   eliminar(transporte: Transporte) {
     this.transportesService.deleteTransporte(transporte).subscribe((val) => {
       this.transportes = val.results
-        ? this.transportes.filter((t) => t != transporte)
+        ? this.transportes.filter((t) => t !== transporte)
         : this.transportes;
     });
   }

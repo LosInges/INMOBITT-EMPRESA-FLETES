@@ -27,7 +27,7 @@ export class PaqueteComponent implements OnInit {
     total: 0,
     alto_item: 0,
     ancho_item: 0,
-  }; 
+  };
   api = environment.api;
   constructor(
     private modalController: ModalController,
@@ -41,18 +41,18 @@ export class PaqueteComponent implements OnInit {
       header: titulo,
       subHeader: subtitulo,
       message: mensaje,
-      buttons: ['OK']
+      buttons: ['OK'],
     });
     await alert.present();
     const result = await alert.onDidDismiss();
-    console.log(result); 
+    console.log(result);
   }
 
   ngOnInit() {
     if (this.agregando) {
       this.item.id = this.id;
       this.item.id_item = uuidv4();
-    } 
+    }
   }
 
   cerrar() {
@@ -60,25 +60,29 @@ export class PaqueteComponent implements OnInit {
   }
 
   agregarItem() {
-    if(
+    if (
       this.item.alto_item.toString().length <= 0 ||
-      this.item.ancho_item.toString().length <= 0 
-    ){
-      this.mostrarAlerta("Error", "Campos vacios", "No deje espacios en blanco.")
-    }else{
+      this.item.ancho_item.toString().length <= 0 ||
+      this.item.foto.length <= 0
+    ) {
+      this.mostrarAlerta(
+        'Error',
+        'Campos vacios',
+        'No deje espacios en blanco.'
+      );
+    } else {
       this.itemService.postItem(this.item).subscribe((res) => {
         if (res.results) {
           this.modalController.dismiss(this.item);
+        } else {
+          this.mostrarAlerta('Error', 'Error', 'Error al agregar el item.');
         }
       });
-    } 
+    }
   }
 
   tomarFotografia() {
     this.fotoService.tomarFoto().then((photo) => {
-      // this.fotoService.subirMiniatura(photo.webPath).subscribe((data) => {
-      //   console.log(data);
-      // });
       console.log(photo);
       const reader = new FileReader();
       const datos = new FormData();

@@ -40,7 +40,11 @@ export class DetallePaqueteComponent implements OnInit {
         if (val.results) {
           this.items = this.items.filter((i) => item !== i);
         } else {
-          console.log(val);
+          this.mostrarAlerta(
+            'Error',
+            'Error al eliminar',
+            'no se pudo eliminar'
+          );
         }
       });
     } else {
@@ -48,7 +52,11 @@ export class DetallePaqueteComponent implements OnInit {
         if (val.results) {
           this.items = [];
         } else {
-          console.log(val);
+          this.mostrarAlerta(
+            'Error',
+            'Error al eliminar',
+            'no se pudo eliminar'
+          );
         }
       });
     }
@@ -58,7 +66,7 @@ export class DetallePaqueteComponent implements OnInit {
     const modal = await this.modalController.create({
       component: PaqueteComponent,
       componentProps: { id: this.id, total: this.total },
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
     modal.onDidDismiss().then((item) => {
       if (!item.data) {
@@ -88,7 +96,7 @@ export class DetallePaqueteComponent implements OnInit {
         editando: true,
         item,
       },
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
     return await modal.present();
   }
@@ -141,5 +149,15 @@ export class DetallePaqueteComponent implements OnInit {
     }
 
     await alert.present();
+  }
+
+  async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      subHeader: subtitulo,
+      message: mensaje,
+      buttons: ['OK'],
+    });
+    return alert.present();
   }
 }
