@@ -3,9 +3,7 @@
     <!-- -->
     <ion-title color="secondary">FLETES</ion-title>
     <ion-buttons slot="end">
-      <ion-button [routerLink]="['/', 'fletes', 'precargas']"
-        >Precargas</ion-button
-      >
+      <ion-button [routerLink]="['/', 'fletes', 'precargas']">Precargas</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -16,70 +14,40 @@
       <ion-item-sliding #itemSliding>
         <ion-item>
           <ion-grid>
-            <ion-row>
-              <ion-col size-xs="2">
-                <ion-card-title
-                  class="ion-margin-top ion-margin-bottom"
-                  type="submit"
-                  color="secondary"
-                >
+            <ion-row class="ion-margin-top ion-margin-bottom">
+              <ion-col class="ion-text-center" size-xs="12" size-xl="5">
+                <ion-card-title type="submit" color="secondary">
                   {{flete.id}}
                 </ion-card-title>
               </ion-col>
 
-              <ion-col>
-                <ion-card-title
-                  class="ion-margin-top ion-margin-bottom"
-                  type="submit"
-                  color="secondary"
-                >
+              <ion-col class="ion-text-center" size-xs="12" size-xl="3">
+                <ion-card-title type="submit" color="secondary">
                   {{flete.cliente}}
                 </ion-card-title>
               </ion-col>
 
-              <ion-col
-                class="ion-margin-top ion-margin-bottom"
-                type="submit"
-                color="secondary"
-              >
-                <ion-button (click)="verPosicion(flete.origen)"
-                  >ORIGEN</ion-button
-                >
+              <ion-col type="submit" color="secondary" size-xs="6" size-xl="auto" class="ion-text-center">
+                <ion-button (click)="verPosicion(flete.origen)">ORIGEN</ion-button>
               </ion-col>
-              <ion-col
-                class="ion-margin-top ion-margin-bottom"
-                type="submit"
-                color="secondary"
-              >
-                <ion-button (click)="verPosicion(flete.destino)"
-                  >DESTINO</ion-button
-                >
+              <ion-col type="submit" color="secondary" size-xs="6" size-xl="auto" class="ion-text-center">
+                <ion-button (click)="verPosicion(flete.destino)">DESTINO</ion-button>
               </ion-col>
 
-              <ion-col>
-                <ion-card-title
-                  class="ion-margin-top ion-margin-bottom"
-                  type="submit"
-                  color="secondary"
-                >
+              <ion-col class="ion-text-center" size-xs="12" size-xl="auto">
+                <ion-card-title type="submit" color="secondary">
                   {{flete.fecha}}
                 </ion-card-title>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-item>
-        <ion-item-options
-          side="end"
-          (ionSwipe)="eliminar(flete);itemSliding.close()"
-        >
+        <ion-item-options side="end" (ionSwipe)="eliminar(flete);itemSliding.close()">
           <ion-item-option expandable color="danger">
             <ion-icon name="trash-outline"> </ion-icon>
           </ion-item-option>
         </ion-item-options>
-        <ion-item-options
-          side="start"
-          (ionSwipe)="navegar(flete);itemSliding.close()"
-        >
+        <ion-item-options side="start" (ionSwipe)="navegar(flete);itemSliding.close()">
           <ion-item-option expandable color="success">
             <ion-icon name="eye"> </ion-icon>
           </ion-item-option>

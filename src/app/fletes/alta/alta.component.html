@@ -44,20 +44,21 @@
         <ion-card-content>
           <ion-grid>
             <ion-row>
-              <ion-col class="ion-margin-top ion-margin-bottom">
+              <ion-col size-xs="12" size-xl="4" class="ion-margin-top ion-margin-bottom">
                 <ion-item>
                   <ion-label position="floating"> EMPRESA </ion-label>
                   <ion-input [(ngModel)]="detalleFlete.empresa"> </ion-input>
                 </ion-item>
               </ion-col>
 
-              <ion-col class="ion-margin-top ion-margin-bottom">
+              <ion-col size-xs="12" size-xl="4" class="ion-margin-top ion-margin-bottom">
                 <ion-item>
                   <ion-label position="floating"> CLIENTE </ion-label>
                   <ion-input [(ngModel)]="detalleFlete.cliente"> </ion-input>
                 </ion-item>
               </ion-col>
-              <ion-col class="ion-margin-top ion-margin-bottom">
+
+              <ion-col size-xs="12" size-xl="4" class="ion-margin-top ion-margin-bottom">
                 <ion-item>
                   <ion-label position="floating"> TELEFONO </ion-label>
                   <ion-input [(ngModel)]="detalleFlete.telefono"> </ion-input>
@@ -66,32 +67,22 @@
             </ion-row>
 
             <ion-row>
-              <ion-col
-                class="ion-margin-top ion-margin-bottom"
-                type="submit"
-                color="secondary"
-              >
+              <ion-col size-xs="12" size-xl="6" class="ion-margin-top ion-margin-bottom" type="submit"
+                color="secondary">
                 <ion-item>
-                  <ion-button (click)="verPosicion(precarga.origen)"
-                    >ORIGEN</ion-button
-                  >
+                  <ion-button (click)="verPosicion(precarga.origen)">ORIGEN</ion-button>
                 </ion-item>
               </ion-col>
-              <ion-col
-                class="ion-margin-top ion-margin-bottom"
-                type="submit"
-                color="secondary"
-              >
+              <ion-col size-xs="12" size-xl="6" class="ion-margin-top ion-margin-bottom" type="submit"
+                color="secondary">
                 <ion-item>
-                  <ion-button (click)="verPosicion(precarga.destino)"
-                    >DESTINO</ion-button
-                  >
+                  <ion-button (click)="verPosicion(precarga.destino)">DESTINO</ion-button>
                 </ion-item>
               </ion-col>
             </ion-row>
 
             <ion-row>
-              <ion-col>
+              <ion-col size-xs="12" size-xl="12">
                 <ion-card-content>
                   <ion-item id="open-modal2">
                     <ion-label>Fecha</ion-label>
@@ -100,11 +91,7 @@
 
                   <ion-modal trigger="open-modal2" [cssClass]="'bottom-end'">
                     <ng-template>
-                      <ion-datetime
-                        [(ngModel)]="fecha"
-                        size="cover"
-                        [showDefaultButtons]="true"
-                      ></ion-datetime>
+                      <ion-datetime [(ngModel)]="fecha" size="cover" [showDefaultButtons]="true"></ion-datetime>
                     </ng-template>
                   </ion-modal>
                 </ion-card-content>
@@ -120,27 +107,17 @@
               <ion-select-option value="">
                 SELECCIONA UN TRANSPORTE
               </ion-select-option>
-              <ion-select-option
-                *ngFor="let transporte of transportes"
-                [value]="transporte.matricula"
-              >
+              <ion-select-option *ngFor="let transporte of transportes" [value]="transporte.matricula">
                 {{ transporte.matricula }} - Capacidad: ({{
-                  transporte.capacidad
-                }})</ion-select-option
-              >
+                transporte.capacidad
+                }})</ion-select-option>
             </ion-select>
           </ion-item>
           <ion-item>
             <ion-label position="floating"> Cargadores </ion-label>
-            <ion-select
-              [(ngModel)]="transporteFlete.cargadores"
-              [multiple]="true"
-              placeholder="SELECCIONA LOS CARGADORES"
-            >
-              <ion-select-option
-                *ngFor="let cargador of cargadores"
-                [value]="cargador.rfc"
-              >
+            <ion-select [(ngModel)]="transporteFlete.cargadores" [multiple]="true"
+              placeholder="SELECCIONA LOS CARGADORES">
+              <ion-select-option *ngFor="let cargador of cargadores" [value]="cargador.rfc">
                 {{ cargador.nombre }} {{ cargador.apellido }}
               </ion-select-option>
             </ion-select>
@@ -148,15 +125,11 @@
         </ion-card-content>
 
         <ion-card-content>
-          <ion-button class="ion-margin-top" type="submit" color="light" (click)="cerrar()" >
+          <ion-button class="ion-margin-top" type="submit" color="light" (click)="cerrar()">
             CERRAR
           </ion-button>
 
-          <ion-button
-            class="ion-float-right ion-margin-top"
-            fill="solid"
-            (click)="registrarFlete()"
-          >
+          <ion-button class="ion-float-right ion-margin-top" fill="solid" (click)="registrarFlete()">
             CONFIRMAR
           </ion-button>
         </ion-card-content>
