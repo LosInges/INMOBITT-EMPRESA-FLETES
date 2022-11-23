@@ -1,26 +1,4 @@
-<!--
-  Lista de items en el paquete con un boton de agrear item e implemetar el formulario que esta
-  en el paquete.component.html
-
-  Generar un componente nuevo para guardar los archivos de paquete y usarlo de formulario de
-  registro cuando se registre un item se debe cerrar el modal retornando el item agregado,
-  junto con esta operacion se tiene que guardar el item en la tabla de paquetes utilizando el
-  servicio de items.
-
-  qexport interface Item {
-  id: string;
-  idItem: string;
-  foto: string;
-  item: string;
-  total: number;
-  altoItem: number;
-  anchoItem: number;
-}
-
--->
-
-<!--CREACIÓN DETALLE PAQUETES-->
-
+ 
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -41,7 +19,7 @@
       <ion-item>
         <ion-grid>
           <ion-row>
-            <ion-col size-xs="2">
+            <ion-col  class="ion-text-center" size-xs="12" size-xl="3">
               <ion-card-title
                 class="ion-margin-top ion-margin-bottom"
                 type="submit"
@@ -51,7 +29,7 @@
               </ion-card-title>
             </ion-col>
 
-            <ion-col>
+            <ion-col  class="ion-text-center" size-xs="12" size-xl="3">
               <ion-card-title
                 class="ion-margin-top ion-margin-bottom"
                 type="submit"
@@ -61,7 +39,7 @@
               </ion-card-title>
             </ion-col>
 
-            <ion-col>
+            <ion-col  class="ion-text-center" size-xs="12" size-xl="3">
               <ion-card-title
                 class="ion-margin-top ion-margin-bottom"
                 type="submit"
@@ -71,7 +49,7 @@
               </ion-card-title>
             </ion-col>
 
-            <ion-col>
+            <ion-col  class="ion-text-center" size-xs="12" size-xl="3">
               <ion-card-title>
                 <img src="{{ api }}/{{ item.foto }}" />
               </ion-card-title>
