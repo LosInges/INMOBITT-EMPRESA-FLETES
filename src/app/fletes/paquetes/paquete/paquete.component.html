@@ -30,7 +30,7 @@
       </ion-toolbar>
     </ion-card-header>
     <ion-grid>
-      <ion-row> 
+      <ion-row>
         <ion-col size-xs="12" size-xl="6">
           <ion-label position="floatin">ID</ion-label>
           <ion-list>
@@ -69,8 +69,8 @@
         </ion-toolbar>
       </ion-card-header>
 
-      <ion-row> 
-        <ion-col  class="ion-text-center" size-xs="12" size-xl="4">
+      <ion-row>
+        <ion-col class="ion-text-center" size-xs="12" size-xl="4">
           <ion-label position="floating">NOMBRE</ion-label>
           <ion-list>
             <ion-item>
@@ -84,7 +84,7 @@
           </ion-list>
         </ion-col>
 
-        <ion-col  class="ion-text-center" size-xs="12" size-xl="4">
+        <ion-col class="ion-text-center" size-xs="12" size-xl="4">
           <ion-label position="floating">ANCHO(cm)</ion-label>
           <ion-list>
             <ion-item>
@@ -97,8 +97,8 @@
             </ion-item>
           </ion-list>
         </ion-col>
-        
-        <ion-col  class="ion-text-center" size-xs="12" size-xl="4">
+
+        <ion-col class="ion-text-center" size-xs="12" size-xl="4">
           <ion-label position="floating">ALTO(cm)</ion-label>
           <ion-list>
             <ion-item>
@@ -114,18 +114,32 @@
       </ion-row>
 
       <ion-card-content>
-        <ion-button  class="ion-text-center" class="ion-float-top" (click)="tomarFotografia()" *ngIf="agregando || editando">
+        <ion-button
+          class="ion-text-center"
+          class="ion-float-top"
+          (click)="tomarFotografia()"
+          *ngIf="agregando || editando"
+        >
           Foto
-        </ion-button> 
+        </ion-button>
       </ion-card-content>
 
       <ion-card-content>
-      <img class="ion-float-top" *ngIf="item.foto" src="{{ api }}/{{ item.foto }}" />
+        <img
+          class="ion-float-top"
+          *ngIf="item.foto"
+          src="{{ api }}/img/{{ item.foto.split('/').pop() }}"
+        />
       </ion-card-content>
 
-      <!--BOTONES--> 
+      <!--BOTONES-->
       <ion-card-content>
-        <ion-button class="ion-margin-top" type="submit" color="light" (click)="cerrar()" >
+        <ion-button
+          class="ion-margin-top"
+          type="submit"
+          color="light"
+          (click)="cerrar()"
+        >
           CERRAR
         </ion-button>
 
@@ -137,7 +151,7 @@
           CONFIRMAR
         </ion-button>
       </ion-card-content>
-      
+
       <ion-col size-xs="0.1"> </ion-col>
     </ion-grid>
   </ion-card>
