@@ -84,10 +84,10 @@ export class AltaComponent implements OnInit {
                   this.mostrarAlerta(
                     'Completado',
                     'Creación',
-                    'Inmobiliaria creada exitosamente.'
+                    'Cargador registrado exitosamente.'
                   );
                 } else {
-                  this.cerrar();
+                  this.modalController.dismiss(this.cargador);
                 }
               });
           } else {

@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
-import { MapsComponent } from 'src/app/maps/maps.component';
 import { NgModule } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
 

@@ -14,7 +14,7 @@ export class AltaComponent implements OnInit {
 
   transporte: Transporte = {
     matricula: '',
-    capacidad: 0,
+    capacidad: 1,
     empresa: '',
     activo: true,
   };
@@ -52,7 +52,6 @@ export class AltaComponent implements OnInit {
       );
       return;
     }
-
     this.transportesService.postTransporte(this.transporte).subscribe((res) => {
       if (res.results) {
         this.modalController.dismiss(this.transporte);
