@@ -30,9 +30,7 @@ export class DetalleComponent implements OnInit {
       message: mensaje,
       buttons: ['OK'],
     });
-    await alert.present();
-    const result = await alert.onDidDismiss();
-    console.log(result);
+    return alert.present();
   }
 
   ngOnInit() {
@@ -69,6 +67,7 @@ export class DetalleComponent implements OnInit {
       this.cargador.apellido = this.apellido1 + ' ' + this.apellido2;
       this.cargadoresService.postCargador(this.cargador).subscribe((val) => {
         if (val.results) {
+          this.mostrarAlerta('Exito', 'Cargador actualizado', '');
           this.modalController.dismiss({
             cargador: this.cargador,
             actualizado: true,

@@ -42,9 +42,7 @@ export class AltaComponent implements OnInit {
       message: mensaje,
       buttons: ['OK'],
     });
-    await alert.present();
-    const result = await alert.onDidDismiss();
-    console.log(result);
+    return alert.present();
   }
 
   ngOnInit() {
@@ -80,14 +78,18 @@ export class AltaComponent implements OnInit {
               .postCargador(this.cargador)
               .subscribe((res) => {
                 if (res.results) {
-                  this.modalController.dismiss();
                   this.mostrarAlerta(
                     'Completado',
                     'Creación',
                     'Cargador registrado exitosamente.'
                   );
-                } else {
                   this.modalController.dismiss(this.cargador);
+                } else {
+                  this.mostrarAlerta(
+                    'Error',
+                    'Creación',
+                    'No se pudo registrar el cargador.'
+                  );
                 }
               });
           } else {

@@ -6,7 +6,6 @@ import { Flete } from './interfaces/flete';
 import { FletesService } from './services/fletes.service';
 import { MapsComponent } from '../maps/maps.component';
 import { AlertController, ModalController } from '@ionic/angular';
-import { NavigationEnd } from '@angular/router';
 import { Router } from '@angular/router';
 import { SessionService } from '../services/session.service';
 
@@ -45,13 +44,39 @@ export class FletesPage implements OnInit {
   }
 
   eliminar(flete: Flete) {
-    this.fletesService.deleteFlete(flete).subscribe((val) => {
-      if (val.results) {
-        this.fletes.filter((f) => f !== flete);
-      } else {
-        this.mostrarAlerta('Error', 'Error al eliminar', 'No se pudo eliminar');
-      }
-    });
+    this.alertController
+      .create({
+        header: 'Eliminar',
+        subHeader: '¿Está seguro de eliminar este flete?',
+        message: 'Esta acción no se puede deshacer',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {},
+          },
+          {
+            text: 'Eliminar',
+            handler: () => {
+              this.fletesService.deleteFlete(flete).subscribe((val) => {
+                if (val.results) {
+                  this.fletes.filter((f) => f !== flete);
+                } else {
+                  this.mostrarAlerta(
+                    'Error',
+                    'Error al eliminar',
+                    'No se pudo eliminar'
+                  );
+                }
+              });
+            },
+          },
+        ],
+      })
+      .then((alert) => {
+        alert.present();
+      });
   }
 
   async verPosicion(position: Direccion) {

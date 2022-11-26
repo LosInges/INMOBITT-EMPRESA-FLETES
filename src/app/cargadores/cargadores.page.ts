@@ -5,7 +5,7 @@ import { AltaComponent } from './alta/alta.component';
 import { Cargador } from '../fletes/interfaces/cargador';
 import { CargadoresService } from '../fletes/services/cargadores.service';
 import { DetalleComponent } from './detalle/detalle.component';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { SessionService } from '../services/session.service';
 import { environment } from 'src/environments/environment';
 
@@ -23,7 +23,8 @@ export class CargadoresPage implements OnInit, OnDestroy {
     private router: Router,
     private cargadoresService: CargadoresService,
     private modalController: ModalController,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private alertController: AlertController
   ) {
     router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
@@ -91,10 +92,45 @@ export class CargadoresPage implements OnInit, OnDestroy {
   }
 
   eliminar(cargador: Cargador) {
-    this.cargadoresService.deleteCargador(cargador).subscribe((valor) => {
-      this.cargadores = valor.results
-        ? this.cargadores.filter((c) => c !== cargador)
-        : this.cargadores;
-    });
+    this.alertController
+      .create({
+        header: 'Eliminar cargador',
+        subHeader: '¿Está seguro de eliminar este cargador?',
+        message:
+          'Esta acción posiblemente afecte a los fletes que ya se han registrado.',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {},
+          },
+          {
+            text: 'Aceptar',
+            handler: () => {
+              this.cargadoresService
+                .deleteCargador(cargador)
+                .subscribe((valor) => {
+                  if (valor.results) {
+                    this.cargadores = this.cargadores.filter(
+                      (c) => c.rfc !== cargador.rfc
+                    );
+                  } else {
+                    this.alertController
+                      .create({
+                        header: 'Error',
+                        message: 'No se pudo eliminar el cargador',
+                        buttons: ['OK'],
+                      })
+                      .then((alert) => alert.present());
+                  }
+                });
+            },
+          },
+        ],
+      })
+      .then((alert) => {
+        alert.present();
+      });
   }
 }

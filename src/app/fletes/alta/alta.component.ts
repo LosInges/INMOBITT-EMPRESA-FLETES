@@ -41,7 +41,7 @@ export class AltaComponent implements OnInit, OnChanges {
   detalleFlete: Flete = {
     activo: true,
     id: '',
-    empresa: 'empresa@mail.com',
+    empresa: '',
     cliente: '',
     fecha: '',
     hora: '',
@@ -123,31 +123,52 @@ export class AltaComponent implements OnInit, OnChanges {
         'No deje espacios en blanco.'
       );
     } else {
-      this.transporteFletesService
-        .postTransportesFlete(this.transporteFlete)
-        .subscribe((val) => {
-          if (val.results) {
-            this.fletesServices
-              .postFlete(this.detalleFlete)
-              .subscribe((res) => {
-                if (res.results) {
-                  this.modalController.dismiss({ registrado: true });
-                } else {
-                  this.mostrarAlerta(
-                    'Error',
-                    'Error',
-                    'No se pudo registrar el flete.'
-                  );
-                }
-              });
-          } else {
-            this.mostrarAlerta(
-              'Error',
-              'Error al registrar',
-              'Error al registrar el flete.'
-            );
-          }
-        });
+      this.alertCtrl
+        .create({
+          header: 'Confirmar',
+          subHeader: '¿Desea registrar el flete?',
+          message:
+            'El transporte seleccionado para esta operacion no podra ser modificado.',
+          buttons: [
+            {
+              text: 'Cancelar',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: () => {},
+            },
+            {
+              text: 'Aceptar',
+              handler: () => {
+                this.transporteFletesService
+                  .postTransportesFlete(this.transporteFlete)
+                  .subscribe((val) => {
+                    if (val.results) {
+                      this.fletesServices
+                        .postFlete(this.detalleFlete)
+                        .subscribe((res) => {
+                          if (res.results) {
+                            this.modalController.dismiss({ registrado: true });
+                          } else {
+                            this.mostrarAlerta(
+                              'Error',
+                              'Error',
+                              'No se pudo registrar el flete.'
+                            );
+                          }
+                        });
+                    } else {
+                      this.mostrarAlerta(
+                        'Error',
+                        'Error al registrar',
+                        'Error al registrar el flete.'
+                      );
+                    }
+                  });
+              },
+            },
+          ],
+        })
+        .then((a) => a.present());
     }
   }
 

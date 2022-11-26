@@ -1,4 +1,4 @@
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { AltaComponent } from './alta/alta.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
@@ -21,7 +21,8 @@ export class TransportesPage implements OnInit, OnDestroy {
     private transportesService: TransportesService,
     private router: Router,
     private modalController: ModalController,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private alertController: AlertController
   ) {
     this.eventosRouter = this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -76,11 +77,45 @@ export class TransportesPage implements OnInit, OnDestroy {
     return await modal.present();
   }
 
-  eliminar(transporte: Transporte) {
-    this.transportesService.deleteTransporte(transporte).subscribe((val) => {
-      this.transportes = val.results
-        ? this.transportes.filter((t) => t !== transporte)
-        : this.transportes;
+  async eliminar(transporte: Transporte) {
+    const alerta = await this.alertController.create({
+      header: 'Eliminar',
+      subHeader: '¿Está seguro de eliminar este transporte?',
+      message:
+        'Esta acción puede dañar la integridad de los datos. Antes de realizarla certifíquese de que no se encuentre en uso.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {},
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.transportesService
+              .deleteTransporte(transporte)
+              .subscribe((val) => {
+                if (val.results) {
+                  this.transportes = this.transportes.filter(
+                    (t) => t.matricula !== transporte.matricula
+                  );
+                } else {
+                  this.alertController
+                    .create({
+                      header: 'Error',
+                      message: 'No se ha podido eliminar el transporte',
+                      buttons: ['Aceptar'],
+                    })
+                    .then((a) => {
+                      a.present();
+                    });
+                }
+              });
+          },
+        },
+      ],
     });
+    return alerta.present();
   }
 }

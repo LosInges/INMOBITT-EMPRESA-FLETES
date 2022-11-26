@@ -28,6 +28,11 @@ export class DetalleComponent implements OnInit {
 
   actualizarTransporte() {
     this.transportesService.postTransporte(this.transporte).subscribe((val) => {
+      this.mostrarAlerta(
+        'Transporte actualizado',
+        '',
+        'Transporte actualizado'
+      );
       if (val.results) {
         this.modalController.dismiss({
           transporte: this.transporte,
