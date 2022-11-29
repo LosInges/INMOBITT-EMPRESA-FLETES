@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export interface Item {
   id: string;
   id_item: string;
@@ -6,4 +7,5 @@ export interface Item {
   total: number;
   alto_item: number;
   ancho_item: number;
+  profundidad: number;
 }

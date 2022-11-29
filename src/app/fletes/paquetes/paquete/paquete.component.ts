@@ -27,6 +27,7 @@ export class PaqueteComponent implements OnInit {
     total: 0,
     alto_item: 0,
     ancho_item: 0,
+    profundidad: 0,
   };
   api = environment.api;
   constructor(
@@ -61,8 +62,9 @@ export class PaqueteComponent implements OnInit {
 
   agregarItem() {
     if (
-      this.item.alto_item.toString().length <= 0 ||
-      this.item.ancho_item.toString().length <= 0 ||
+      this.item.alto_item <= 0 ||
+      this.item.ancho_item <= 0 ||
+      this.item.profundidad <= 0 ||
       this.item.foto.length <= 0
     ) {
       this.mostrarAlerta(

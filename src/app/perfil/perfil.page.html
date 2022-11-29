@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title color="secondary">INMOBILIARIA</ion-title>
+    <ion-title color="secondary">EMPRESA DE FLETES</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,7 +21,7 @@
               >
                 <ion-item>
                   <ion-label position="floating"> CORREO </ion-label>
-                  <ion-input [(ngModel)]="empresa.correo"> </ion-input>
+                  <ion-input [(ngModel)]="empresa.correo" disabled> </ion-input>
                 </ion-item>
               </ion-col>
 
@@ -74,7 +74,7 @@
               >
                 <ion-item>
                   <ion-select
-                    placeholder="ESTADO"
+                    placeholder="ESTADOS"
                     [multiple]="true"
                     [(ngModel)]="empresa.estados"
                   >

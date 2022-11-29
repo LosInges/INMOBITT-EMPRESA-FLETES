@@ -23,13 +23,7 @@ export class TransportesPage implements OnInit, OnDestroy {
     private modalController: ModalController,
     private sessionService: SessionService,
     private alertController: AlertController
-  ) {
-    this.eventosRouter = this.router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd) {
-        this.ngOnInit();
-      }
-    });
-  }
+  ) {}
 
   ngOnInit() {
     this.sessionService.get('empresa')?.then((empresa) => {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { Empresa } from '../fletes/interfaces/empresa';
 import { CargadoresService } from '../fletes/services/cargadores.service';
@@ -34,7 +35,8 @@ export class PerfilPage implements OnInit {
     private fotoService: FotoService,
     private cargadoresService: CargadoresService,
     private transportesService: TransportesService,
-    private fletesService: FletesService
+    private fletesService: FletesService,
+    private alertCtrl: AlertController
   ) {}
 
   ngOnInit() {
@@ -65,8 +67,38 @@ export class PerfilPage implements OnInit {
   }
 
   actualizarPerfil() {
+    if (this.empresa.password !== this.confirmPassword) {
+      this.alertCtrl
+        .create({
+          header: 'Error',
+          message: 'Las contraseñas no coinciden',
+          buttons: ['OK'],
+        })
+        .then((alert) => alert.present());
+      return;
+    }
     this.empresaService.postEmpresa(this.empresa).subscribe((res) => {
-      console.log(res);
+      if (res.results) {
+        this.alertCtrl
+          .create({
+            header: 'Actualización exitosa',
+            message: 'Los datos de tu perfil se han actualizado correctamente',
+            buttons: ['OK'],
+          })
+          .then((alert) => {
+            alert.present();
+          });
+      } else {
+        this.alertCtrl
+          .create({
+            header: 'Error',
+            message: 'No se pudo actualizar tu perfil',
+            buttons: ['OK'],
+          })
+          .then((alert) => {
+            alert.present();
+          });
+      }
     });
   }
 

@@ -1,4 +1,3 @@
-import { NavigationEnd, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { DetalleComponent } from './detalle/detalle.component';
@@ -28,17 +27,10 @@ export class PrecargasComponent implements OnInit, OnDestroy {
     private precargaService: PrecargaService,
     private mueblesService: MueblesService,
     private modalControler: ModalController,
-    private router: Router,
     private sessionService: SessionService,
     private modalController: ModalController,
     private alertController: AlertController
-  ) {
-    this.eventosRouter = this.router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd) {
-        this.ngOnInit();
-      }
-    });
-  }
+  ) {}
 
   ngOnInit() {
     this.sessionService.get('empresa')?.then((empresa) => {

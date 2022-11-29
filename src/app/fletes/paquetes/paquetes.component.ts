@@ -42,7 +42,6 @@ export class PaquetesComponent implements OnInit {
         .getTransportesFlete(params.id)
         .subscribe((transporteFlete) => {
           this.transporteFlete = transporteFlete;
-          console.log(transporteFlete);
         });
     });
   }
@@ -50,10 +49,8 @@ export class PaquetesComponent implements OnInit {
   async altaPaquete() {
     const id = uuidv4();
     if (this.transporteFlete.paquete) {
-      console.log('muchos paquetes');
       this.transporteFlete.paquete.push(id);
     } else {
-      console.log('un paquete');
       this.transporteFlete.paquete = [id];
     }
     this.transporteFleteService

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
 
 import { AltaComponent } from './alta/alta.component';
 import { Cargador } from '../fletes/interfaces/cargador';
@@ -20,28 +19,11 @@ export class CargadoresPage implements OnInit, OnDestroy {
   empresa: string;
   api = environment.api;
   constructor(
-    private router: Router,
     private cargadoresService: CargadoresService,
     private modalController: ModalController,
     private sessionService: SessionService,
     private alertController: AlertController
-  ) {
-    router.events.subscribe((e) => {
-      if (e instanceof NavigationEnd) {
-        this.sessionService.keys().then((k) => {
-          if (k.length <= 0) {
-            this.router.navigate(['']);
-          }
-        });
-      }
-    });
-
-    this.eventosRouter = this.router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd) {
-        this.ngOnInit();
-      }
-    });
-  }
+  ) {}
 
   ngOnInit() {
     this.sessionService.get('empresa')?.then((empresa) => {

@@ -9,9 +9,7 @@ import { NgModule } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

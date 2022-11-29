@@ -49,28 +49,20 @@ export class LoginComponent implements OnInit {
       this.loginService.login(this.email, this.password).subscribe(
         (res) => {
           if (res.session.tipo !== 'empresa') {
-            console.log('NO es empresa');
             this.mostrarAlerta(
               'Error:',
-              'Correo inválido',
+              'Credenciales invalidas',
               'Recuerde bien su correo y contraseña'
             );
+            console.log(res.session);
             return;
           }
 
           const promesas: Promise<any>[] = [
+            this.sessionService.clear(),
             this.sessionService.set('tipo', res.session.tipo),
+            this.sessionService.set('empresa', res.session.email)
           ];
-          if (res.session.tipo === 'cargador') {
-            promesas.push(
-              this.sessionService.set('empresa', res.session.empresa)
-            );
-            promesas.push(this.sessionService.set('rfc', res.session.email));
-          } else {
-            promesas.push(
-              this.sessionService.set('empresa', res.session.email)
-            );
-          }
 
           Promise.all(promesas).then(() => {
             this.cerrar();
@@ -80,13 +72,6 @@ export class LoginComponent implements OnInit {
         (err) => console.log(err)
       );
     }
-  }
-
-  onKeydown(event: Event) {
-    console.log(event);
-
-    this.login();
-    this.cerrar();
   }
   cerrar() {
     this.modalController.dismiss();

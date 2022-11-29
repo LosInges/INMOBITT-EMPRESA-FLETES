@@ -6,10 +6,10 @@
     <ion-title color="secondary">PAQUETES</ion-title>
     <ion-buttons slot="end">
       <ion-button color="secondary" (click)="verInformacion()">
-        VER CARGADORES-TRANPORTES
+        <ion-icon name="information-circle-outline"></ion-icon>
       </ion-button>
       <ion-button color="secondary" (click)="altaPaquete()">
-        CREAR NUEVO
+        <ion-icon name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -18,16 +18,25 @@
 <ion-content>
   <!--TABLA = TARJETAS-->
   <ion-list>
-    <ion-item-sliding *ngFor="let paquete of transporteFlete.paquete " #itemSliding>
+    <ion-item-sliding
+      *ngFor="let paquete of transporteFlete.paquete"
+      #itemSliding
+    >
       <ion-item>
-        <ion-label>{{paquete}}</ion-label>
+        <ion-label>{{ paquete }}</ion-label>
       </ion-item>
-      <ion-item-options side="end" (ionSwipe)="eliminar(paquete);itemSliding.close()">
+      <ion-item-options
+        side="end"
+        (ionSwipe)="eliminar(paquete); itemSliding.close()"
+      >
         <ion-item-option expandable color="danger">
           <ion-icon name="trash-outline"> </ion-icon>
         </ion-item-option>
       </ion-item-options>
-      <ion-item-options side="start" (ionSwipe)="navegar(paquete);itemSliding.close()">
+      <ion-item-options
+        side="start"
+        (ionSwipe)="navegar(paquete); itemSliding.close()"
+      >
         <ion-item-option expandable color="success">
           <ion-icon name="eye"> </ion-icon>
         </ion-item-option>
