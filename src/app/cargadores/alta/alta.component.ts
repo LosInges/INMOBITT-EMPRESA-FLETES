@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { AlertController } from '@ionic/angular';
 import { Cargador } from 'src/app/fletes/interfaces/cargador';
 import { CargadoresService } from 'src/app/fletes/services/cargadores.service';
 import { FotoService } from 'src/app/services/foto.service';
+import { LoginService } from 'src/app/fletes/services/login.service';
 import { ModalController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
-import { LoginService } from 'src/app/fletes/services/login.service';
 
 @Component({
   selector: 'app-alta',
@@ -114,7 +115,7 @@ export class AltaComponent implements OnInit {
         });
         datos.append('img', imgBlob, `imagen.${photo.format}`);
         this.fotoService
-          .subirMiniatura(datos)
+          .subirImgMiniatura(datos)
           .subscribe((res) => (this.cargador.foto = res.path));
       };
       fetch(photo.webPath).then((v) =>
